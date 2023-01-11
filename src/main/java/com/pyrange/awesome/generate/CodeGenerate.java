@@ -37,12 +37,11 @@ public class CodeGenerate {
         }
     }
 
-    public static String getGeneratedStr(ConfigModel configModel) throws Exception {
-        // 获取处理配置信息
+    public static String getGeneratedModelStr(ConfigModel configModel, String template) throws Exception {
         TableInfo tableInfo = getTableInfo(configModel);
         GenerateInfo generateInfo = getGenerateInfo(configModel, tableInfo);
 
-        return FreeMarkUtil.getFileStr(generateInfo, "model/insert.ftl");
+        return FreeMarkUtil.getFileStr(generateInfo, template) ;
     }
 
     private static TableInfo getTableInfo(ConfigModel configModel) throws Exception {

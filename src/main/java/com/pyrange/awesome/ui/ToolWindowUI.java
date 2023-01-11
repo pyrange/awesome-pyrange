@@ -316,9 +316,10 @@ public class ToolWindowUI {
                 }
 
                 try {
-                    String generatedStr = CodeGenerate.getGeneratedStr(getConfigModel());
+                    String insertStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "model/insert.ftl");
+                    String poStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "model/po.ftl");
 
-                    MyDialog myDialog = new MyDialog(generatedStr);
+                    MyDialog myDialog = new MyDialog(insertStr + "\n" + poStr);
 //                    JComponent centerPanel = myDialog.createCenterPanel();
 //                    centerPanel.setVisible(true);
                     myDialog.show();
