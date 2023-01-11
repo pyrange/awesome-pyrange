@@ -1,10 +1,7 @@
 package com.pyrange.awesome.generate;
 
 import com.pyrange.awesome.model.*;
-import com.pyrange.awesome.util.CommonUtil;
-import com.pyrange.awesome.util.DataTypeEnum;
-import com.pyrange.awesome.util.SqlReservedWords;
-import com.pyrange.awesome.util.TableUtil;
+import com.pyrange.awesome.util.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,6 +17,35 @@ import java.util.List;
 public class CodeGenerate {
 
     public static void generate(ConfigModel configModel) throws Exception {
+
+        // 获取处理配置信息
+        TableInfo tableInfo = getTableInfo(configModel);
+        GenerateInfo generateInfo = getGenerateInfo(configModel, tableInfo);
+
+        if (configModel.getGenerateModel()) {
+            ModelGenerate.generate(configModel, generateInfo);
+        }
+        if (configModel.getGenerateMapper()) {
+            MapperGenerate.generate(configModel, generateInfo);
+        }
+        if (configModel.getGenerateControllerService()) {
+            ControllerGenerate.generate(configModel, generateInfo);
+            ServiceGenerate.generate(configModel, generateInfo);
+        }
+        if (configModel.getGenerateFrontEnd()) {
+            FrontEndGenerate.generate(configModel, generateInfo);
+        }
+    }
+
+    public static String getGeneratedStr(ConfigModel configModel) throws Exception {
+        // 获取处理配置信息
+        TableInfo tableInfo = getTableInfo(configModel);
+        GenerateInfo generateInfo = getGenerateInfo(configModel, tableInfo);
+
+        return FreeMarkUtil.getFileStr(generateInfo, "model/insert.ftl");
+    }
+
+    private static TableInfo getTableInfo(ConfigModel configModel) throws Exception {
         TableUtil tableUtil = new TableUtil(configModel.getJdbcHost(),
                 configModel.getJdbcDatabase(),
                 configModel.getJdbcUserName(),
@@ -40,23 +66,7 @@ public class CodeGenerate {
         if (CommonUtil.isNullOrEmpty(priKey)) {
             throw new Exception("Table has not primaryKey. Model generated!");
         }
-
-        // 获取处理配置信息
-        GenerateInfo generateInfo = getGenerateInfo(configModel, tableInfo);
-
-        if (configModel.getGenerateModel()) {
-            ModelGenerate.generate(configModel, generateInfo);
-        }
-        if (configModel.getGenerateMapper()) {
-            MapperGenerate.generate(configModel, generateInfo);
-        }
-        if (configModel.getGenerateControllerService()) {
-            ControllerGenerate.generate(configModel, generateInfo);
-            ServiceGenerate.generate(configModel, generateInfo);
-        }
-        if (configModel.getGenerateFrontEnd()) {
-            FrontEndGenerate.generate(configModel, generateInfo);
-        }
+        return tableInfo;
     }
 
     private static GenerateInfo getGenerateInfo(ConfigModel configModel, TableInfo tableInfo) {
@@ -87,7 +97,7 @@ public class CodeGenerate {
         for (TableColumn tableColumn : tableInfo.getTableColumns()) {
             GenerateColumnInfo generateColumnInfo = new GenerateColumnInfo();
             String javaTypeName = DataTypeEnum.getJavaTypeNameByDataType(tableColumn.getDataType());
-            generateColumnInfo.setColumnName(SqlReservedWords.containsWord(tableColumn.getColumnName()) ? "`"+ tableColumn.getColumnName() +"`" : tableColumn.getColumnName());
+            generateColumnInfo.setColumnName(SqlReservedWords.containsWord(tableColumn.getColumnName()) ? "`" + tableColumn.getColumnName() + "`" : tableColumn.getColumnName());
             generateColumnInfo.setColumnComment(tableColumn.getColumnComment());
             generateColumnInfo.setColumnJavaTypeName(javaTypeName);
             generateColumnInfo.setColumnJdbcType(DataTypeEnum.getJdbcTypeByDataType(tableColumn.getDataType()));
@@ -100,8 +110,8 @@ public class CodeGenerate {
             if (CommonUtil.isNeedImport(javaTypeName) && !importList.contains(columnJavaTypeName)) {
                 importList.add(columnJavaTypeName);
             }
-            if(tableColumn.isPrimaryKey()){
-                generateInfo.setPrimaryKey(SqlReservedWords.containsWord(tableColumn.getColumnName()) ? "`"+ tableColumn.getColumnName() +"`" : tableColumn.getColumnName());
+            if (tableColumn.isPrimaryKey()) {
+                generateInfo.setPrimaryKey(SqlReservedWords.containsWord(tableColumn.getColumnName()) ? "`" + tableColumn.getColumnName() + "`" : tableColumn.getColumnName());
                 generateInfo.setPrimaryKeyCamel(CommonUtil.getNameLowerCamel(tableColumn.getColumnName()));
                 generateInfo.setPrimaryKeyJdbcType(DataTypeEnum.getJdbcTypeByDataType(tableColumn.getDataType()));
                 generateInfo.setPrimaryKeyJavaTypeName(DataTypeEnum.getJavaTypeNameByDataType(tableColumn.getDataType()));

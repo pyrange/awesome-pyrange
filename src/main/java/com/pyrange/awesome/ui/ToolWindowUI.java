@@ -314,7 +314,18 @@ public class ToolWindowUI {
                     showErrorMsg(checkResult);
                     return;
                 }
-                System.out.println(1);
+
+                try {
+                    String generatedStr = CodeGenerate.getGeneratedStr(getConfigModel());
+
+                    MyDialog myDialog = new MyDialog(generatedStr);
+//                    JComponent centerPanel = myDialog.createCenterPanel();
+//                    centerPanel.setVisible(true);
+                    myDialog.show();
+                } catch (Exception ex) {
+                    showErrorMsg(Throwables.getStackTraceAsString(ex));
+                    LOGGER.info(ex);
+                }
 
             }
         });

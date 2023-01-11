@@ -1,12 +1,14 @@
 package com.pyrange.awesome.util;
 
 import com.intellij.openapi.diagnostic.Logger;
+import com.pyrange.awesome.model.GenerateInfo;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.Map;
 
 public class FreeMarkUtil {
@@ -16,14 +18,9 @@ public class FreeMarkUtil {
         Configuration conf = new Configuration();
         conf.setDefaultEncoding("UTF-8");
         Template template = null;
-//        try {
         TemplateLoader templateLoader = new ClassTemplateLoader(FreeMarkUtil.class, "/template");
         conf.setTemplateLoader(templateLoader);
         template = conf.getTemplate(templateName, "UTF-8");
-//        } catch (Exception e) {
-//            LOGGER.info(e);
-//            throw new MyException("Template not found!");
-//        }
 
         if (!fileDir.endsWith("/")) {
             fileDir = fileDir + '/';
@@ -36,6 +33,33 @@ public class FreeMarkUtil {
         template.process(root, out);
         out.flush();
         out.close();
+    }
+
+
+    public static String getFileStr(GenerateInfo generateInfo, String templateName) throws Exception {
+        Map<String, Object> map = new HashMap<>(1);
+        map.put("generateInfo", generateInfo);
+
+        Configuration conf = new Configuration();
+        conf.setDefaultEncoding("UTF-8");
+        TemplateLoader templateLoader = new ClassTemplateLoader(FreeMarkUtil.class, "/template");
+        conf.setTemplateLoader(templateLoader);
+        Template template = conf.getTemplate(templateName, "UTF-8");
+
+        StringWriter stringWriter = new StringWriter();
+        BufferedWriter writer = new BufferedWriter(stringWriter);
+        template.process(map, writer);
+        StringReader reader = new StringReader(stringWriter.toString());
+        writer.flush();
+        writer.close();
+        BufferedReader r = new BufferedReader(reader);
+        StringBuffer sb = new StringBuffer();
+        String line;
+        while ((line = r.readLine()) != null) {
+            sb.append(line);
+            sb.append("\r\n");
+        }
+        return sb.toString();
     }
 
 }
