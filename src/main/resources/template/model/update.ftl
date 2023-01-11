@@ -1,4 +1,4 @@
-package ${generateInfo.basePackage}.${generateInfo.modelNameLowercase};
+package ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot};
 
 import lombok.Getter;
 import lombok.Setter;

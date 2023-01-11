@@ -1,9 +1,9 @@
-package ${generateInfo.basePackage};
+package ${generateInfo.mapperPackage};
 
-import ${generateInfo.modelPath}.${generateInfo.modelNameLowerCamel}.${generateInfo.moduleName}Po;
-import ${generateInfo.modelPath}.${generateInfo.modelNameLowerCamel}.${generateInfo.moduleName}Query;
-import ${generateInfo.modelPath}.${generateInfo.modelNameLowerCamel}.${generateInfo.moduleName}Brief;
-import ${generateInfo.modelPath}.${generateInfo.modelNameLowerCamel}.${generateInfo.moduleName}Detail;
+import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Po;
+import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Query;
+import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Brief;
+import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Detail;
 import java.util.List;
 
 /**

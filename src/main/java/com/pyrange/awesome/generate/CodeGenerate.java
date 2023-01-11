@@ -50,11 +50,11 @@ public class CodeGenerate {
             MapperGenerate.generate(configModel, generateInfo);
         }
         if (configModel.getGenerateControllerService()) {
-            new ControllerGenerate(configModel, tableInfo).generate();
-            new ServiceGenerate(configModel, tableInfo).generate();
+            ControllerGenerate.generate(configModel, generateInfo);
+            ServiceGenerate.generate(configModel, generateInfo);
         }
         if (configModel.getGenerateFrontEnd()) {
-            new FrontEndGenerate(configModel, tableInfo).generate();
+            FrontEndGenerate.generate(configModel, generateInfo);
         }
     }
 
@@ -64,14 +64,19 @@ public class CodeGenerate {
         GenerateInfo generateInfo = new GenerateInfo();
         generateInfo.setAuthor(configModel.getAuthor());
         generateInfo.setModuleName(moduleName);
+        generateInfo.setModuleNameLowercase(moduleName.toLowerCase());
+        generateInfo.setModuleNameWithDot(CommonUtil.str2LowercaseWithDot(tableInfo.getTableName()));
+        generateInfo.setModuleNameWithSlash(CommonUtil.str2LowercaseWithSlash(tableInfo.getTableName()));
 
-        generateInfo.setModelPath(CommonUtil.getPackageNameByPath(configModel.getModelPath()));
         generateInfo.setModelNameLowercase(CommonUtil.getNameLowercase(tableInfo.getTableName()));
         generateInfo.setModelNameUpperCamel(CommonUtil.getNameUpperCamel(tableInfo.getTableName()));
         generateInfo.setModelNameLowerCamel(CommonUtil.getNameLowerCamel(tableInfo.getTableName()));
 
 
-        generateInfo.setBasePackage(CommonUtil.getPackageNameByPath(configModel.getModelPath()));
+        generateInfo.setModelPackage(CommonUtil.getPackageNameByPath(configModel.getModelPath()));
+        generateInfo.setServicePackage(CommonUtil.getPackageNameByPath(configModel.getServicePath()));
+        generateInfo.setMapperPackage(CommonUtil.getPackageNameByPath(configModel.getMapperJavaPath()));
+
         generateInfo.setDate(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()));
         generateInfo.setTableComment(tableInfo.getTableComment());
         generateInfo.setTableName(tableInfo.getTableName());
@@ -105,32 +110,4 @@ public class CodeGenerate {
         return generateInfo;
     }
 
-//        MapperGenerateInfo mapperGenerateInfo = new MapperGenerateInfo();
-//        mapperGenerateInfo.setAuthor(configModel.getAuthor());
-//        mapperGenerateInfo.setModuleName(CommonUtil.getNameUpperCamel(configModel.getSign()));
-//        mapperGenerateInfo.setBasePackage(CommonUtil.getPackageNameByPath(configModel.getMapperJavaPath()));
-//        mapperGenerateInfo.setDate(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()));
-//        mapperGenerateInfo.setModelNameUpperCamel(CommonUtil.getNameUpperCamel(tableInfo.getTableName()));
-//        mapperGenerateInfo.setModelNameLowerCamel(CommonUtil.getNameLowerCamel(tableInfo.getTableName()));
-//        mapperGenerateInfo.setTableComment(tableInfo.getTableComment());
-//        mapperGenerateInfo.setTableName(tableInfo.getTableName());
-//        mapperGenerateInfo.setModelPath(CommonUtil.getPackageNameByPath(configModel.getModelPath()));
-//        List<MapperGenerateColumnInfo> mapperGenerateColumnInfos = new ArrayList<>();
-//        for (TableColumn tableColumn : tableInfo.getTableColumns()) {
-//            MapperGenerateColumnInfo mapperGenerateColumnInfo = new MapperGenerateColumnInfo();
-//            mapperGenerateColumnInfo.setColumnComment(tableColumn.getColumnComment());
-//            mapperGenerateColumnInfo.setColumnJavaTypeName(DataTypeEnum.getJavaTypeNameByDataType(tableColumn.getDataType()));
-//            mapperGenerateColumnInfo.setColumnCamelName(CommonUtil.getNameLowerCamel(tableColumn.getColumnName()));
-//            mapperGenerateColumnInfo.setColumnName(SqlReservedWords.containsWord(tableColumn.getColumnName()) ? "`"+ tableColumn.getColumnName() +"`" : tableColumn.getColumnName());
-//            mapperGenerateColumnInfo.setColumnJdbcType(DataTypeEnum.getJdbcTypeByDataType(tableColumn.getDataType()));
-//            mapperGenerateColumnInfos.add(mapperGenerateColumnInfo);
-//            if(tableColumn.isPrimaryKey()){
-//                mapperGenerateInfo.setPrimaryKey(SqlReservedWords.containsWord(tableColumn.getColumnName()) ? "`"+ tableColumn.getColumnName() +"`" : tableColumn.getColumnName());
-//                mapperGenerateInfo.setPrimaryKeyCamel(CommonUtil.getNameLowerCamel(tableColumn.getColumnName()));
-//                mapperGenerateInfo.setPrimaryKeyJdbcType(DataTypeEnum.getJdbcTypeByDataType(tableColumn.getDataType()));
-//                mapperGenerateInfo.setPrimaryKeyJavaTypeName(DataTypeEnum.getJavaTypeNameByDataType(tableColumn.getDataType()));
-//                mapperGenerateInfo.setPrimaryKeyJavaType(DataTypeEnum.getJdbcTypeByDataType(tableColumn.getDataType()));
-//            }
-//        }
-//        mapperGenerateInfo.setColumnList(mapperGenerateColumnInfos);
 }

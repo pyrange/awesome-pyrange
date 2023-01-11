@@ -1,27 +1,27 @@
-package ${controllerGenerateInfo.basePackage};
-import ${controllerGenerateInfo.modelPackage}.${controllerGenerateInfo.moduleNameLower}.${controllerGenerateInfo.moduleName}Query;
-import ${controllerGenerateInfo.modelPackage}.${controllerGenerateInfo.moduleNameLower}.${controllerGenerateInfo.moduleName}Insert;
-import ${controllerGenerateInfo.modelPackage}.${controllerGenerateInfo.moduleNameLower}.${controllerGenerateInfo.moduleName}Update;
-import ${controllerGenerateInfo.modelPackage}.${controllerGenerateInfo.moduleNameLower}.${controllerGenerateInfo.moduleName}Brief;
-import ${controllerGenerateInfo.modelPackage}.${controllerGenerateInfo.moduleNameLower}.${controllerGenerateInfo.moduleName}Detail;
-import ${controllerGenerateInfo.servicePackage}.${controllerGenerateInfo.moduleName}Service;
+package ${generateInfo.controllerPackage};
+import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Query;
+import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Insert;
+import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Update;
+import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Brief;
+import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Detail;
+import ${generateInfo.servicePackage}.${generateInfo.moduleName}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.pyrange.common.model.dto.Result;
 import java.util.List;
 
 /**
- * ${controllerGenerateInfo.tableComment}
+ * ${generateInfo.tableComment}
  *
- * @author ${controllerGenerateInfo.author}
- * @date ${controllerGenerateInfo.date}
+ * @author ${generateInfo.author}
+ * @date ${generateInfo.date}
  **/
 @RestController
-@RequestMapping("${controllerGenerateInfo.moduleNameLower}")
-public class ${controllerGenerateInfo.moduleName}Controller {
+@RequestMapping("${generateInfo.moduleNameLowercase}")
+public class ${generateInfo.moduleName}Controller {
 
     @Autowired
-    private ${controllerGenerateInfo.moduleName}Service ${controllerGenerateInfo.moduleNameLower}Service;
+    private ${generateInfo.moduleName}Service ${generateInfo.moduleNameLowercase}Service;
 
     /**
      * 新增
@@ -30,8 +30,8 @@ public class ${controllerGenerateInfo.moduleName}Controller {
      * @return Result
      **/
     @PostMapping
-    public Result insert(@RequestBody ${controllerGenerateInfo.moduleName}Insert insert) {
-        return ${controllerGenerateInfo.moduleNameLower}Service.insert(insert);
+    public Result insert(@RequestBody ${generateInfo.moduleName}Insert insert) {
+        return ${generateInfo.moduleNameLowercase}Service.insert(insert);
     }
 
     /**
@@ -41,29 +41,29 @@ public class ${controllerGenerateInfo.moduleName}Controller {
      * @return Result
      **/
     @PutMapping
-    public Result update(@RequestBody ${controllerGenerateInfo.moduleName}Update update) {
-        return ${controllerGenerateInfo.moduleNameLower}Service.update(update);
+    public Result update(@RequestBody ${generateInfo.moduleName}Update update) {
+        return ${generateInfo.moduleNameLowercase}Service.update(update);
     }
 
     /**
      * 详情
      *
      * @param id
-     * @return Result${"<"}${controllerGenerateInfo.moduleName}Detail${">"}
+     * @return Result${"<"}${generateInfo.moduleName}Detail${">"}
      **/
     @GetMapping("{id}")
-    public Result${"<"}${controllerGenerateInfo.moduleName}Detail${">"} detail(@PathVariable("id") Integer id) {
-        return ${controllerGenerateInfo.moduleNameLower}Service.detail(id);
+    public Result${"<"}${generateInfo.moduleName}Detail${">"} detail(@PathVariable("id") Integer id) {
+        return ${generateInfo.moduleNameLowercase}Service.detail(id);
     }
 
     /**
      * 列表
      *
      * @param query
-     * @return Result${"<List<"}${controllerGenerateInfo.moduleName}Simple${">>"}
+     * @return Result${"<List<"}${generateInfo.moduleName}Simple${">>"}
      **/
     @GetMapping
-    public Result${"<List<"}${controllerGenerateInfo.moduleName}Brief${">>"} list(${controllerGenerateInfo.moduleName}Query query) {
-        return ${controllerGenerateInfo.moduleNameLower}Service.list(query);
+    public Result${"<List<"}${generateInfo.moduleName}Brief${">>"} list(${generateInfo.moduleName}Query query) {
+        return ${generateInfo.moduleNameLowercase}Service.list(query);
     }
 }

@@ -1,11 +1,51 @@
 package com.pyrange.awesome.util;
 
+import com.google.common.base.CaseFormat;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class CommonUtil {
+
+    /**
+     * 表名转小写逗号分隔
+     *
+     * @param tableName
+     * @return 转换后的字符串
+     */
+    public static String str2LowercaseWithDot(String tableName) {
+        if (isNullOrEmpty(tableName)) {
+            return "";
+        }
+        // 表名下划线分割, 直接替换成小写逗号
+        if (tableName.contains("_")) {
+            return tableName.replace("_", ".").toLowerCase();
+        }
+
+        return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, tableName)
+                .replace("_", ".").toLowerCase();
+    }
+
+    /**
+     * 表名转小写斜杆分隔
+     *
+     * @param tableName
+     * @return 转换后的字符串
+     */
+    public static String str2LowercaseWithSlash(String tableName) {
+        if (isNullOrEmpty(tableName)) {
+            return "";
+        }
+        // 表名下划线分割, 直接替换成小写逗号
+        if (tableName.contains("_")) {
+            return tableName.replace("_", "/").toLowerCase();
+        }
+
+        return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, tableName)
+                .replace("_", "/").toLowerCase();
+    }
 
     /**
      * 表名转小写
@@ -17,7 +57,7 @@ public class CommonUtil {
         if (isNullOrEmpty(tableName)) {
             return "";
         }
-        return toUpperCaseFirstOne(underScoreCaseToCamelCase(tableName));
+        return underScoreCaseToCamelCase(tableName).toLowerCase();
     }
 
     /**

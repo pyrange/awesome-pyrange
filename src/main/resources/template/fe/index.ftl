@@ -17,7 +17,7 @@
     </div>
     <!-- 列表 -->
     <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" fit highlight-current-row>
-<#list frontEndGenerateInfo.columnList as column>
+<#list generateInfo.columnList as column>
       <el-table-column align="center" prop="${column.columnCamelName}" label="${column.columnComment}">
   <#if "${column.columnCamelName}"?ends_with("ed")>
         <template slot-scope="{row}">
@@ -32,9 +32,9 @@
 </#list>
       <el-table-column align="center" label="操作" width="200">
         <template slot-scope="{row}">
-          <el-button type="primary" size="mini" @click="handleDetail(row.${frontEndGenerateInfo.primaryKeyLowerCamel})">查看</el-button>
-          <el-button type="primary" size="mini" @click="handleEdit(row.${frontEndGenerateInfo.primaryKeyLowerCamel})">编辑</el-button>
-          <el-button type="danger" size="mini" @click="handleDel(row.${frontEndGenerateInfo.primaryKeyLowerCamel})">删除</el-button>
+          <el-button type="primary" size="mini" @click="handleDetail(row.${generateInfo.primaryKeyLowerCamel})">查看</el-button>
+          <el-button type="primary" size="mini" @click="handleEdit(row.${generateInfo.primaryKeyLowerCamel})">编辑</el-button>
+          <el-button type="danger" size="mini" @click="handleDel(row.${generateInfo.primaryKeyLowerCamel})">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

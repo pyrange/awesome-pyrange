@@ -1,4 +1,4 @@
-package ${generateInfo.basePackage}.${generateInfo.modelNameLowercase};
+package ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot};
 
 import lombok.*;
 <#list generateInfo.importList as import>

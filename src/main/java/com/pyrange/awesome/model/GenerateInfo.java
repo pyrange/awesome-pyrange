@@ -10,8 +10,14 @@ import java.util.List;
  **/
 public class GenerateInfo {
 
-    private String basePackage;
+    /**
+     * 模块名
+     */
     private String moduleName;
+    private String moduleNameWithDot;
+    private String moduleNameWithSlash;
+    private String moduleNameLowercase;
+
     private String tableComment;
     private String tableName;
     private String author;
@@ -22,7 +28,10 @@ public class GenerateInfo {
     /**
      * model 信息
      */
-    private String modelPath;
+    private String modelPackage;
+    private String servicePackage;
+    private String mapperPackage;
+
     private String modelNameUpperCamel;
     private String modelNameLowerCamel;
     private String modelNameLowercase;
@@ -35,14 +44,6 @@ public class GenerateInfo {
     private String primaryKeyJdbcType;
     private String primaryKey;
     private String primaryKeyCamel;
-
-    public String getBasePackage() {
-        return basePackage;
-    }
-
-    public void setBasePackage(String basePackage) {
-        this.basePackage = basePackage;
-    }
 
     public String getTableComment() {
         return tableComment;
@@ -164,11 +165,51 @@ public class GenerateInfo {
         this.modelNameLowerCamel = modelNameLowerCamel;
     }
 
-    public String getModelPath() {
-        return modelPath;
+    public String getModelPackage() {
+        return modelPackage;
     }
 
-    public void setModelPath(String modelPath) {
-        this.modelPath = modelPath;
+    public void setModelPackage(String modelPackage) {
+        this.modelPackage = modelPackage;
+    }
+
+    public String getServicePackage() {
+        return servicePackage;
+    }
+
+    public void setServicePackage(String servicePackage) {
+        this.servicePackage = servicePackage;
+    }
+
+    public String getMapperPackage() {
+        return mapperPackage;
+    }
+
+    public void setMapperPackage(String mapperPackage) {
+        this.mapperPackage = mapperPackage;
+    }
+
+    public String getModuleNameLowercase() {
+        return moduleNameLowercase;
+    }
+
+    public void setModuleNameLowercase(String moduleNameLowercase) {
+        this.moduleNameLowercase = moduleNameLowercase;
+    }
+
+    public String getModuleNameWithDot() {
+        return moduleNameWithDot;
+    }
+
+    public void setModuleNameWithDot(String moduleNameWithDot) {
+        this.moduleNameWithDot = moduleNameWithDot;
+    }
+
+    public String getModuleNameWithSlash() {
+        return moduleNameWithSlash;
+    }
+
+    public void setModuleNameWithSlash(String moduleNameWithSlash) {
+        this.moduleNameWithSlash = moduleNameWithSlash;
     }
 }

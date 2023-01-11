@@ -46,4 +46,5 @@ dependencies {
     implementation("org.freemarker:freemarker:2.3.31")
     implementation("mysql:mysql-connector-java:8.0.31")
     implementation("mysql:mysql-connector-java:5.1.49")
+    implementation("com.google.guava:guava:21.0")
 }

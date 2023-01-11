@@ -1,4 +1,4 @@
-package ${generateInfo.basePackage}.${generateInfo.modelNameLowercase};
+package ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot};
 
 import com.pyrange.common.model.dto.BasePage;
 import lombok.Getter;

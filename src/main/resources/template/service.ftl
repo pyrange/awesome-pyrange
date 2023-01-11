@@ -1,19 +1,19 @@
-package ${serviceGenerateInfo.basePackage};
-import ${serviceGenerateInfo.modelPackage}.${serviceGenerateInfo.moduleNameLower}.${serviceGenerateInfo.moduleName}Query;
-import ${serviceGenerateInfo.modelPackage}.${serviceGenerateInfo.moduleNameLower}.${serviceGenerateInfo.moduleName}Insert;
-import ${serviceGenerateInfo.modelPackage}.${serviceGenerateInfo.moduleNameLower}.${serviceGenerateInfo.moduleName}Update;
-import ${serviceGenerateInfo.modelPackage}.${serviceGenerateInfo.moduleNameLower}.${serviceGenerateInfo.moduleName}Brief;
-import ${serviceGenerateInfo.modelPackage}.${serviceGenerateInfo.moduleNameLower}.${serviceGenerateInfo.moduleName}Detail;
+package ${generateInfo.servicePackage};
+import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Query;
+import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Insert;
+import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Update;
+import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Brief;
+import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Detail;
 import com.pyrange.common.model.dto.Result;
 import java.util.List;
 
 /**
- * ${serviceGenerateInfo.tableComment}服务
+ * ${generateInfo.tableComment}服务
  *
- * @author ${serviceGenerateInfo.author}
- * @date ${serviceGenerateInfo.date}
+ * @author ${generateInfo.author}
+ * @date ${generateInfo.date}
  **/
-public interface ${serviceGenerateInfo.moduleName}Service {
+public interface ${generateInfo.moduleName}Service {
 
     /**
      * 新增
@@ -21,7 +21,7 @@ public interface ${serviceGenerateInfo.moduleName}Service {
      * @param insert
      * @return Result
      **/
-    Result insert(${serviceGenerateInfo.moduleName}Insert insert);
+    Result insert(${generateInfo.moduleName}Insert insert);
 
     /**
      * 修改
@@ -29,21 +29,21 @@ public interface ${serviceGenerateInfo.moduleName}Service {
      * @param update
      * @return Result
      **/
-    Result update(${serviceGenerateInfo.moduleName}Update update);
+    Result update(${generateInfo.moduleName}Update update);
 
     /**
      * 详情
      *
      * @param id
-     * @return ${serviceGenerateInfo.moduleName}Detail
+     * @return ${generateInfo.moduleName}Detail
      **/
-    Result${"<"}${serviceGenerateInfo.moduleName}Detail${">"} detail(Integer id);
+    Result${"<"}${generateInfo.moduleName}Detail${">"} detail(Integer id);
 
     /**
      * 列表
      *
      * @param query
-     * @return ${serviceGenerateInfo.moduleName}Brief
+     * @return ${generateInfo.moduleName}Brief
      **/
-    Result${"<List<"}${serviceGenerateInfo.moduleName}Brief${">>"} list(${serviceGenerateInfo.moduleName}Query query);
+    Result${"<List<"}${generateInfo.moduleName}Brief${">>"} list(${generateInfo.moduleName}Query query);
 }
