@@ -1,0 +1,34 @@
+<idea-plugin>
+    <id>Awesome-Pyrange</id>
+    <name>Awesome-Pyrange2</name>
+    <version>1.0</version>
+    <vendor email="dev@pyrange.com" url="pyrange.com"></vendor>
+
+    <description><![CDATA[
+      可以自动生成model、mapper、xml、controller、service、fe<br>
+    ]]></description>
+
+    <change-notes><![CDATA[
+      First !!!
+    ]]>
+    </change-notes>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="145.0"/>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="Awesome-Pyrange1" secondary="true"  anchor="right" canCloseContents="false" factoryClass="com.pyrange.awesome.config.ToolWindowConfig" />
+        <themeProvider id="200dab5c-a398-48ad-8c96-92781ba33615" path="theam-provider.json"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+
+</idea-plugin>
