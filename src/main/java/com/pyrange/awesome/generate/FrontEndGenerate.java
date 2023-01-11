@@ -5,8 +5,6 @@ import com.pyrange.awesome.util.CommonUtil;
 import com.pyrange.awesome.util.DataTypeEnum;
 import com.pyrange.awesome.util.FreeMarkUtil;
 import com.pyrange.awesome.util.SqlReservedWords;
-import com.yn.code.model.*;
-import com.yn.code.util.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

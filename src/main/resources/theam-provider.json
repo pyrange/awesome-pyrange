@@ -2,7 +2,7 @@
   "name": "theme_basics",
   "author": "",
   "dark": false,
-  "editorScheme": "xx.xml",
+  "editorScheme": "editor-scheme.xml",
   "ui": {
   }
 }
