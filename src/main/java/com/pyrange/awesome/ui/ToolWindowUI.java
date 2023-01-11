@@ -47,6 +47,7 @@ public class ToolWindowUI {
     private JCheckBox frontEndCheckBox;
     private JCheckBox samePathCheckBox;
     private JButton viewModelButton;
+    private JButton mapperButton;
 
 
     private String baseProjectPath;
@@ -319,9 +320,31 @@ public class ToolWindowUI {
                     String insertStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "model/insert.ftl");
                     String poStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "model/po.ftl");
 
-                    MyDialog myDialog = new MyDialog(insertStr + "\n" + poStr);
-//                    JComponent centerPanel = myDialog.createCenterPanel();
-//                    centerPanel.setVisible(true);
+                    MyDialog myDialog = new MyDialog(insertStr + "\n\n" + poStr);
+                    myDialog.show();
+                } catch (Exception ex) {
+                    showErrorMsg(Throwables.getStackTraceAsString(ex));
+                    LOGGER.info(ex);
+                }
+
+            }
+        });
+
+
+        mapperButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String checkResult = checkParam();
+                if (checkResult != null) {
+                    showErrorMsg(checkResult);
+                    return;
+                }
+
+                try {
+                    String mapperStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "mapper.ftl");
+                    String mapperXmlStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "mapperxml.ftl");
+
+                    MyDialog myDialog = new MyDialog(mapperStr + "\n\n" + mapperXmlStr);
                     myDialog.show();
                 } catch (Exception ex) {
                     showErrorMsg(Throwables.getStackTraceAsString(ex));

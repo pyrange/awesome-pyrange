@@ -15,12 +15,12 @@
     <rowspec value="center:d:grow"/>
     <colspec value="fill:max(d;4px):noGrow"/>
     <colspec value="right:90px:noGrow"/>
-    <colspec value="fill:175px:noGrow"/>
+    <colspec value="fill:187px:noGrow"/>
     <colspec value="right:73px:noGrow"/>
-    <colspec value="left:34dlu:noGrow"/>
+    <colspec value="left:24dlu:noGrow"/>
     <colspec value="fill:103px:noGrow"/>
     <constraints>
-      <xy x="24" y="7" width="513" height="497"/>
+      <xy x="24" y="8" width="518" height="496"/>
     </constraints>
     <properties>
       <enabled value="true"/>
@@ -303,7 +303,7 @@
           <forms defaultalign-horz="false"/>
         </constraints>
         <properties>
-          <text value="用于类注释"/>
+          <text value=""/>
         </properties>
       </component>
       <component id="962dc" class="javax.swing.JButton" binding="projectPathSelectButton">
@@ -316,9 +316,9 @@
         <properties>
           <borderPainted value="true"/>
           <font size="10"/>
-          <horizontalAlignment value="2"/>
+          <horizontalAlignment value="0"/>
           <margin top="2" left="0" bottom="2" right="0"/>
-          <text value="选择(精确到包)"/>
+          <text value="选择项目"/>
         </properties>
       </component>
       <component id="b6dd1" class="javax.swing.JButton" binding="controllerPathSelectButton">
@@ -416,7 +416,16 @@
           <forms/>
         </constraints>
         <properties>
-          <text value="查看model代码"/>
+          <text value="查看 Model"/>
+        </properties>
+      </component>
+      <component id="d16e8" class="javax.swing.JButton" binding="mapperButton">
+        <constraints>
+          <grid row="10" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties>
+          <text value="查看 Mapper"/>
         </properties>
       </component>
     </children>
