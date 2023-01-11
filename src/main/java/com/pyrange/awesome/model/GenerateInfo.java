@@ -11,6 +11,7 @@ import java.util.List;
 public class GenerateInfo {
 
     private String moduleName;
+    private String moduleNameUppercaseCamel;
     private String moduleNameWithDot;
     private String moduleNameWithSlash;
     private String moduleNameLowercase;
@@ -217,5 +218,13 @@ public class GenerateInfo {
 
     public void setControllerPackage(String controllerPackage) {
         this.controllerPackage = controllerPackage;
+    }
+
+    public String getModuleNameUppercaseCamel() {
+        return moduleNameUppercaseCamel;
+    }
+
+    public void setModuleNameUppercaseCamel(String moduleNameUppercaseCamel) {
+        this.moduleNameUppercaseCamel = moduleNameUppercaseCamel;
     }
 }

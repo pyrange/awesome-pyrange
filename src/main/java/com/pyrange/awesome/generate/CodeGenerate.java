@@ -18,7 +18,8 @@ import java.util.List;
  * @date: 2018-6-11
  **/
 public class CodeGenerate {
-    public void generate(ConfigModel configModel) throws Exception {
+
+    public static void generate(ConfigModel configModel) throws Exception {
         TableUtil tableUtil = new TableUtil(configModel.getJdbcHost(),
                 configModel.getJdbcDatabase(),
                 configModel.getJdbcUserName(),
@@ -58,12 +59,13 @@ public class CodeGenerate {
         }
     }
 
-    private GenerateInfo getGenerateInfo(ConfigModel configModel, TableInfo tableInfo) {
-        String moduleName = CommonUtil.getNameUpperCamel(configModel.getSign());
+    private static GenerateInfo getGenerateInfo(ConfigModel configModel, TableInfo tableInfo) {
+        String moduleName = CommonUtil.getNameUpperCamel(configModel.getTableName());
 
         GenerateInfo generateInfo = new GenerateInfo();
         generateInfo.setAuthor(configModel.getAuthor());
         generateInfo.setModuleName(moduleName);
+        generateInfo.setModuleNameUppercaseCamel(moduleName);
         generateInfo.setModuleNameLowercase(moduleName.toLowerCase());
         generateInfo.setModuleNameWithDot(CommonUtil.str2LowercaseWithDot(tableInfo.getTableName()));
         generateInfo.setModuleNameWithSlash(CommonUtil.str2LowercaseWithSlash(tableInfo.getTableName()));

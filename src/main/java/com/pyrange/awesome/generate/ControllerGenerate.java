@@ -18,7 +18,7 @@ public class ControllerGenerate {
     public static void generate(ConfigModel configModel, GenerateInfo generateInfo) throws Exception {
         Map<String, Object> root = new HashMap<>(1);
         root.put("generateInfo", generateInfo);
-        String fileName = generateInfo.getModuleName() + "Controller.java";
+        String fileName = generateInfo.getModelNameUpperCamel() + "Controller.java";
         FreeMarkUtil.generateFile(root, "controller.ftl", configModel.getControllerPath(), fileName);
     }
 }

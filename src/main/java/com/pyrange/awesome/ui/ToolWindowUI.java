@@ -11,8 +11,6 @@ import com.pyrange.awesome.model.ConfigModel;
 import com.pyrange.awesome.util.CommonUtil;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.text.Document;
@@ -25,7 +23,7 @@ public class ToolWindowUI {
 
     private JTextField textFieldHost;
     private JTextField textFieldUserName;
-    private JTextField textFieldPassword;
+    private JPasswordField textFieldPassword;
     private JTextField textFieldTableName;
     private JTextField textFieldAuthor;
     private JTextField textFieldProjectPath;
@@ -48,9 +46,8 @@ public class ToolWindowUI {
     private JCheckBox controllerServiceCheckBox;
     private JCheckBox frontEndCheckBox;
     private JCheckBox samePathCheckBox;
+    private JButton viewModelButton;
 
-
-    private JTextField textFieldSign;
 
     private String baseProjectPath;
 
@@ -60,7 +57,7 @@ public class ToolWindowUI {
 
     private static final Logger LOGGER = Logger.getInstance(ToolWindowUI.class);
 
-    private NotificationGroup myBatisCode_notification_group = new NotificationGroup("MyBatisCodePlugin",
+    private NotificationGroup myBatisCode_notification_group = new NotificationGroup("Awesome-Pyrange",
             NotificationDisplayType.BALLOON, true);
 
 
@@ -78,7 +75,6 @@ public class ToolWindowUI {
         textFieldUserName.setText(propertiesComponent.getValue("jdbcUserName"));
         textFieldPassword.setText(propertiesComponent.getValue("jdbcPassword"));
         textFieldTableName.setText(propertiesComponent.getValue("tableName"));
-        textFieldSign.setText(propertiesComponent.getValue("sign"));
         textFieldAuthor.setText(propertiesComponent.getValue("author"));
         comboBoxDatabase.addItem(propertiesComponent.getValue("jdbcDatabase"));
         comboBoxDatabase.setSelectedItem(propertiesComponent.getValue("jdbcDatabase"));
@@ -241,32 +237,38 @@ public class ToolWindowUI {
 
         // 表名改变监听
         Document document = textFieldTableName.getDocument();
-        document.addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                if (!CommonUtil.isNullOrEmpty(textFieldTableName.getText())) {
-                    textFieldSign.setText(CommonUtil.getSign(textFieldTableName.getText()));
-                }
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                if (!CommonUtil.isNullOrEmpty(textFieldTableName.getText())) {
-                    textFieldSign.setText(CommonUtil.getSign(textFieldTableName.getText()));
-                }
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                if (!CommonUtil.isNullOrEmpty(textFieldTableName.getText())) {
-                    textFieldSign.setText(CommonUtil.getSign(textFieldTableName.getText()));
-                }
-            }
-        });
+//        document.addDocumentListener(new DocumentListener() {
+//            @Override
+//            public void insertUpdate(DocumentEvent e) {
+//                if (!CommonUtil.isNullOrEmpty(textFieldTableName.getText())) {
+//                    textFieldSign.setText(CommonUtil.getSign(textFieldTableName.getText()));
+//                }
+//            }
+//
+//            @Override
+//            public void removeUpdate(DocumentEvent e) {
+//                if (!CommonUtil.isNullOrEmpty(textFieldTableName.getText())) {
+//                    textFieldSign.setText(CommonUtil.getSign(textFieldTableName.getText()));
+//                }
+//            }
+//
+//            @Override
+//            public void changedUpdate(DocumentEvent e) {
+//                if (!CommonUtil.isNullOrEmpty(textFieldTableName.getText())) {
+//                    textFieldSign.setText(CommonUtil.getSign(textFieldTableName.getText()));
+//                }
+//            }
+//        });
 
         goButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                String checkResult = checkParam();
+                if (checkResult != null) {
+                    showErrorMsg(checkResult);
+                    return;
+                }
+
                 String jdbcHost = textFieldHost.getText();
                 String jdbcUserName = textFieldUserName.getText();
                 String jdbcPassword = textFieldPassword.getText();
@@ -278,63 +280,13 @@ public class ToolWindowUI {
                 String modelPath = (String) comboBoxModelPath.getSelectedItem();
                 String mapperPath = (String) comboBoxMapperPath.getSelectedItem();
                 String author = textFieldAuthor.getText();
-                String sign = textFieldSign.getText();
-
-                if (CommonUtil.isNullOrEmpty(jdbcHost)) {
-                    showErrorMsg("Host:Port required");
-                    return;
-                }
-                if (CommonUtil.isNullOrEmpty(jdbcUserName)) {
-                    showErrorMsg("UserName required");
-                    return;
-                }
-                if (CommonUtil.isNullOrEmpty(jdbcPassword)) {
-                    showErrorMsg("Password required");
-                    return;
-                }
-                if (CommonUtil.isNullOrEmpty(jdbcDatabase)) {
-                    showErrorMsg("Database required");
-                    return;
-                }
-                if (CommonUtil.isNullOrEmpty(tableName)) {
-                    showErrorMsg("TableName required");
-                    return;
-                }
-                if (CommonUtil.isNullOrEmpty(sign)) {
-                    showErrorMsg("module required");
-                    return;
-                }
-                if (CommonUtil.isNullOrEmpty(projectPath)) {
-                    showErrorMsg("ProjectPath required");
-                    return;
-                }
-                if (!samePathCheckBox.isSelected() && CommonUtil.isNullOrEmpty(controllerPath)) {
-                    showErrorMsg("ControllerPath required");
-                    return;
-                }
-                if (!samePathCheckBox.isSelected() && CommonUtil.isNullOrEmpty(servicePath)) {
-                    showErrorMsg("ServicePath required");
-                    return;
-                }
-                if (!samePathCheckBox.isSelected() && CommonUtil.isNullOrEmpty(modelPath)) {
-                    showErrorMsg("ModelPath required");
-                    return;
-                }
-                if (!samePathCheckBox.isSelected() && CommonUtil.isNullOrEmpty(mapperPath)) {
-                    showErrorMsg("MapperPath required");
-                    return;
-                }
-                if (CommonUtil.isNullOrEmpty(author)) {
-                    textFieldAuthor.setText("default");
-                    author = "default";
-                }
 
                 propertiesComponent.setValue("jdbcHost", jdbcHost);
                 propertiesComponent.setValue("jdbcDatabase", jdbcDatabase);
                 propertiesComponent.setValue("jdbcUserName", jdbcUserName);
                 propertiesComponent.setValue("jdbcPassword", jdbcPassword);
                 propertiesComponent.setValue("tableName", tableName);
-                propertiesComponent.setValue("sign", sign);
+//                propertiesComponent.setValue("sign", sign);
                 propertiesComponentProject.setValue("projectPath", projectPath);
                 propertiesComponentProject.setValue("modelPath", modelPath);
                 propertiesComponentProject.setValue("controllerPath", controllerPath);
@@ -343,69 +295,99 @@ public class ToolWindowUI {
                 propertiesComponentProject.setValue("modelPath", modelPath);
                 propertiesComponent.setValue("author", author);
 
-                ConfigModel configModel = new ConfigModel();
-                configModel.setJdbcHost(jdbcHost);
-                configModel.setJdbcDatabase(jdbcDatabase);
-                configModel.setJdbcUserName(jdbcUserName);
-                configModel.setJdbcPassword(jdbcPassword);
-                configModel.setProjectPath(projectPath);
-                configModel.setControllerPath(CommonUtil.fomatPath(controllerPath));
-                configModel.setServicePath(CommonUtil.fomatPath(servicePath));
-                configModel.setModelPath(CommonUtil.fomatPath(modelPath));
-                configModel.setMapperJavaPath(CommonUtil.fomatPath(mapperPath));
-                configModel.setMapperXmlPath(CommonUtil.fomatPath(mapperPath));
-                configModel.setAuthor(author);
-                configModel.setSign(sign);
-                configModel.setGenerateModel(modelCheckBox.isSelected());
-                configModel.setGenerateMapper(mapperCheckBox.isSelected());
-                configModel.setGenerateControllerService(controllerServiceCheckBox.isSelected());
-                configModel.setGenerateFrontEnd(frontEndCheckBox.isSelected());
-
-                if (samePathCheckBox.isSelected()) {
-                    configModel.setControllerPath(CommonUtil.fomatPath(projectPath + "/" + sign));
-                    configModel.setServicePath(CommonUtil.fomatPath(projectPath + "/" + sign));
-                    configModel.setModelPath(CommonUtil.fomatPath(projectPath + "/" + sign));
-                    configModel.setMapperJavaPath(CommonUtil.fomatPath(projectPath + "/" + sign));
-                    configModel.setMapperXmlPath(CommonUtil.fomatPath(projectPath + "/" + sign));
-                }
-
-                configModel.setTableName(tableName);
                 try {
-                    new CodeGenerate().generate(configModel);
+                    CodeGenerate.generate(getConfigModel());
                     showSuccessMsg("Table " + tableName + " has been generated successfully!");
                 } catch (Exception e1) {
                     showErrorMsg(Throwables.getStackTraceAsString(e1));
                     LOGGER.info(e1);
                 }
 
-//                List<String> success = new ArrayList<>();
-//                List<String> errors = new ArrayList<>();
-//                String[] names = tableName.split(",");
-//                for(String name : names){
-//                    configModel.setTableName(name);
-//                    try{
-//                        new CodeGenerate().generate(configModel);
-//                        success.add(name);
-//                    }catch (MyException e){
-//                        errors.add(name + "(" + myException.getMeg() + ")");
-//                        LOGGER.info(myException);
-//                    }
-//                }
-//                if(errors.size() < 1){
-//                    showSuccessMsg("success!!!");
-//                } else {
-//                    String message = "";
-//                    for(String s : errors){
-//                        message += " " + s;
-//                    }
-//                    if(success.size() > 0){
-//                        message += " others is success";
-//                    }
-//                    showErrorMsg(message);
-//                }
+            }
+        });
+
+        viewModelButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String checkResult = checkParam();
+                if (checkResult != null) {
+                    showErrorMsg(checkResult);
+                    return;
+                }
+                System.out.println(1);
 
             }
         });
+    }
+
+    private ConfigModel getConfigModel() {
+        String projectPath = textFieldProjectPath.getText();
+        String mapperPath = (String) comboBoxMapperPath.getSelectedItem();
+
+        ConfigModel configModel = new ConfigModel();
+        configModel.setJdbcHost(textFieldHost.getText());
+        configModel.setJdbcDatabase((String) comboBoxDatabase.getSelectedItem());
+        configModel.setJdbcUserName(textFieldUserName.getText());
+        configModel.setJdbcPassword(textFieldPassword.getText());
+        configModel.setProjectPath(projectPath);
+        configModel.setControllerPath(CommonUtil.fomatPath((String) comboBoxControllerPath.getSelectedItem()));
+        configModel.setServicePath(CommonUtil.fomatPath((String) comboBoxServicePath.getSelectedItem()));
+        configModel.setModelPath(CommonUtil.fomatPath((String) comboBoxModelPath.getSelectedItem()));
+        configModel.setMapperJavaPath(CommonUtil.fomatPath(mapperPath));
+        configModel.setMapperXmlPath(CommonUtil.fomatPath(mapperPath));
+        configModel.setAuthor(textFieldAuthor.getText());
+        configModel.setGenerateModel(modelCheckBox.isSelected());
+        configModel.setGenerateMapper(mapperCheckBox.isSelected());
+        configModel.setGenerateControllerService(controllerServiceCheckBox.isSelected());
+        configModel.setGenerateFrontEnd(frontEndCheckBox.isSelected());
+
+        if (samePathCheckBox.isSelected()) {
+            configModel.setControllerPath(CommonUtil.fomatPath(projectPath));
+            configModel.setServicePath(CommonUtil.fomatPath(projectPath));
+            configModel.setModelPath(CommonUtil.fomatPath(projectPath));
+            configModel.setMapperJavaPath(CommonUtil.fomatPath(projectPath));
+            configModel.setMapperXmlPath(CommonUtil.fomatPath(projectPath));
+        }
+
+        configModel.setTableName(textFieldTableName.getText());
+        return configModel;
+    }
+
+    private String checkParam() {
+        if (CommonUtil.isNullOrEmpty(textFieldHost.getText())) {
+            return "Host:Port required";
+        }
+        if (CommonUtil.isNullOrEmpty(textFieldUserName.getText())) {
+            return "UserName required";
+        }
+        if (textFieldPassword.getPassword().length == 0) {
+            return "Password required";
+        }
+        if (CommonUtil.isNullOrEmpty(comboBoxDatabase.getSelectedItem())) {
+            return "Database required";
+        }
+        if (CommonUtil.isNullOrEmpty(textFieldTableName.getText())) {
+            return "TableName required";
+        }
+        if (CommonUtil.isNullOrEmpty(textFieldProjectPath.getText())) {
+            return "ProjectPath required";
+        }
+        if (!samePathCheckBox.isSelected() && CommonUtil.isNullOrEmpty(comboBoxControllerPath.getSelectedItem())) {
+            return "ControllerPath required";
+        }
+        if (!samePathCheckBox.isSelected() && CommonUtil.isNullOrEmpty(comboBoxServicePath.getSelectedItem())) {
+            return "ServicePath required";
+        }
+        if (!samePathCheckBox.isSelected() && CommonUtil.isNullOrEmpty(comboBoxModelPath.getSelectedItem())) {
+            return "ModelPath required";
+        }
+        if (!samePathCheckBox.isSelected() && CommonUtil.isNullOrEmpty(comboBoxMapperPath.getSelectedItem())) {
+            return "MapperPath required";
+        }
+        if (CommonUtil.isNullOrEmpty(textFieldAuthor.getText())) {
+            return "author required";
+        }
+        return null;
     }
 
     private void selectPathBtnAction(JComboBox comboBox, String message) {
@@ -468,12 +450,12 @@ public class ToolWindowUI {
     }
 
     private void showSuccessMsg(String msg) {
-        Notification notification = myBatisCode_notification_group.createNotification("MyBatisCodePlugin message", msg, NotificationType.INFORMATION, null);
+        Notification notification = myBatisCode_notification_group.createNotification("Awesome-Pyrange message", msg, NotificationType.INFORMATION, null);
         Notifications.Bus.notify(notification);
     }
 
     private void showErrorMsg(String msg) {
-        Notification notification = myBatisCode_notification_group.createNotification("MyBatisCodePlugin message", msg, NotificationType.ERROR, null);
+        Notification notification = myBatisCode_notification_group.createNotification("Awesome-Pyrange Error Message", msg, NotificationType.ERROR, null);
         Notifications.Bus.notify(notification);
     }
 }

@@ -229,7 +229,7 @@
           <forms/>
         </constraints>
         <properties>
-          <text value="Go"/>
+          <text value="生成代码"/>
         </properties>
       </component>
       <component id="723de" class="javax.swing.JCheckBox" binding="samePathCheckBox">
@@ -262,16 +262,6 @@
         </constraints>
         <properties/>
       </component>
-      <component id="ef7c6" class="javax.swing.JTextField" binding="textFieldSign">
-        <constraints>
-          <grid row="3" column="4" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-            <maximum-size width="200" height="-1"/>
-          </grid>
-          <forms defaultalign-horz="false"/>
-        </constraints>
-        <properties/>
-      </component>
       <component id="fddb3" class="javax.swing.JLabel">
         <constraints>
           <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
@@ -294,18 +284,7 @@
           <text value="Author "/>
         </properties>
       </component>
-      <component id="ebc6c" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
-            <maximum-size width="100" height="-1"/>
-          </grid>
-          <forms/>
-        </constraints>
-        <properties>
-          <text value="模块文件夹 "/>
-        </properties>
-      </component>
-      <component id="243b6" class="javax.swing.JTextField" binding="textFieldPassword">
+      <component id="243b6" class="javax.swing.JPasswordField" binding="textFieldPassword">
         <constraints>
           <grid row="1" column="4" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -429,6 +408,15 @@
         </constraints>
         <properties>
           <text value="Front End"/>
+        </properties>
+      </component>
+      <component id="af071" class="javax.swing.JButton" binding="viewModelButton">
+        <constraints>
+          <grid row="10" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties>
+          <text value="查看model代码"/>
         </properties>
       </component>
     </children>
