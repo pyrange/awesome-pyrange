@@ -301,7 +301,7 @@ public class ToolWindowUI {
                     return;
                 }
                 if (CommonUtil.isNullOrEmpty(sign)) {
-                    showErrorMsg("模块文件夹 required");
+                    showErrorMsg("module required");
                     return;
                 }
                 if (CommonUtil.isNullOrEmpty(projectPath)) {

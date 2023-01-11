@@ -1,18 +1,18 @@
-package ${modelGenerateInfo.basePackage}.${modelGenerateInfo.modelNameLowercase};
+package ${generateInfo.basePackage}.${generateInfo.modelNameLowercase};
 
 import lombok.*;
-<#list modelGenerateInfo.importList as import>
+<#list generateInfo.importList as import>
 import ${import};
 </#list>
 
 import java.time.LocalDateTime;
 
 /**
- * ${modelGenerateInfo.tableComment}实体
+ * ${generateInfo.tableComment}实体
  *
- * 表：${modelGenerateInfo.tableName}
- * @author ${modelGenerateInfo.author}
- * @date ${modelGenerateInfo.date}
+ * 表：${generateInfo.tableName}
+ * @author ${generateInfo.author}
+ * @date ${generateInfo.date}
  **/
 @Getter
 @Setter
@@ -20,9 +20,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @ToString
-public class ${modelGenerateInfo.moduleName}Po {
+public class ${generateInfo.moduleName}Po {
 
-    <#list modelGenerateInfo.columnList as column>
+    <#list generateInfo.columnList as column>
     /** ${column.columnComment} */
     private ${column.columnJavaTypeName} ${column.columnCamelName};
 

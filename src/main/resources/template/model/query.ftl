@@ -1,18 +1,18 @@
-package ${modelGenerateInfo.basePackage}.${modelGenerateInfo.modelNameLowercase};
+package ${generateInfo.basePackage}.${generateInfo.modelNameLowercase};
 
 import com.pyrange.common.model.dto.BasePage;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * ${modelGenerateInfo.tableComment}查询
+ * ${generateInfo.tableComment}查询
  *
- * @author ${modelGenerateInfo.author}
- * @date ${modelGenerateInfo.date}
+ * @author ${generateInfo.author}
+ * @date ${generateInfo.date}
  **/
 @Getter
 @Setter
-public class ${modelGenerateInfo.moduleName}Query extends BasePage {
+public class ${generateInfo.moduleName}Query extends BasePage {
 
     /**
      * 查询关键字

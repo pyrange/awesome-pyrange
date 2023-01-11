@@ -1,8 +1,8 @@
-package ${modelGenerateInfo.basePackage}.${modelGenerateInfo.modelNameLowercase};
+package ${generateInfo.basePackage}.${generateInfo.modelNameLowercase};
 
 import lombok.Getter;
 import lombok.Setter;
-<#list modelGenerateInfo.importList as import>
+<#list generateInfo.importList as import>
 import ${import};
 </#list>
 import java.time.LocalDateTime;
@@ -11,17 +11,17 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 
 /**
- * ${modelGenerateInfo.tableComment}创建
+ * ${generateInfo.tableComment}创建
  *
- * @author ${modelGenerateInfo.author}
- * @date ${modelGenerateInfo.date}
+ * @author ${generateInfo.author}
+ * @date ${generateInfo.date}
  **/
 @Getter
 @Setter
-public class ${modelGenerateInfo.moduleName}Insert {
+public class ${generateInfo.moduleName}Insert {
 
     // TODO 记得删除无用字段；记得删除无用字段；记得删除无用字段；记得删除无用字段；记得删除无用字段；
-<#list modelGenerateInfo.columnList as column>
+<#list generateInfo.columnList as column>
 
     /** ${column.columnComment} */
     <#if column.nullable == 'NO'>

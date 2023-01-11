@@ -8,6 +8,19 @@ import java.util.List;
 public class CommonUtil {
 
     /**
+     * 表名转小写
+     *
+     * @param tableName
+     * @return 转换后的字符串
+     */
+    public static String getNameLowercase(String tableName) {
+        if (isNullOrEmpty(tableName)) {
+            return "";
+        }
+        return toUpperCaseFirstOne(underScoreCaseToCamelCase(tableName));
+    }
+
+    /**
      * 表名转首字母大写驼峰格式
      *
      * @param tableName

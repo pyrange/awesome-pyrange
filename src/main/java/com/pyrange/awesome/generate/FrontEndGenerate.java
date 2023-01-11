@@ -44,16 +44,16 @@ public class FrontEndGenerate {
 //        frontEndGenerateInfo.setTableName(tableInfo.getTableName());
         frontEndGenerateInfo.setBaseRequestMapping(configModel.getSign());
 
-        List<ModelGenerateColumnInfo> modelGenerateColumnInfos = new ArrayList<>();
+        List<GenerateColumnInfo> generateColumnInfos = new ArrayList<>();
         for (TableColumn tableColumn : tableInfo.getTableColumns()) {
-            ModelGenerateColumnInfo modelGenerateColumnInfo = new ModelGenerateColumnInfo();
+            GenerateColumnInfo generateColumnInfo = new GenerateColumnInfo();
             String javaTypeName = DataTypeEnum.getJavaTypeNameByDataType(tableColumn.getDataType());
-            modelGenerateColumnInfo.setColumnComment(tableColumn.getColumnComment());
-            modelGenerateColumnInfo.setColumnJavaTypeName(javaTypeName);
-            modelGenerateColumnInfo.setColumnCamelName(CommonUtil.getNameLowerCamel(tableColumn.getColumnName()));
-            modelGenerateColumnInfo.setNullable(tableColumn.getNullable());
-            modelGenerateColumnInfo.setCharacterMaximumLength(tableColumn.getCharacterMaximumLength());
-            modelGenerateColumnInfos.add(modelGenerateColumnInfo);
+            generateColumnInfo.setColumnComment(tableColumn.getColumnComment());
+            generateColumnInfo.setColumnJavaTypeName(javaTypeName);
+            generateColumnInfo.setColumnCamelName(CommonUtil.getNameLowerCamel(tableColumn.getColumnName()));
+            generateColumnInfo.setNullable(tableColumn.getNullable());
+            generateColumnInfo.setCharacterMaximumLength(tableColumn.getCharacterMaximumLength());
+            generateColumnInfos.add(generateColumnInfo);
 
             if (tableColumn.isPrimaryKey()) {
                 String primaryKey = SqlReservedWords.containsWord(tableColumn.getColumnName())
@@ -63,7 +63,7 @@ public class FrontEndGenerate {
                 frontEndGenerateInfo.setPrimaryKeyLowerCamel(CommonUtil.getNameLowerCamel(primaryKey));
             }
         }
-        frontEndGenerateInfo.setColumnList(modelGenerateColumnInfos);
+        frontEndGenerateInfo.setColumnList(generateColumnInfos);
 
         Map<String, Object> root = new HashMap<>(1);
         root.put("frontEndGenerateInfo", frontEndGenerateInfo);

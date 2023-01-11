@@ -7,11 +7,20 @@ package com.pyrange.awesome.model;
  * @date: 2018-6-11
  **/
 
-public class ModelGenerateColumnInfo {
+public class GenerateColumnInfo {
+
+    /**
+     * 字段名
+     */
+    private String columnName;
     /**
      * 字段注释
      */
     private String columnComment;
+    /**
+     * 字段类型
+     */
+    private String columnJdbcType;
     /**
      * 字段类型名称
      */
@@ -28,6 +37,14 @@ public class ModelGenerateColumnInfo {
      * 字符最大长度
      */
     private String characterMaximumLength;
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
 
     public String getColumnComment() {
         return columnComment;
@@ -67,5 +84,13 @@ public class ModelGenerateColumnInfo {
 
     public void setCharacterMaximumLength(String characterMaximumLength) {
         this.characterMaximumLength = characterMaximumLength;
+    }
+
+    public String getColumnJdbcType() {
+        return columnJdbcType;
+    }
+
+    public void setColumnJdbcType(String columnJdbcType) {
+        this.columnJdbcType = columnJdbcType;
     }
 }

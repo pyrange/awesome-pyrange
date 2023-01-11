@@ -22,7 +22,7 @@ public class FrontEndGenerateInfo {
     private String baseRequestMapping;
     private String servicePackage;
     private String modelPackage;
-    private List<ModelGenerateColumnInfo> columnList;
+    private List<GenerateColumnInfo> columnList;
     private String primaryKey;
     private String primaryKeyLowerCamel;
 
@@ -130,11 +130,11 @@ public class FrontEndGenerateInfo {
         this.moduleNameLower = moduleNameLower;
     }
 
-    public List<ModelGenerateColumnInfo> getColumnList() {
+    public List<GenerateColumnInfo> getColumnList() {
         return columnList;
     }
 
-    public void setColumnList(List<ModelGenerateColumnInfo> columnList) {
+    public void setColumnList(List<GenerateColumnInfo> columnList) {
         this.columnList = columnList;
     }
 

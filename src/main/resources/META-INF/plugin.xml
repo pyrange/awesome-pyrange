@@ -23,7 +23,7 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow id="Awesome-Pyrange1" secondary="true"  anchor="right" canCloseContents="false" factoryClass="com.pyrange.awesome.config.ToolWindowConfig" />
+        <toolWindow id="Awesome-Pyrange" secondary="true"  anchor="right" canCloseContents="false" factoryClass="com.pyrange.awesome.config.ToolWindowConfig" />
         <themeProvider id="200dab5c-a398-48ad-8c96-92781ba33615" path="theam-provider.json"/>
     </extensions>
 

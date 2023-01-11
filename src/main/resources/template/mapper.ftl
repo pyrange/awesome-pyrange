@@ -1,19 +1,19 @@
-package ${mapperGenerateInfo.basePackage};
+package ${generateInfo.basePackage};
 
-import ${mapperGenerateInfo.modelPath}.${mapperGenerateInfo.modelNameLowerCamel}.${mapperGenerateInfo.moduleName}Po;
-import ${mapperGenerateInfo.modelPath}.${mapperGenerateInfo.modelNameLowerCamel}.${mapperGenerateInfo.moduleName}Query;
-import ${mapperGenerateInfo.modelPath}.${mapperGenerateInfo.modelNameLowerCamel}.${mapperGenerateInfo.moduleName}Brief;
-import ${mapperGenerateInfo.modelPath}.${mapperGenerateInfo.modelNameLowerCamel}.${mapperGenerateInfo.moduleName}Detail;
+import ${generateInfo.modelPath}.${generateInfo.modelNameLowerCamel}.${generateInfo.moduleName}Po;
+import ${generateInfo.modelPath}.${generateInfo.modelNameLowerCamel}.${generateInfo.moduleName}Query;
+import ${generateInfo.modelPath}.${generateInfo.modelNameLowerCamel}.${generateInfo.moduleName}Brief;
+import ${generateInfo.modelPath}.${generateInfo.modelNameLowerCamel}.${generateInfo.moduleName}Detail;
 import java.util.List;
 
 /**
- * ${mapperGenerateInfo.tableComment}
+ * ${generateInfo.tableComment}
  *
- * 表名：  ${mapperGenerateInfo.tableName}
- * @author ${mapperGenerateInfo.author}
- * @date ${mapperGenerateInfo.date}
+ * 表名：  ${generateInfo.tableName}
+ * @author ${generateInfo.author}
+ * @date ${generateInfo.date}
  */
-public interface ${mapperGenerateInfo.moduleName}Mapper {
+public interface ${generateInfo.moduleName}Mapper {
 
     /**
      * 全字段新增
@@ -21,7 +21,7 @@ public interface ${mapperGenerateInfo.moduleName}Mapper {
      * @param insert
      * @return int 新增条数
      **/
-    int insert(${mapperGenerateInfo.moduleName}Po insert);
+    int insert(${generateInfo.moduleName}Po insert);
 
     /**
      * 根据主键动态修改
@@ -29,28 +29,28 @@ public interface ${mapperGenerateInfo.moduleName}Mapper {
      * @param update
      * @return int 修改条数
      **/
-    int update(${mapperGenerateInfo.moduleName}Po update);
+    int update(${generateInfo.moduleName}Po update);
 
     /**
      * 概要
      *
      * @param id
-     * @return ${mapperGenerateInfo.moduleName}
+     * @return ${generateInfo.moduleName}
      **/
-    ${mapperGenerateInfo.moduleName}Detail brief(${mapperGenerateInfo.primaryKeyJavaTypeName} id);
+    ${generateInfo.moduleName}Detail brief(${generateInfo.primaryKeyJavaTypeName} id);
 
     /**
      * 详情
      *
      * @param id
-     * @return ${mapperGenerateInfo.moduleName}
+     * @return ${generateInfo.moduleName}
      **/
-    ${mapperGenerateInfo.moduleName}Detail detail(${mapperGenerateInfo.primaryKeyJavaTypeName} id);
+    ${generateInfo.moduleName}Detail detail(${generateInfo.primaryKeyJavaTypeName} id);
 
     /**
      * 查询列表
      *
-     * @return ${mapperGenerateInfo.moduleName}
+     * @return ${generateInfo.moduleName}
      **/
-    List<${mapperGenerateInfo.moduleName}${"Brief>"} list(${mapperGenerateInfo.moduleName}Query query);
+    List<${generateInfo.moduleName}${"Brief>"} list(${generateInfo.moduleName}Query query);
 }
