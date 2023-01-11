@@ -1,7 +1,7 @@
 package com.pyrange.awesome.model;
 
-
 import java.util.List;
+
 /**
  * 这里是类描述
  *
@@ -10,9 +10,6 @@ import java.util.List;
  **/
 public class GenerateInfo {
 
-    /**
-     * 模块名
-     */
     private String moduleName;
     private String moduleNameWithDot;
     private String moduleNameWithSlash;
@@ -29,6 +26,7 @@ public class GenerateInfo {
      * model 信息
      */
     private String modelPackage;
+    private String controllerPackage;
     private String servicePackage;
     private String mapperPackage;
 
@@ -211,5 +209,13 @@ public class GenerateInfo {
 
     public void setModuleNameWithSlash(String moduleNameWithSlash) {
         this.moduleNameWithSlash = moduleNameWithSlash;
+    }
+
+    public String getControllerPackage() {
+        return controllerPackage;
+    }
+
+    public void setControllerPackage(String controllerPackage) {
+        this.controllerPackage = controllerPackage;
     }
 }

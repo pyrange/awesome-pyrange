@@ -72,9 +72,9 @@ public class CodeGenerate {
         generateInfo.setModelNameUpperCamel(CommonUtil.getNameUpperCamel(tableInfo.getTableName()));
         generateInfo.setModelNameLowerCamel(CommonUtil.getNameLowerCamel(tableInfo.getTableName()));
 
-
-        generateInfo.setModelPackage(CommonUtil.getPackageNameByPath(configModel.getModelPath()));
+        generateInfo.setControllerPackage(CommonUtil.getPackageNameByPath(configModel.getControllerPath()));
         generateInfo.setServicePackage(CommonUtil.getPackageNameByPath(configModel.getServicePath()));
+        generateInfo.setModelPackage(CommonUtil.getPackageNameByPath(configModel.getModelPath()));
         generateInfo.setMapperPackage(CommonUtil.getPackageNameByPath(configModel.getMapperJavaPath()));
 
         generateInfo.setDate(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()));
@@ -97,6 +97,8 @@ public class CodeGenerate {
             String columnJavaTypeName = DataTypeEnum.getJavaTypeByDataType(tableColumn.getDataType());
             if (CommonUtil.isNeedImport(javaTypeName) && !importList.contains(columnJavaTypeName)) {
                 importList.add(columnJavaTypeName);
+            }
+            if(tableColumn.isPrimaryKey()){
                 generateInfo.setPrimaryKey(SqlReservedWords.containsWord(tableColumn.getColumnName()) ? "`"+ tableColumn.getColumnName() +"`" : tableColumn.getColumnName());
                 generateInfo.setPrimaryKeyCamel(CommonUtil.getNameLowerCamel(tableColumn.getColumnName()));
                 generateInfo.setPrimaryKeyJdbcType(DataTypeEnum.getJdbcTypeByDataType(tableColumn.getDataType()));

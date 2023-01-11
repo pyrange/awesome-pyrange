@@ -1,15 +1,16 @@
 <idea-plugin>
-    <id>Awesome-Pyrange</id>
-    <name>Awesome-Pyrange2</name>
+    <id>com.pyrange</id>
+    <name>awesome-pyrange</name>
     <version>1.0</version>
     <vendor email="dev@pyrange.com" url="pyrange.com"></vendor>
 
     <description><![CDATA[
-      可以自动生成model、mapper、xml、controller、service、fe<br>
+      自动生成 Java controller、service、model、mapper、xml 以及前端代码
     ]]></description>
 
     <change-notes><![CDATA[
-      First !!!
+      1. 支持前端代码生成
+      2. 支持弹窗显示代码, 以便快速 Ctrl + C\V
     ]]>
     </change-notes>
 
