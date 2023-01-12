@@ -32,9 +32,9 @@
 </#list>
       <el-table-column align="center" label="操作" width="200">
         <template slot-scope="{row}">
-          <el-button type="primary" size="mini" @click="handleDetail(row.${generateInfo.primaryKeyLowerCamel})">查看</el-button>
-          <el-button type="primary" size="mini" @click="handleEdit(row.${generateInfo.primaryKeyLowerCamel})">编辑</el-button>
-          <el-button type="danger" size="mini" @click="handleDel(row.${generateInfo.primaryKeyLowerCamel})">删除</el-button>
+          <el-button type="primary" size="mini" @click="handleDetail(row.${generateInfo.primaryKeyCamel})">查看</el-button>
+          <el-button type="primary" size="mini" @click="handleEdit(row.${generateInfo.primaryKeyCamel})">编辑</el-button>
+          <el-button type="danger" size="mini" @click="handleDel(row.${generateInfo.primaryKeyCamel})">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

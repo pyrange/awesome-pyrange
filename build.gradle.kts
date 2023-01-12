@@ -3,8 +3,8 @@ plugins {
     id("org.jetbrains.intellij") version "1.10.1"
 }
 
-group = "com.example"
-version = "1.0-SNAPSHOT"
+group = "com.pyrange"
+version = "1.0"
 
 repositories {
     mavenCentral()
@@ -46,5 +46,5 @@ dependencies {
     implementation("org.freemarker:freemarker:2.3.31")
     implementation("mysql:mysql-connector-java:8.0.31")
     implementation("mysql:mysql-connector-java:5.1.49")
-    implementation("com.google.guava:guava:21.0")
+    implementation("com.google.guava:guava:22.0")
 }

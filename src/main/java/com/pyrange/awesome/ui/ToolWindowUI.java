@@ -47,7 +47,8 @@ public class ToolWindowUI {
     private JCheckBox frontEndCheckBox;
     private JCheckBox samePathCheckBox;
     private JButton viewModelButton;
-    private JButton mapperButton;
+    private JButton viewMapperButton;
+    private JButton viewFEButton;
 
 
     private String baseProjectPath;
@@ -320,7 +321,10 @@ public class ToolWindowUI {
                     String insertStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "model/insert.ftl");
                     String poStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "model/po.ftl");
 
-                    MyDialog myDialog = new MyDialog(insertStr + "\n\n" + poStr);
+                    MyDialog myDialog = new MyDialog(
+                            insertStr
+                                    + "\n\n" + "------------------------------------------------------------" + "\n\n" +
+                                    poStr);
                     myDialog.show();
                 } catch (Exception ex) {
                     showErrorMsg(Throwables.getStackTraceAsString(ex));
@@ -331,7 +335,7 @@ public class ToolWindowUI {
         });
 
 
-        mapperButton.addMouseListener(new MouseAdapter() {
+        viewMapperButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 String checkResult = checkParam();
@@ -344,7 +348,39 @@ public class ToolWindowUI {
                     String mapperStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "mapper.ftl");
                     String mapperXmlStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "mapperxml.ftl");
 
-                    MyDialog myDialog = new MyDialog(mapperStr + "\n\n" + mapperXmlStr);
+                    MyDialog myDialog = new MyDialog(mapperStr
+                            + "\n\n" + "------------------------------------------------------------" + "\n\n" +
+                            mapperXmlStr);
+                    myDialog.show();
+                } catch (Exception ex) {
+                    showErrorMsg(Throwables.getStackTraceAsString(ex));
+                    LOGGER.info(ex);
+                }
+
+            }
+        });
+
+
+        viewFEButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String checkResult = checkParam();
+                if (checkResult != null) {
+                    showErrorMsg(checkResult);
+                    return;
+                }
+
+                try {
+                    String indexStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "fe/index.ftl");
+                    String detailStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "fe/DetailDialog.ftl");
+                    String editStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "fe/EditDialog.ftl");
+
+                    MyDialog myDialog = new MyDialog(
+                            indexStr
+                                    + "\n\n" + "------------------------------------------------------------" + "\n\n" +
+                                    detailStr
+                                    + "\n\n" + "------------------------------------------------------------" + "\n\n" +
+                                    editStr);
                     myDialog.show();
                 } catch (Exception ex) {
                     showErrorMsg(Throwables.getStackTraceAsString(ex));

@@ -21,7 +21,7 @@ public class MyDialog extends DialogWrapper {
     protected @Nullable JComponent createCenterPanel() {
 
         JPanel dialogPanel = new JPanel(new BorderLayout());
-        dialogPanel.setPreferredSize(new Dimension(800, 500));
+        dialogPanel.setPreferredSize(new Dimension(1000, 700));
 
         JTextArea jTextArea = new JTextArea(content);
         jTextArea.setText(content);
