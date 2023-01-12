@@ -5,6 +5,7 @@ import com.intellij.openapi.diagnostic.Logger;
 import java.sql.*;
 
 public class JDBCUtil {
+
     private String host;
     private String user;
     private String pwd;

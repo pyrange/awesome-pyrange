@@ -19,6 +19,9 @@ import java.io.File;
 import java.util.List;
 
 public class ToolWindowUI {
+
+    private static final String SEPARATOR_LINE = "\n\n" + "--------------------------------------------------------------------------------------------------------------------------------------------------------" + "\n\n";
+
     private JPanel toolWindowContent;
 
     private JTextField textFieldHost;
@@ -321,10 +324,7 @@ public class ToolWindowUI {
                     String insertStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "model/insert.ftl");
                     String poStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "model/po.ftl");
 
-                    MyDialog myDialog = new MyDialog(
-                            insertStr
-                                    + "\n\n" + "------------------------------------------------------------" + "\n\n" +
-                                    poStr);
+                    MyDialog myDialog = new MyDialog(poStr + SEPARATOR_LINE + insertStr);
                     myDialog.show();
                 } catch (Exception ex) {
                     showErrorMsg(Throwables.getStackTraceAsString(ex));
@@ -348,9 +348,7 @@ public class ToolWindowUI {
                     String mapperStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "mapper.ftl");
                     String mapperXmlStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "mapperxml.ftl");
 
-                    MyDialog myDialog = new MyDialog(mapperStr
-                            + "\n\n" + "------------------------------------------------------------" + "\n\n" +
-                            mapperXmlStr);
+                    MyDialog myDialog = new MyDialog(mapperXmlStr + SEPARATOR_LINE + mapperStr);
                     myDialog.show();
                 } catch (Exception ex) {
                     showErrorMsg(Throwables.getStackTraceAsString(ex));
@@ -377,9 +375,9 @@ public class ToolWindowUI {
 
                     MyDialog myDialog = new MyDialog(
                             indexStr
-                                    + "\n\n" + "------------------------------------------------------------" + "\n\n" +
+                                    + SEPARATOR_LINE +
                                     detailStr
-                                    + "\n\n" + "------------------------------------------------------------" + "\n\n" +
+                                    + SEPARATOR_LINE +
                                     editStr);
                     myDialog.show();
                 } catch (Exception ex) {

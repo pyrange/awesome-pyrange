@@ -25,8 +25,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow id="Awesome-Pyrange" secondary="true"  anchor="right" canCloseContents="false"
-                    icon="/pluginIcon.svg" factoryClass="com.pyrange.awesome.config.ToolWindowConfig" />
-        <themeProvider id="200dab5c-a398-48ad-8c96-92781ba33615" path="theam-provider.json"/>
+                    icon="/pyrange-logo13x13.png" factoryClass="com.pyrange.awesome.config.ToolWindowConfig" />
     </extensions>
 
     <actions>
