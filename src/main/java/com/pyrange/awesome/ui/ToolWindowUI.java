@@ -324,8 +324,8 @@ public class ToolWindowUI {
                     String insertStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "model/insert.ftl");
                     String poStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "model/po.ftl");
 
-                    MyDialog myDialog = new MyDialog(poStr + SEPARATOR_LINE + insertStr);
-                    myDialog.show();
+                    CodingDialog codingDialog = new CodingDialog(poStr + SEPARATOR_LINE + insertStr);
+                    codingDialog.show();
                 } catch (Exception ex) {
                     showErrorMsg(Throwables.getStackTraceAsString(ex));
                     LOGGER.info(ex);
@@ -348,8 +348,8 @@ public class ToolWindowUI {
                     String mapperStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "mapper.ftl");
                     String mapperXmlStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "mapperxml.ftl");
 
-                    MyDialog myDialog = new MyDialog(mapperXmlStr + SEPARATOR_LINE + mapperStr);
-                    myDialog.show();
+                    CodingDialog codingDialog = new CodingDialog(mapperXmlStr + SEPARATOR_LINE + mapperStr);
+                    codingDialog.show();
                 } catch (Exception ex) {
                     showErrorMsg(Throwables.getStackTraceAsString(ex));
                     LOGGER.info(ex);
@@ -373,13 +373,13 @@ public class ToolWindowUI {
                     String detailStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "fe/DetailDialog.ftl");
                     String editStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "fe/EditDialog.ftl");
 
-                    MyDialog myDialog = new MyDialog(
+                    CodingDialog codingDialog = new CodingDialog(
                             indexStr
                                     + SEPARATOR_LINE +
                                     detailStr
                                     + SEPARATOR_LINE +
                                     editStr);
-                    myDialog.show();
+                    codingDialog.show();
                 } catch (Exception ex) {
                     showErrorMsg(Throwables.getStackTraceAsString(ex));
                     LOGGER.info(ex);

@@ -6,11 +6,11 @@ import javax.annotation.Nullable;
 import javax.swing.*;
 import java.awt.*;
 
-public class MyDialog extends DialogWrapper {
+public class CodingDialog extends DialogWrapper {
 
     private String content;
 
-    public MyDialog(String content) {
+    public CodingDialog(String content) {
         super(true);
         this.content = content;
         init();
