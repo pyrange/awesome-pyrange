@@ -14,6 +14,12 @@ public class ConfigModel {
 
     private String tableName;
 
+    /**
+     * 组织ID
+     * com.xx
+     */
+    private String groupId;
+
     private String author;
     private String modelPath;
     private String projectPath;
@@ -27,6 +33,7 @@ public class ConfigModel {
     private Boolean generateController;
     private Boolean generateService;
     private Boolean generateFrontEnd;
+    private Boolean generateTest;
 
 
     public String getJdbcHost() {
@@ -163,5 +170,21 @@ public class ConfigModel {
 
     public void setGenerateService(Boolean generateService) {
         this.generateService = generateService;
+    }
+
+    public Boolean getGenerateTest() {
+        return generateTest;
+    }
+
+    public void setGenerateTest(Boolean generateTest) {
+        this.generateTest = generateTest;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 }

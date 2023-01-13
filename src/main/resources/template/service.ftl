@@ -4,7 +4,7 @@ import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generate
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Update;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Brief;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Detail;
-import com.pyrange.common.model.dto.Result;
+import ${configModel.groupId}.common.model.dto.Result;
 import java.util.List;
 
 /**
@@ -37,7 +37,7 @@ public interface ${generateInfo.moduleName}Service {
      * @param id
      * @return ${generateInfo.moduleName}Detail
      **/
-    Result${"<"}${generateInfo.moduleName}Detail${">"} detail(Integer id);
+    Result${"<"}${generateInfo.moduleName}Detail${">"} detail(${generateInfo.primaryKeyJavaType} id);
 
     /**
      * 列表

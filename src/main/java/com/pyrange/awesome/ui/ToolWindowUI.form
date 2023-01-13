@@ -17,15 +17,15 @@
     <rowspec value="center:36px:grow"/>
     <colspec value="fill:max(d;4px):noGrow"/>
     <colspec value="right:90px:grow"/>
-    <colspec value="fill:200px:grow"/>
-    <colspec value="left:200px:grow"/>
-    <colspec value="left:102px:grow"/>
+    <colspec value="fill:185px:grow"/>
+    <colspec value="fill:234px:grow"/>
+    <colspec value="left:80px:grow"/>
     <constraints>
-      <xy x="24" y="115" width="577" height="499"/>
+      <xy x="24" y="117" width="591" height="497"/>
     </constraints>
     <properties>
       <enabled value="true"/>
-      <minimumSize width="550" height="400"/>
+      <minimumSize width="570" height="400"/>
     </properties>
     <border type="none"/>
     <children>
@@ -37,7 +37,7 @@
           <forms/>
         </constraints>
         <properties>
-          <text value="Host:Port "/>
+          <text value="MysqlHost:Port"/>
         </properties>
       </component>
       <component id="e36b8" class="javax.swing.JLabel">
@@ -92,7 +92,9 @@
           </grid>
           <forms defaultalign-horz="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <text value=""/>
+        </properties>
       </component>
       <component id="e3bea" class="javax.swing.JTextField" binding="textFieldUserName">
         <constraints>
@@ -102,7 +104,9 @@
           </grid>
           <forms defaultalign-horz="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <text value=""/>
+        </properties>
       </component>
       <component id="a1b94" class="javax.swing.JComboBox" binding="comboBoxDatabase">
         <constraints>
@@ -319,7 +323,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="Author "/>
+              <text value="Author     "/>
             </properties>
           </component>
           <component id="4aee6" class="javax.swing.JTextField" binding="textFieldAuthor">
@@ -346,7 +350,9 @@
         <children>
           <component id="ab9b7" class="javax.swing.JCheckBox" binding="serviceCheckBox" default-binding="true">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="104" height="22"/>
+              </grid>
             </constraints>
             <properties>
               <text value="Service"/>
@@ -400,15 +406,19 @@
         <children>
           <component id="c60ff" class="javax.swing.JCheckBox" binding="testCheckBox" default-binding="true">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="78" height="22"/>
+              </grid>
             </constraints>
             <properties>
-              <text value="Test               "/>
+              <text value="Test                        "/>
             </properties>
           </component>
           <component id="11e10" class="javax.swing.JButton" binding="viewTestButton">
             <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="92" height="30"/>
+              </grid>
             </constraints>
             <properties>
               <text value="查看"/>
@@ -547,6 +557,36 @@
             </constraints>
             <properties>
               <text value="Model     "/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="e053d" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="155e4" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="GroupId   "/>
+            </properties>
+          </component>
+          <component id="2650" class="javax.swing.JTextField" binding="textFieldGroupId">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value=""/>
+              <toolTipText value=""/>
             </properties>
           </component>
         </children>

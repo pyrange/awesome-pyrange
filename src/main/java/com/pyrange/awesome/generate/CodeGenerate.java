@@ -9,15 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 这里是类描述
+ * 测试代码生成
  *
- * @author : yangning
- * @date: 2018-6-11
+ * @author : chenjw
+ * @date: 2023-1-13
  **/
 public class CodeGenerate {
 
     public static void generate(ConfigModel configModel) throws Exception {
-
         // 获取处理配置信息
         TableInfo tableInfo = getTableInfo(configModel);
         GenerateInfo generateInfo = getGenerateInfo(configModel, tableInfo);
@@ -37,13 +36,15 @@ public class CodeGenerate {
         if (configModel.getGenerateFrontEnd()) {
             FrontEndGenerate.generate(configModel, generateInfo);
         }
+        if (configModel.getGenerateTest()) {
+            TestGenerate.generate(configModel, generateInfo);
+        }
     }
 
     public static String getGeneratedModelStr(ConfigModel configModel, String template) throws Exception {
         TableInfo tableInfo = getTableInfo(configModel);
         GenerateInfo generateInfo = getGenerateInfo(configModel, tableInfo);
-
-        return FreeMarkUtil.getFileStr(generateInfo, template) ;
+        return FreeMarkUtil.getFileStr(configModel, generateInfo, template) ;
     }
 
     private static TableInfo getTableInfo(ConfigModel configModel) throws Exception {
@@ -86,6 +87,7 @@ public class CodeGenerate {
         generateInfo.setModelNameLowerCamel(CommonUtil.getNameLowerCamel(tableInfo.getTableName()));
 
         generateInfo.setControllerPackage(CommonUtil.getPackageNameByPath(configModel.getControllerPath()));
+        generateInfo.setControllerPackageWithSlash(generateInfo.getControllerPackage().replace(".", "/"));
         generateInfo.setServicePackage(CommonUtil.getPackageNameByPath(configModel.getServicePath()));
         generateInfo.setModelPackage(CommonUtil.getPackageNameByPath(configModel.getModelPath()));
         generateInfo.setMapperPackage(CommonUtil.getPackageNameByPath(configModel.getMapperJavaPath()));
@@ -99,10 +101,13 @@ public class CodeGenerate {
             GenerateColumnInfo generateColumnInfo = new GenerateColumnInfo();
             String javaTypeName = DataTypeEnum.getJavaTypeNameByDataType(tableColumn.getDataType());
             generateColumnInfo.setColumnName(SqlReservedWords.containsWord(tableColumn.getColumnName()) ? "`" + tableColumn.getColumnName() + "`" : tableColumn.getColumnName());
+            generateColumnInfo.setColumnCamelName(CommonUtil.getNameLowerCamel(tableColumn.getColumnName()));
+            generateColumnInfo.setColumnUpperCamelName(CommonUtil.getNameUpperCamel(tableColumn.getColumnName()));
+            generateColumnInfo.setGetterName("get" + CommonUtil.getNameUpperCamel(tableColumn.getColumnName()));
+            generateColumnInfo.setSetterName("set" + CommonUtil.getNameUpperCamel(tableColumn.getColumnName()));
             generateColumnInfo.setColumnComment(tableColumn.getColumnComment());
             generateColumnInfo.setColumnJavaTypeName(javaTypeName);
             generateColumnInfo.setColumnJdbcType(DataTypeEnum.getJdbcTypeByDataType(tableColumn.getDataType()));
-            generateColumnInfo.setColumnCamelName(CommonUtil.getNameLowerCamel(tableColumn.getColumnName()));
             generateColumnInfo.setNullable(tableColumn.getNullable());
             generateColumnInfo.setCharacterMaximumLength(tableColumn.getCharacterMaximumLength());
             generateColumnInfos.add(generateColumnInfo);

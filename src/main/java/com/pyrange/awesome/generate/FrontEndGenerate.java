@@ -8,16 +8,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 这里是类描述
+ * Vue 前端代码生成
  *
  * @author : chenjw
- * @date: 2022-12-22
+ * @date: 2023-1-13
  **/
 public class FrontEndGenerate {
 
     public static void generate(ConfigModel configModel, GenerateInfo generateInfo) throws Exception {
-        Map<String, Object> root = new HashMap<>(1);
+        Map<String, Object> root = new HashMap<>(2);
         root.put("generateInfo", generateInfo);
+        root.put("configModel", configModel);
+
         String indexFileName = generateInfo.getModuleName() + ".vue";
         FreeMarkUtil.generateFile(root, "fe/index.ftl",
                 configModel.getProjectPath() + "/" + generateInfo.getModuleName(), indexFileName);

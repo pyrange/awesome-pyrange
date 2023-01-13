@@ -8,16 +8,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 这里是类描述
+ * 测试代码生成
  *
- * @author : yangning
- * @date: 2018-8-6
+ * @author : chenjw
+ * @date: 2023-1-13
  **/
 public class ServiceGenerate {
 
     public static void generate(ConfigModel configModel, GenerateInfo generateInfo) throws Exception {
-        Map<String, Object> root = new HashMap<>(1);
+        Map<String, Object> root = new HashMap<>(2);
         root.put("generateInfo", generateInfo);
+        root.put("configModel", configModel);
+
         String serviceName = generateInfo.getModuleName() + "Service.java";
         String serviceImplName = generateInfo.getModuleName() + "ServiceImpl.java";
         FreeMarkUtil.generateFile(root, "service.ftl", configModel.getServicePath(), serviceName);

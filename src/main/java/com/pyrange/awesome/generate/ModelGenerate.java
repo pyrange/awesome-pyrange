@@ -17,9 +17,9 @@ public class ModelGenerate {
 
 
     public static void generate(ConfigModel configModel, GenerateInfo generateInfo) throws Exception {
-
-        Map<String, Object> root = new HashMap<>(1);
+        Map<String, Object> root = new HashMap<>(2);
         root.put("generateInfo", generateInfo);
+        root.put("configModel", configModel);
 
         FreeMarkUtil.generateFile(root, "model/po.ftl",
                 configModel.getModelPath() + "/" + generateInfo.getModuleNameWithSlash(),

@@ -5,10 +5,13 @@ import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.notification.*;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
+import com.pyrange.awesome.PyrangeConstant;
+import com.pyrange.awesome.PyrangeException;
 import com.pyrange.awesome.util.TableUtil;
 import com.pyrange.awesome.generate.CodeGenerate;
 import com.pyrange.awesome.model.ConfigModel;
 import com.pyrange.awesome.util.CommonUtil;
+import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
@@ -58,6 +61,7 @@ public class ToolWindowUI {
     private JButton viewMapperButton;
     private JButton viewFEButton;
     private JButton viewTestButton;
+    private JTextField textFieldGroupId;
 
 
     private String baseProjectPath;
@@ -88,6 +92,7 @@ public class ToolWindowUI {
         textFieldPassword.setText(propertiesComponent.getValue("jdbcPassword"));
         textFieldTableName.setText(propertiesComponent.getValue("tableName"));
         textFieldAuthor.setText(propertiesComponent.getValue("author"));
+        textFieldGroupId.setText(propertiesComponent.getValue("groupId"));
         comboBoxDatabase.addItem(propertiesComponent.getValue("jdbcDatabase"));
         comboBoxDatabase.setSelectedItem(propertiesComponent.getValue("jdbcDatabase"));
         textFieldProjectPath.setText(propertiesComponentProject.getValue("projectPath"));
@@ -292,13 +297,13 @@ public class ToolWindowUI {
                 String modelPath = (String) comboBoxModelPath.getSelectedItem();
                 String mapperPath = (String) comboBoxMapperPath.getSelectedItem();
                 String author = textFieldAuthor.getText();
+                String groupId = textFieldGroupId.getText();
 
                 propertiesComponent.setValue("jdbcHost", jdbcHost);
                 propertiesComponent.setValue("jdbcDatabase", jdbcDatabase);
                 propertiesComponent.setValue("jdbcUserName", jdbcUserName);
                 propertiesComponent.setValue("jdbcPassword", jdbcPassword);
                 propertiesComponent.setValue("tableName", tableName);
-//                propertiesComponent.setValue("sign", sign);
                 propertiesComponentProject.setValue("projectPath", projectPath);
                 propertiesComponentProject.setValue("modelPath", modelPath);
                 propertiesComponentProject.setValue("controllerPath", controllerPath);
@@ -306,10 +311,14 @@ public class ToolWindowUI {
                 propertiesComponentProject.setValue("mapperPath", mapperPath);
                 propertiesComponentProject.setValue("modelPath", modelPath);
                 propertiesComponent.setValue("author", author);
+                propertiesComponent.setValue("groupId", groupId);
 
                 try {
                     CodeGenerate.generate(getConfigModel());
                     showSuccessMsg("Table " + tableName + " has been generated successfully!");
+                } catch (PyrangeException e1) {
+                    showErrorMsg(e1.getMessage());
+                    LOGGER.info(e1);
                 } catch (Exception e1) {
                     showErrorMsg(Throwables.getStackTraceAsString(e1));
                     LOGGER.info(e1);
@@ -403,7 +412,6 @@ public class ToolWindowUI {
                     showErrorMsg(Throwables.getStackTraceAsString(ex));
                     LOGGER.info(ex);
                 }
-
             }
         });
 
@@ -433,10 +441,32 @@ public class ToolWindowUI {
                     showErrorMsg(Throwables.getStackTraceAsString(ex));
                     LOGGER.info(ex);
                 }
+            }
+        });
+
+        viewTestButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String checkResult = checkParam();
+                if (checkResult != null) {
+                    showErrorMsg(checkResult);
+                    return;
+                }
+
+                try {
+                    String testStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "test.ftl");
+                    CodingDialog codingDialog = new CodingDialog(testStr);
+                    codingDialog.show();
+                } catch (Exception ex) {
+                    showErrorMsg(Throwables.getStackTraceAsString(ex));
+                    LOGGER.info(ex);
+                }
 
             }
         });
+
     }
+
 
     private ConfigModel getConfigModel() {
         String projectPath = textFieldProjectPath.getText();
@@ -447,18 +477,24 @@ public class ToolWindowUI {
         configModel.setJdbcDatabase((String) comboBoxDatabase.getSelectedItem());
         configModel.setJdbcUserName(textFieldUserName.getText());
         configModel.setJdbcPassword(textFieldPassword.getText());
+
         configModel.setProjectPath(projectPath);
         configModel.setControllerPath(CommonUtil.fomatPath((String) comboBoxControllerPath.getSelectedItem()));
         configModel.setServicePath(CommonUtil.fomatPath((String) comboBoxServicePath.getSelectedItem()));
         configModel.setModelPath(CommonUtil.fomatPath((String) comboBoxModelPath.getSelectedItem()));
         configModel.setMapperJavaPath(CommonUtil.fomatPath(mapperPath));
         configModel.setMapperXmlPath(CommonUtil.fomatPath(mapperPath));
+
         configModel.setAuthor(textFieldAuthor.getText());
+        String groupId = StringUtils.isEmpty(textFieldGroupId.getText()) ? PyrangeConstant.DEFAULT_GROUP_ID : textFieldGroupId.getText();
+        configModel.setGroupId(groupId);
+
         configModel.setGenerateModel(modelCheckBox.isSelected());
         configModel.setGenerateMapper(mapperCheckBox.isSelected());
         configModel.setGenerateController(controllerCheckBox.isSelected());
         configModel.setGenerateService(serviceCheckBox.isSelected());
         configModel.setGenerateFrontEnd(frontEndCheckBox.isSelected());
+        configModel.setGenerateTest(testCheckBox.isSelected());
 
         if (samePathCheckBox.isSelected()) {
             configModel.setControllerPath(CommonUtil.fomatPath(projectPath));

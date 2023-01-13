@@ -1,6 +1,7 @@
 package com.pyrange.awesome.util;
 
 import com.intellij.openapi.diagnostic.Logger;
+import com.pyrange.awesome.PyrangeException;
 import com.pyrange.awesome.model.TableInfo;
 import com.pyrange.awesome.model.TableColumn;
 
@@ -40,11 +41,11 @@ public class TableUtil {
             tableComment = resultSet.getString("Comment");
         }
         if (rowCount == 0) {
-            throw new Exception("Table '" + tableName + "' not found in '" + database + "'");
+            throw new PyrangeException("Table '" + tableName + "' not found in '" + database + "'");
         }
         jdbcUtil.jdbcClose();
         if (CommonUtil.isNullOrEmpty(tableComment)) {
-            throw new Exception("Please add a comment for table '" + tableName + "'");
+            throw new PyrangeException("Please add a comment for table '" + tableName + "'");
         }
         TableInfo tableBase = new TableInfo();
         tableBase.setTableName(tableName);

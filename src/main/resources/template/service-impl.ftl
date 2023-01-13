@@ -8,9 +8,9 @@ import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generate
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Update;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Brief;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Detail;
-import com.pyrange.session.app.SessionUtil;
-import com.pyrange.common.model.dto.Result;
-import com.pyrange.common.util.PageUtil;
+import ${configModel.groupId}.session.app.SessionUtil;
+import ${configModel.groupId}.common.model.dto.Result;
+import ${configModel.groupId}.common.util.PageUtil;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -56,7 +56,7 @@ public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.mod
     }
 
     @Override
-    public Result${"<"}${generateInfo.moduleName}Detail${">"} detail(Integer id) {
+    public Result${"<"}${generateInfo.moduleName}Detail${">"} detail(${generateInfo.primaryKeyJavaType} id) {
         return Result.success(${generateInfo.moduleNameLowercase}Mapper.detail(id));
     }
 

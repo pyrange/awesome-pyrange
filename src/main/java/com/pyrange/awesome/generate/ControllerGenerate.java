@@ -16,8 +16,10 @@ import java.util.Map;
 public class ControllerGenerate {
 
     public static void generate(ConfigModel configModel, GenerateInfo generateInfo) throws Exception {
-        Map<String, Object> root = new HashMap<>(1);
+        Map<String, Object> root = new HashMap<>(2);
         root.put("generateInfo", generateInfo);
+        root.put("configModel", configModel);
+
         String fileName = generateInfo.getModelNameUpperCamel() + "Controller.java";
         FreeMarkUtil.generateFile(root, "controller.ftl", configModel.getControllerPath(), fileName);
     }

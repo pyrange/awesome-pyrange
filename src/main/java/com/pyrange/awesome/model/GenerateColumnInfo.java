@@ -14,6 +14,14 @@ public class GenerateColumnInfo {
      */
     private String columnName;
     /**
+     * 小写开头驼峰名
+     */
+    private String columnCamelName;
+    /**
+     * 大写开头驼峰名
+     */
+    private String columnUpperCamelName;
+    /**
      * 字段注释
      */
     private String columnComment;
@@ -26,10 +34,6 @@ public class GenerateColumnInfo {
      */
     private String columnJavaTypeName;
     /**
-     * 驼峰名
-     */
-    private String columnCamelName;
-    /**
      * 允许为空
      */
     private String nullable;
@@ -37,6 +41,14 @@ public class GenerateColumnInfo {
      * 字符最大长度
      */
     private String characterMaximumLength;
+    /**
+     * set 方法名称
+     */
+    private String setterName;
+    /**
+     * get 方法名称
+     */
+    private String getterName;
 
     public String getColumnName() {
         return columnName;
@@ -92,5 +104,29 @@ public class GenerateColumnInfo {
 
     public void setColumnJdbcType(String columnJdbcType) {
         this.columnJdbcType = columnJdbcType;
+    }
+
+    public String getSetterName() {
+        return setterName;
+    }
+
+    public void setSetterName(String setterName) {
+        this.setterName = setterName;
+    }
+
+    public String getGetterName() {
+        return getterName;
+    }
+
+    public void setGetterName(String getterName) {
+        this.getterName = getterName;
+    }
+
+    public String getColumnUpperCamelName() {
+        return columnUpperCamelName;
+    }
+
+    public void setColumnUpperCamelName(String columnUpperCamelName) {
+        this.columnUpperCamelName = columnUpperCamelName;
     }
 }

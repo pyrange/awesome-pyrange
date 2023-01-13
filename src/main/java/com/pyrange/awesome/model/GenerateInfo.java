@@ -27,7 +27,16 @@ public class GenerateInfo {
      * model 信息
      */
     private String modelPackage;
+    /**
+     * 小数点分隔 controller 目录
+     * com.pyrange.xx
+     */
     private String controllerPackage;
+    /**
+     * 下划线分隔 controller 目录
+     * com/pyrange/xx
+     */
+    private String controllerPackageWithSlash;
     private String servicePackage;
     private String mapperPackage;
 
@@ -226,5 +235,13 @@ public class GenerateInfo {
 
     public void setModuleNameUppercaseCamel(String moduleNameUppercaseCamel) {
         this.moduleNameUppercaseCamel = moduleNameUppercaseCamel;
+    }
+
+    public String getControllerPackageWithSlash() {
+        return controllerPackageWithSlash;
+    }
+
+    public void setControllerPackageWithSlash(String controllerPackageWithSlash) {
+        this.controllerPackageWithSlash = controllerPackageWithSlash;
     }
 }

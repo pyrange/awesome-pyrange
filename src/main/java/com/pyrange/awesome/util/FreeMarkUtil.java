@@ -1,6 +1,7 @@
 package com.pyrange.awesome.util;
 
 import com.intellij.openapi.diagnostic.Logger;
+import com.pyrange.awesome.model.ConfigModel;
 import com.pyrange.awesome.model.GenerateInfo;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.TemplateLoader;
@@ -36,9 +37,10 @@ public class FreeMarkUtil {
     }
 
 
-    public static String getFileStr(GenerateInfo generateInfo, String templateName) throws Exception {
-        Map<String, Object> map = new HashMap<>(1);
-        map.put("generateInfo", generateInfo);
+    public static String getFileStr(ConfigModel configModel, GenerateInfo generateInfo, String templateName) throws Exception {
+        Map<String, Object> root = new HashMap<>(2);
+        root.put("generateInfo", generateInfo);
+        root.put("configModel", configModel);
 
         Configuration conf = new Configuration();
         conf.setDefaultEncoding("UTF-8");
@@ -48,7 +50,7 @@ public class FreeMarkUtil {
 
         StringWriter stringWriter = new StringWriter();
         BufferedWriter writer = new BufferedWriter(stringWriter);
-        template.process(map, writer);
+        template.process(root, writer);
         StringReader reader = new StringReader(stringWriter.toString());
         writer.flush();
         writer.close();

@@ -8,7 +8,7 @@ import ${import};
 import java.time.LocalDateTime;
 
 import org.hibernate.validator.constraints.Length;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * ${generateInfo.tableComment}创建
@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class ${generateInfo.moduleName}Insert {
 
-    // TODO 记得删除无用字段；记得删除无用字段；记得删除无用字段；记得删除无用字段；记得删除无用字段；
+    // TODO ${configModel.author} 记得删除无用字段；记得删除无用字段；记得删除无用字段；记得删除无用字段；记得删除无用字段；
 <#list generateInfo.columnList as column>
 
     /** ${column.columnComment} */

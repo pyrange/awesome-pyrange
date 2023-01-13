@@ -17,8 +17,10 @@ public class MapperGenerate {
 
 
     public static void generate(ConfigModel configModel, GenerateInfo generateInfo) throws Exception {
-        Map<String, Object> root = new HashMap<>(1);
+        Map<String, Object> root = new HashMap<>(2);
         root.put("generateInfo", generateInfo);
+        root.put("configModel", configModel);
+
         String mapperFileName = generateInfo.getModuleName() + "Mapper.java";
         String mapperXmlFileName = generateInfo.getModuleName() + "Mapper.xml";
         FreeMarkUtil.generateFile(root, "mapper.ftl", configModel.getMapperJavaPath(), mapperFileName);
