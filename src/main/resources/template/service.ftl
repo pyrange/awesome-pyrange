@@ -37,7 +37,7 @@ public interface ${generateInfo.moduleName}Service {
      * @param id
      * @return ${generateInfo.moduleName}Detail
      **/
-    Result${"<"}${generateInfo.moduleName}Detail${">"} detail(${generateInfo.primaryKeyJavaType} id);
+    Result${"<"}${generateInfo.moduleName}Detail${">"} detail(${generateInfo.primaryKeyJavaTypeName} id);
 
     /**
      * 列表

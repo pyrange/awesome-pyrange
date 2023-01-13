@@ -285,6 +285,11 @@ public class ToolWindowUI {
                     showErrorMsg(checkResult);
                     return;
                 }
+                checkResult = checkPath();
+                if (checkResult != null) {
+                    showErrorMsg(checkResult);
+                    return;
+                }
 
                 String jdbcHost = textFieldHost.getText();
                 String jdbcUserName = textFieldUserName.getText();
@@ -524,6 +529,13 @@ public class ToolWindowUI {
         if (CommonUtil.isNullOrEmpty(textFieldTableName.getText())) {
             return "TableName required";
         }
+        if (CommonUtil.isNullOrEmpty(textFieldAuthor.getText())) {
+            return "author required";
+        }
+        return null;
+    }
+
+    private String checkPath() {
         if (CommonUtil.isNullOrEmpty(textFieldProjectPath.getText())) {
             return "ProjectPath required";
         }
@@ -538,9 +550,6 @@ public class ToolWindowUI {
         }
         if (!samePathCheckBox.isSelected() && CommonUtil.isNullOrEmpty(comboBoxMapperPath.getSelectedItem())) {
             return "MapperPath required";
-        }
-        if (CommonUtil.isNullOrEmpty(textFieldAuthor.getText())) {
-            return "author required";
         }
         return null;
     }

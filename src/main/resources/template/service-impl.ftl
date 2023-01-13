@@ -8,7 +8,6 @@ import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generate
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Update;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Brief;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Detail;
-import ${configModel.groupId}.session.app.SessionUtil;
 import ${configModel.groupId}.common.model.dto.Result;
 import ${configModel.groupId}.common.util.PageUtil;
 
@@ -35,8 +34,6 @@ public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.mod
     public Result insert(${generateInfo.moduleName}Insert insert) {
         ${generateInfo.moduleName}Po ${generateInfo.moduleNameLowercase}Po = ${generateInfo.moduleName}Po.builder()
                 .createTime(LocalDateTime.now())
-                .createUserId(SessionUtil.getUserId())
-                .createUserName(SessionUtil.getUserName())
                 .build();
         BeanUtils.copyProperties(insert, ${generateInfo.moduleNameLowercase}Po);
         ${generateInfo.moduleNameLowercase}Mapper.insert(${generateInfo.moduleNameLowercase}Po);
@@ -47,8 +44,6 @@ public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.mod
     public Result update(${generateInfo.moduleName}Update update) {
         ${generateInfo.moduleName}Po ${generateInfo.moduleNameLowercase}Po = ${generateInfo.moduleName}Po.builder()
                 .updateTime(LocalDateTime.now())
-                .updateUserId(SessionUtil.getUserId())
-                .updateUserName(SessionUtil.getUserName())
                 .build();
         BeanUtils.copyProperties(update, ${generateInfo.moduleNameLowercase}Po);
         ${generateInfo.moduleNameLowercase}Mapper.update(${generateInfo.moduleNameLowercase}Po);
@@ -56,7 +51,7 @@ public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.mod
     }
 
     @Override
-    public Result${"<"}${generateInfo.moduleName}Detail${">"} detail(${generateInfo.primaryKeyJavaType} id) {
+    public Result${"<"}${generateInfo.moduleName}Detail${">"} detail(${generateInfo.primaryKeyJavaTypeName} id) {
         return Result.success(${generateInfo.moduleNameLowercase}Mapper.detail(id));
     }
 

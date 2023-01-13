@@ -52,7 +52,7 @@ public class ${generateInfo.moduleName}Controller {
      * @return Result${"<"}${generateInfo.moduleName}Detail${">"}
      **/
     @GetMapping("{id}")
-    public Result${"<"}${generateInfo.moduleName}Detail${">"} detail(@PathVariable("id") Integer id) {
+    public Result${"<"}${generateInfo.moduleName}Detail${">"} detail(@PathVariable("id") ${generateInfo.primaryKeyJavaTypeName} id) {
         return ${generateInfo.moduleNameLowercase}Service.detail(id);
     }
 
