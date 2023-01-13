@@ -22,10 +22,10 @@ public class ConfigModel {
     private String controllerPath;
     private String servicePath;
 
-
     private Boolean generateModel;
     private Boolean generateMapper;
-    private Boolean generateControllerService;
+    private Boolean generateController;
+    private Boolean generateService;
     private Boolean generateFrontEnd;
 
 
@@ -133,12 +133,12 @@ public class ConfigModel {
         this.generateMapper = generateMapper;
     }
 
-    public Boolean getGenerateControllerService() {
-        return generateControllerService;
+    public Boolean getGenerateController() {
+        return generateController;
     }
 
-    public void setGenerateControllerService(Boolean generateControllerService) {
-        this.generateControllerService = generateControllerService;
+    public void setGenerateController(Boolean generateController) {
+        this.generateController = generateController;
     }
 
     public Boolean getGenerateFrontEnd() {
@@ -155,5 +155,13 @@ public class ConfigModel {
 
     public void setProjectPath(String projectPath) {
         this.projectPath = projectPath;
+    }
+
+    public Boolean getGenerateService() {
+        return generateService;
+    }
+
+    public void setGenerateService(Boolean generateService) {
+        this.generateService = generateService;
     }
 }

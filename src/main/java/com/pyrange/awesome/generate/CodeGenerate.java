@@ -28,8 +28,10 @@ public class CodeGenerate {
         if (configModel.getGenerateMapper()) {
             MapperGenerate.generate(configModel, generateInfo);
         }
-        if (configModel.getGenerateControllerService()) {
+        if (configModel.getGenerateController()) {
             ControllerGenerate.generate(configModel, generateInfo);
+        }
+        if (configModel.getGenerateService()) {
             ServiceGenerate.generate(configModel, generateInfo);
         }
         if (configModel.getGenerateFrontEnd()) {

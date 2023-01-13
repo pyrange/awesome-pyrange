@@ -44,14 +44,20 @@ public class ToolWindowUI {
     private JButton servicePathSelectButton;
     private JButton controllerPathSelectButton;
 
+    private JCheckBox controllerCheckBox;
+    private JCheckBox serviceCheckBox;
     private JCheckBox modelCheckBox;
     private JCheckBox mapperCheckBox;
-    private JCheckBox controllerServiceCheckBox;
     private JCheckBox frontEndCheckBox;
+    private JCheckBox testCheckBox;
     private JCheckBox samePathCheckBox;
+
+    private JButton viewControllerButton;
+    private JButton viewServiceButton;
     private JButton viewModelButton;
     private JButton viewMapperButton;
     private JButton viewFEButton;
+    private JButton viewTestButton;
 
 
     private String baseProjectPath;
@@ -71,7 +77,8 @@ public class ToolWindowUI {
         // 初始化checkbox
         modelCheckBox.setSelected(true);
         mapperCheckBox.setSelected(true);
-        controllerServiceCheckBox.setSelected(true);
+        controllerCheckBox.setSelected(true);
+        serviceCheckBox.setSelected(true);
 
         PropertiesComponent propertiesComponentProject = PropertiesComponent.getInstance(project);
         PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
@@ -311,6 +318,49 @@ public class ToolWindowUI {
             }
         });
 
+        viewControllerButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String checkResult = checkParam();
+                if (checkResult != null) {
+                    showErrorMsg(checkResult);
+                    return;
+                }
+
+                try {
+                    String controllerStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "controller.ftl");
+
+                    CodingDialog codingDialog = new CodingDialog(controllerStr);
+                    codingDialog.show();
+                } catch (Exception ex) {
+                    showErrorMsg(Throwables.getStackTraceAsString(ex));
+                    LOGGER.info(ex);
+                }
+            }
+        });
+
+        viewServiceButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String checkResult = checkParam();
+                if (checkResult != null) {
+                    showErrorMsg(checkResult);
+                    return;
+                }
+
+                try {
+                    String serviceImplStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "service-impl.ftl");
+                    String serviceStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "service.ftl");
+
+                    CodingDialog codingDialog = new CodingDialog(serviceImplStr + SEPARATOR_LINE + serviceStr);
+                    codingDialog.show();
+                } catch (Exception ex) {
+                    showErrorMsg(Throwables.getStackTraceAsString(ex));
+                    LOGGER.info(ex);
+                }
+            }
+        });
+
         viewModelButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -330,7 +380,6 @@ public class ToolWindowUI {
                     showErrorMsg(Throwables.getStackTraceAsString(ex));
                     LOGGER.info(ex);
                 }
-
             }
         });
 
@@ -407,7 +456,8 @@ public class ToolWindowUI {
         configModel.setAuthor(textFieldAuthor.getText());
         configModel.setGenerateModel(modelCheckBox.isSelected());
         configModel.setGenerateMapper(mapperCheckBox.isSelected());
-        configModel.setGenerateControllerService(controllerServiceCheckBox.isSelected());
+        configModel.setGenerateController(controllerCheckBox.isSelected());
+        configModel.setGenerateService(serviceCheckBox.isSelected());
         configModel.setGenerateFrontEnd(frontEndCheckBox.isSelected());
 
         if (samePathCheckBox.isSelected()) {
