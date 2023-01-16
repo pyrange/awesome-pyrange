@@ -7,20 +7,41 @@ package com.pyrange.awesome.model;
  * @date: 2018-6-11
  **/
 public class ConfigModel {
-    private String jdbcHost;
-    private String jdbcDatabase;
-    private String jdbcUserName;
-    private String jdbcPassword;
-
+//    private String jdbcHost;
+//    private String jdbcDatabase;
+//    private String jdbcUserName;
+//    private String jdbcPassword;
+//
     private String tableName;
+//
+//    /**
+//     * 组织ID
+//     * com.xx
+//     */
+//    private String groupId;
+//    /**
+//     * JDK 版本
+//     */
+//    private Integer jdkVersion;
+//    /**
+//     * 结果包装类名
+//     */
+//    private String resultClassName;
+//    /**
+//     * 结果包装类引用
+//     */
+//    private String resultClassReference;
+//    /**
+//     * 分页类名
+//     */
+//    private String pageUtilClassName;
+//    /**
+//     * 分页类引用
+//     */
+//    private String pageUtilClassReference;
 
-    /**
-     * 组织ID
-     * com.xx
-     */
-    private String groupId;
 
-    private String author;
+//    private String author;
     private String modelPath;
     private String projectPath;
     private String mapperJavaPath;
@@ -35,58 +56,6 @@ public class ConfigModel {
     private Boolean generateFrontEnd;
     private Boolean generateTest;
 
-
-    public String getJdbcHost() {
-        return jdbcHost;
-    }
-
-    public void setJdbcHost(String jdbcHost) {
-        this.jdbcHost = jdbcHost;
-    }
-
-    public String getJdbcDatabase() {
-        return jdbcDatabase;
-    }
-
-    public void setJdbcDatabase(String jdbcDatabase) {
-        this.jdbcDatabase = jdbcDatabase;
-    }
-
-    public String getJdbcUserName() {
-        return jdbcUserName;
-    }
-
-    public void setJdbcUserName(String jdbcUserName) {
-        this.jdbcUserName = jdbcUserName;
-    }
-
-    public String getJdbcPassword() {
-        return jdbcPassword;
-    }
-
-    public void setJdbcPassword(String jdbcPassword) {
-        this.jdbcPassword = jdbcPassword;
-    }
-
-    public String getTableName() {
-        return tableName;
-    }
-
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getModelPath() {
-        return modelPath;
-    }
 
     public void setModelPath(String modelPath) {
         this.modelPath = modelPath;
@@ -180,11 +149,15 @@ public class ConfigModel {
         this.generateTest = generateTest;
     }
 
-    public String getGroupId() {
-        return groupId;
+    public String getTableName() {
+        return tableName;
     }
 
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public String getModelPath() {
+        return modelPath;
     }
 }
