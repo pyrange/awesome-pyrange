@@ -7,7 +7,7 @@ import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generate
 import ${generateInfo.servicePackage}.${generateInfo.moduleName}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ${configModel.groupId}.common.model.dto.Result;
+import ${basicConfig.groupId}.common.model.dto.Result;
 import java.util.List;
 
 /**

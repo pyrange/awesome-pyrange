@@ -1,6 +1,7 @@
 package com.pyrange.awesome.util;
 
 import com.intellij.openapi.diagnostic.Logger;
+import com.pyrange.awesome.model.BasicConfig;
 import com.pyrange.awesome.model.ConfigModel;
 import com.pyrange.awesome.model.GenerateInfo;
 import freemarker.cache.ClassTemplateLoader;
@@ -37,9 +38,10 @@ public class FreeMarkUtil {
     }
 
 
-    public static String getFileStr(ConfigModel configModel, GenerateInfo generateInfo, String templateName) throws Exception {
-        Map<String, Object> root = new HashMap<>(2);
+    public static String getFileStr(BasicConfig basicConfig, ConfigModel configModel, GenerateInfo generateInfo, String templateName) throws Exception {
+        Map<String, Object> root = new HashMap<>(3);
         root.put("generateInfo", generateInfo);
+        root.put("basicConfig", basicConfig);
         root.put("configModel", configModel);
 
         Configuration conf = new Configuration();

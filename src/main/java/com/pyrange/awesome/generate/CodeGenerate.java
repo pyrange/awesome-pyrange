@@ -16,42 +16,42 @@ import java.util.List;
  **/
 public class CodeGenerate {
 
-    public static void generate(ConfigModel configModel) throws Exception {
+    public static void generate(BasicConfig basicConfig, ConfigModel configModel) throws Exception {
         // 获取处理配置信息
-        TableInfo tableInfo = getTableInfo(configModel);
-        GenerateInfo generateInfo = getGenerateInfo(configModel, tableInfo);
+        TableInfo tableInfo = getTableInfo(basicConfig, configModel);
+        GenerateInfo generateInfo = getGenerateInfo(basicConfig, configModel, tableInfo);
 
         if (configModel.getGenerateModel()) {
-            ModelGenerate.generate(configModel, generateInfo);
+            ModelGenerate.generate(basicConfig, configModel, generateInfo);
         }
         if (configModel.getGenerateMapper()) {
-            MapperGenerate.generate(configModel, generateInfo);
+            MapperGenerate.generate(basicConfig, configModel, generateInfo);
         }
         if (configModel.getGenerateController()) {
-            ControllerGenerate.generate(configModel, generateInfo);
+            ControllerGenerate.generate(basicConfig, configModel, generateInfo);
         }
         if (configModel.getGenerateService()) {
-            ServiceGenerate.generate(configModel, generateInfo);
+            ServiceGenerate.generate(basicConfig, configModel, generateInfo);
         }
         if (configModel.getGenerateFrontEnd()) {
-            FrontEndGenerate.generate(configModel, generateInfo);
+            FrontEndGenerate.generate(basicConfig, configModel, generateInfo);
         }
         if (configModel.getGenerateTest()) {
-            TestGenerate.generate(configModel, generateInfo);
+            TestGenerate.generate(basicConfig, configModel, generateInfo);
         }
     }
 
-    public static String getGeneratedModelStr(ConfigModel configModel, String template) throws Exception {
-        TableInfo tableInfo = getTableInfo(configModel);
-        GenerateInfo generateInfo = getGenerateInfo(configModel, tableInfo);
-        return FreeMarkUtil.getFileStr(configModel, generateInfo, template) ;
+    public static String getGeneratedModelStr(BasicConfig basicConfig, ConfigModel configModel, String template) throws Exception {
+        TableInfo tableInfo = getTableInfo(basicConfig, configModel);
+        GenerateInfo generateInfo = getGenerateInfo(basicConfig, configModel, tableInfo);
+        return FreeMarkUtil.getFileStr(basicConfig, configModel, generateInfo, template) ;
     }
 
-    private static TableInfo getTableInfo(ConfigModel configModel) throws Exception {
-        TableUtil tableUtil = new TableUtil(configModel.getJdbcHost(),
-                configModel.getJdbcDatabase(),
-                configModel.getJdbcUserName(),
-                configModel.getJdbcPassword());
+    private static TableInfo getTableInfo(BasicConfig basicConfig, ConfigModel configModel) throws Exception {
+        TableUtil tableUtil = new TableUtil(basicConfig.getJdbcHost(),
+                basicConfig.getJdbcDatabase(),
+                basicConfig.getJdbcUserName(),
+                basicConfig.getJdbcPassword());
         TableInfo tableInfo = tableUtil.getTableInfo(configModel.getTableName());
         if (tableInfo == null) {
             throw new Exception("Table is not exist!");
@@ -71,11 +71,11 @@ public class CodeGenerate {
         return tableInfo;
     }
 
-    private static GenerateInfo getGenerateInfo(ConfigModel configModel, TableInfo tableInfo) {
+    private static GenerateInfo getGenerateInfo(BasicConfig basicConfig, ConfigModel configModel, TableInfo tableInfo) {
         String moduleName = CommonUtil.getNameUpperCamel(configModel.getTableName());
 
         GenerateInfo generateInfo = new GenerateInfo();
-        generateInfo.setAuthor(configModel.getAuthor());
+        generateInfo.setAuthor(basicConfig.getAuthor());
         generateInfo.setModuleName(moduleName);
         generateInfo.setModuleNameUppercaseCamel(moduleName);
         generateInfo.setModuleNameLowercase(moduleName.toLowerCase());

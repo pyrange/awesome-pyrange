@@ -1,5 +1,6 @@
 package com.pyrange.awesome.generate;
 
+import com.pyrange.awesome.model.BasicConfig;
 import com.pyrange.awesome.model.ConfigModel;
 import com.pyrange.awesome.model.GenerateInfo;
 import com.pyrange.awesome.util.FreeMarkUtil;
@@ -15,10 +16,11 @@ import java.util.Map;
  **/
 public class ControllerGenerate {
 
-    public static void generate(ConfigModel configModel, GenerateInfo generateInfo) throws Exception {
-        Map<String, Object> root = new HashMap<>(2);
+    public static void generate(BasicConfig basicConfig, ConfigModel configModel, GenerateInfo generateInfo) throws Exception {
+        Map<String, Object> root = new HashMap<>(3);
         root.put("generateInfo", generateInfo);
         root.put("configModel", configModel);
+        root.put("basicConfig", basicConfig);
 
         String fileName = generateInfo.getModelNameUpperCamel() + "Controller.java";
         FreeMarkUtil.generateFile(root, "controller.ftl", configModel.getControllerPath(), fileName);

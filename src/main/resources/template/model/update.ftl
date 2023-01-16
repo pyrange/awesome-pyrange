@@ -8,7 +8,12 @@ import ${import};
 import java.time.LocalDateTime;
 
 import org.hibernate.validator.constraints.Length;
+<#if basicConfig.jdkVersion == 17>
 import jakarta.validation.constraints.NotNull;
+<#else>
+import javax.validation.constraints.NotNull;
+</#if>
+
 
 /**
  * ${generateInfo.tableComment}修改
@@ -20,7 +25,7 @@ import jakarta.validation.constraints.NotNull;
 @Setter
 public class ${generateInfo.moduleName}Update {
 
-    // TODO ${configModel.author} 记得删除无用字段；记得删除无用字段；记得删除无用字段；记得删除无用字段；记得删除无用字段；
+    // TODO ${basicConfig.author} 记得删除无用字段；记得删除无用字段；记得删除无用字段；记得删除无用字段；记得删除无用字段；
 <#list generateInfo.columnList as column>
 
     /** ${column.columnComment} */

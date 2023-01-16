@@ -4,7 +4,7 @@ import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generate
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Update;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Brief;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Detail;
-import ${configModel.groupId}.common.model.dto.Result;
+import ${basicConfig.groupId}.common.model.dto.Result;
 import java.util.List;
 
 /**

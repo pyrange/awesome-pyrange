@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/baomidou/mybatis-plus">
-   <img alt="Mybatis-Plus-Logo" src="src/main/resources/pyrange-logo.png">
+   <img alt="Mybatis-Plus-Logo" src="src/main/resources/images/pyrange-logo.png">
   </a>
 </p>
 
@@ -16,7 +16,7 @@ idea: 2021.3.3
 Gradle -> Tasks -> intellij -> buildPlugin
 
 # 调试方法
-Gradle -> Tasks -> intellij -> runIdeForUiTests  
+Gradle -> Tasks ![](src/main/resources/pyrange-logo.png)-> intellij -> runIdeForUiTests  
 使用 debug 模式运行
 
 # 插件试用 Idea 版本

@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Setter
 public class ${generateInfo.moduleName}Brief {
 
-    // TODO ${configModel.author} 记得删除无用字段；记得删除无用字段；记得删除无用字段；记得删除无用字段；记得删除无用字段；
+    // TODO ${basicConfig.author} 记得删除无用字段；记得删除无用字段；记得删除无用字段；记得删除无用字段；记得删除无用字段；
 <#list generateInfo.columnList as column>
 
     /** ${column.columnComment} */

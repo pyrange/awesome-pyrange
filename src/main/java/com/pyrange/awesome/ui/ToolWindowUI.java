@@ -2,16 +2,15 @@ package com.pyrange.awesome.ui;
 
 import com.google.common.base.Throwables;
 import com.intellij.ide.util.PropertiesComponent;
-import com.intellij.notification.*;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
-import com.pyrange.awesome.PyrangeConstant;
+import com.intellij.openapi.ui.Messages;
 import com.pyrange.awesome.PyrangeException;
-import com.pyrange.awesome.util.TableUtil;
+import com.pyrange.awesome.ui.setting.Settings;
+import com.pyrange.awesome.util.MessageUtil;
 import com.pyrange.awesome.generate.CodeGenerate;
 import com.pyrange.awesome.model.ConfigModel;
 import com.pyrange.awesome.util.CommonUtil;
-import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
@@ -27,14 +26,9 @@ public class ToolWindowUI {
 
     private JPanel toolWindowContent;
 
-    private JTextField textFieldHost;
-    private JTextField textFieldUserName;
-    private JPasswordField textFieldPassword;
     private JTextField textFieldTableName;
-    private JTextField textFieldAuthor;
     private JTextField textFieldProjectPath;
 
-    private JComboBox comboBoxDatabase;
     private JComboBox comboBoxServicePath;
     private JComboBox comboBoxModelPath;
     private JComboBox comboBoxMapperPath;
@@ -61,7 +55,7 @@ public class ToolWindowUI {
     private JButton viewMapperButton;
     private JButton viewFEButton;
     private JButton viewTestButton;
-    private JTextField textFieldGroupId;
+    private JLabel settingLabel;
 
 
     private String baseProjectPath;
@@ -72,10 +66,6 @@ public class ToolWindowUI {
 
     private static final Logger LOGGER = Logger.getInstance(ToolWindowUI.class);
 
-    private NotificationGroup myBatisCode_notification_group = new NotificationGroup("Awesome-Pyrange",
-            NotificationDisplayType.BALLOON, true);
-
-
     public ToolWindowUI(Project project) {
         this.baseProjectPath = project.getBasePath();
         // 初始化checkbox
@@ -84,72 +74,22 @@ public class ToolWindowUI {
         controllerCheckBox.setSelected(true);
         serviceCheckBox.setSelected(true);
 
-        PropertiesComponent propertiesComponentProject = PropertiesComponent.getInstance(project);
         PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
 
-        textFieldHost.setText(propertiesComponent.getValue("jdbcHost"));
-        textFieldUserName.setText(propertiesComponent.getValue("jdbcUserName"));
-        textFieldPassword.setText(propertiesComponent.getValue("jdbcPassword"));
-        textFieldTableName.setText(propertiesComponent.getValue("tableName"));
-        textFieldAuthor.setText(propertiesComponent.getValue("author"));
-        textFieldGroupId.setText(propertiesComponent.getValue("groupId"));
-        comboBoxDatabase.addItem(propertiesComponent.getValue("jdbcDatabase"));
-        comboBoxDatabase.setSelectedItem(propertiesComponent.getValue("jdbcDatabase"));
-        textFieldProjectPath.setText(propertiesComponentProject.getValue("projectPath"));
+        textFieldTableName.setText(propertiesComponent.getValue("Pyrange-tableName"));
+        textFieldProjectPath.setText(propertiesComponent.getValue("Pyrange-projectPath"));
 
-        comboBoxControllerPath.addItem(propertiesComponentProject.getValue("controllerPath"));
-        comboBoxControllerPath.setSelectedItem(propertiesComponentProject.getValue("controllerPath"));
+        comboBoxControllerPath.addItem(propertiesComponent.getValue("Pyrange-controllerPath"));
+        comboBoxControllerPath.setSelectedItem(propertiesComponent.getValue("Pyrange-controllerPath"));
 
-        comboBoxServicePath.addItem(propertiesComponentProject.getValue("servicePath"));
-        comboBoxServicePath.setSelectedItem(propertiesComponentProject.getValue("servicePath"));
+        comboBoxServicePath.addItem(propertiesComponent.getValue("Pyrange-servicePath"));
+        comboBoxServicePath.setSelectedItem(propertiesComponent.getValue("Pyrange-servicePath"));
 
-        comboBoxModelPath.addItem(propertiesComponentProject.getValue("modelPath"));
-        comboBoxModelPath.setSelectedItem(propertiesComponentProject.getValue("modelPath"));
+        comboBoxModelPath.addItem(propertiesComponent.getValue("Pyrange-modelPath"));
+        comboBoxModelPath.setSelectedItem(propertiesComponent.getValue("Pyrange-modelPath"));
 
-        comboBoxMapperPath.addItem(propertiesComponentProject.getValue("mapperPath"));
-        comboBoxMapperPath.setSelectedItem(propertiesComponentProject.getValue("mapperPath"));
-
-        comboBoxDatabase.addPopupMenuListener(new PopupMenuListener() {
-            @Override
-            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-                String jdbcHost = textFieldHost.getText();
-                String jdbcUserName = textFieldUserName.getText();
-                String jdbcPassword = textFieldPassword.getText();
-                if (CommonUtil.isNullOrEmpty(jdbcHost)) {
-                    showErrorMsg("Host:Port required");
-                    return;
-                }
-                if (CommonUtil.isNullOrEmpty(jdbcUserName)) {
-                    showErrorMsg("UserName required");
-                    return;
-                }
-                if (CommonUtil.isNullOrEmpty(jdbcPassword)) {
-                    showErrorMsg("Password required");
-                    return;
-                }
-                try {
-                    TableUtil tableUtil = new TableUtil(jdbcHost, jdbcUserName, jdbcPassword);
-                    List<String> allDatabase = tableUtil.getAllDatabase();
-                    comboBoxDatabase.removeAllItems();
-                    allDatabase.forEach(databaseName -> {
-                        comboBoxDatabase.addItem(databaseName);
-                    });
-                } catch (Exception e1) {
-                    showErrorMsg(Throwables.getStackTraceAsString(e1));
-                    LOGGER.info(e1);
-                }
-            }
-
-            @Override
-            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-
-            }
-
-            @Override
-            public void popupMenuCanceled(PopupMenuEvent e) {
-
-            }
-        });
+        comboBoxMapperPath.addItem(propertiesComponent.getValue("Pyrange-mapperPath"));
+        comboBoxMapperPath.setSelectedItem(propertiesComponent.getValue("Pyrange-mapperPath"));
 
         comboBoxControllerPath.addPopupMenuListener(new PopupMenuListener() {
             @Override
@@ -280,52 +220,40 @@ public class ToolWindowUI {
         goButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String checkResult = checkParam();
-                if (checkResult != null) {
-                    showErrorMsg(checkResult);
+                boolean settingsConfigured = Settings.settingsConfigured();
+                if (!settingsConfigured) {
+                    Messages.showMessageDialog("please config env first", "tip", Messages.getInformationIcon());
                     return;
                 }
-                checkResult = checkPath();
+                String checkResult = checkPath();
                 if (checkResult != null) {
-                    showErrorMsg(checkResult);
+                    MessageUtil.showErrorMsg(checkResult);
                     return;
                 }
 
-                String jdbcHost = textFieldHost.getText();
-                String jdbcUserName = textFieldUserName.getText();
-                String jdbcPassword = textFieldPassword.getText();
-                String jdbcDatabase = (String) comboBoxDatabase.getSelectedItem();
                 String tableName = textFieldTableName.getText();
                 String projectPath = textFieldProjectPath.getText();
                 String controllerPath = (String) comboBoxControllerPath.getSelectedItem();
                 String servicePath = (String) comboBoxServicePath.getSelectedItem();
                 String modelPath = (String) comboBoxModelPath.getSelectedItem();
                 String mapperPath = (String) comboBoxMapperPath.getSelectedItem();
-                String author = textFieldAuthor.getText();
-                String groupId = textFieldGroupId.getText();
 
-                propertiesComponent.setValue("jdbcHost", jdbcHost);
-                propertiesComponent.setValue("jdbcDatabase", jdbcDatabase);
-                propertiesComponent.setValue("jdbcUserName", jdbcUserName);
-                propertiesComponent.setValue("jdbcPassword", jdbcPassword);
-                propertiesComponent.setValue("tableName", tableName);
-                propertiesComponentProject.setValue("projectPath", projectPath);
-                propertiesComponentProject.setValue("modelPath", modelPath);
-                propertiesComponentProject.setValue("controllerPath", controllerPath);
-                propertiesComponentProject.setValue("servicePath", servicePath);
-                propertiesComponentProject.setValue("mapperPath", mapperPath);
-                propertiesComponentProject.setValue("modelPath", modelPath);
-                propertiesComponent.setValue("author", author);
-                propertiesComponent.setValue("groupId", groupId);
+                propertiesComponent.setValue("Pyrange-tableName", tableName);
+                propertiesComponent.setValue("Pyrange-projectPath", projectPath);
+                propertiesComponent.setValue("Pyrange-modelPath", modelPath);
+                propertiesComponent.setValue("Pyrange-controllerPath", controllerPath);
+                propertiesComponent.setValue("Pyrange-servicePath", servicePath);
+                propertiesComponent.setValue("Pyrange-mapperPath", mapperPath);
+                propertiesComponent.setValue("Pyrange-modelPath", modelPath);
 
                 try {
-                    CodeGenerate.generate(getConfigModel());
-                    showSuccessMsg("Table " + tableName + " has been generated successfully!");
+                    CodeGenerate.generate(Settings.getBasicConfig(), getConfigModel());
+                    MessageUtil.showSuccessMsg("Table " + tableName + " has been generated successfully!");
                 } catch (PyrangeException e1) {
-                    showErrorMsg(e1.getMessage());
+                    MessageUtil.showErrorMsg(e1.getMessage());
                     LOGGER.info(e1);
                 } catch (Exception e1) {
-                    showErrorMsg(Throwables.getStackTraceAsString(e1));
+                    MessageUtil.showErrorMsg(Throwables.getStackTraceAsString(e1));
                     LOGGER.info(e1);
                 }
 
@@ -335,19 +263,19 @@ public class ToolWindowUI {
         viewControllerButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String checkResult = checkParam();
-                if (checkResult != null) {
-                    showErrorMsg(checkResult);
+                boolean settingsConfigured = Settings.settingsConfigured();
+                if (!settingsConfigured) {
+                    Messages.showMessageDialog("请先初始化基本配置", "tip", Messages.getInformationIcon());
                     return;
                 }
 
                 try {
-                    String controllerStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "controller.ftl");
+                    String controllerStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "controller.ftl");
 
                     CodingDialog codingDialog = new CodingDialog(controllerStr);
                     codingDialog.show();
                 } catch (Exception ex) {
-                    showErrorMsg(Throwables.getStackTraceAsString(ex));
+                    MessageUtil.showErrorMsg(Throwables.getStackTraceAsString(ex));
                     LOGGER.info(ex);
                 }
             }
@@ -356,20 +284,20 @@ public class ToolWindowUI {
         viewServiceButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String checkResult = checkParam();
-                if (checkResult != null) {
-                    showErrorMsg(checkResult);
+                boolean settingsConfigured = Settings.settingsConfigured();
+                if (!settingsConfigured) {
+                    Messages.showMessageDialog("请先初始化基本配置", "tip", Messages.getInformationIcon());
                     return;
                 }
 
                 try {
-                    String serviceImplStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "service-impl.ftl");
-                    String serviceStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "service.ftl");
+                    String serviceImplStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "service-impl.ftl");
+                    String serviceStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "service.ftl");
 
                     CodingDialog codingDialog = new CodingDialog(serviceImplStr + SEPARATOR_LINE + serviceStr);
                     codingDialog.show();
                 } catch (Exception ex) {
-                    showErrorMsg(Throwables.getStackTraceAsString(ex));
+                    MessageUtil.showErrorMsg(Throwables.getStackTraceAsString(ex));
                     LOGGER.info(ex);
                 }
             }
@@ -378,20 +306,20 @@ public class ToolWindowUI {
         viewModelButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String checkResult = checkParam();
-                if (checkResult != null) {
-                    showErrorMsg(checkResult);
+                boolean settingsConfigured = Settings.settingsConfigured();
+                if (!settingsConfigured) {
+                    Messages.showMessageDialog("请先初始化基本配置", "tip", Messages.getInformationIcon());
                     return;
                 }
 
                 try {
-                    String insertStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "model/insert.ftl");
-                    String poStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "model/po.ftl");
+                    String insertStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "model/insert.ftl");
+                    String poStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "model/po.ftl");
 
                     CodingDialog codingDialog = new CodingDialog(poStr + SEPARATOR_LINE + insertStr);
                     codingDialog.show();
                 } catch (Exception ex) {
-                    showErrorMsg(Throwables.getStackTraceAsString(ex));
+                    MessageUtil.showErrorMsg(Throwables.getStackTraceAsString(ex));
                     LOGGER.info(ex);
                 }
             }
@@ -401,20 +329,20 @@ public class ToolWindowUI {
         viewMapperButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String checkResult = checkParam();
-                if (checkResult != null) {
-                    showErrorMsg(checkResult);
+                boolean settingsConfigured = Settings.settingsConfigured();
+                if (!settingsConfigured) {
+                    Messages.showMessageDialog("请先初始化基本配置", "tip", Messages.getInformationIcon());
                     return;
                 }
 
                 try {
-                    String mapperStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "mapper.ftl");
-                    String mapperXmlStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "mapperxml.ftl");
+                    String mapperStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "mapper.ftl");
+                    String mapperXmlStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "mapperxml.ftl");
 
                     CodingDialog codingDialog = new CodingDialog(mapperXmlStr + SEPARATOR_LINE + mapperStr);
                     codingDialog.show();
                 } catch (Exception ex) {
-                    showErrorMsg(Throwables.getStackTraceAsString(ex));
+                    MessageUtil.showErrorMsg(Throwables.getStackTraceAsString(ex));
                     LOGGER.info(ex);
                 }
             }
@@ -424,16 +352,16 @@ public class ToolWindowUI {
         viewFEButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String checkResult = checkParam();
-                if (checkResult != null) {
-                    showErrorMsg(checkResult);
+                boolean settingsConfigured = Settings.settingsConfigured();
+                if (!settingsConfigured) {
+                    Messages.showMessageDialog("请先初始化基本配置", "tip", Messages.getInformationIcon());
                     return;
                 }
 
                 try {
-                    String indexStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "fe/index.ftl");
-                    String detailStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "fe/DetailDialog.ftl");
-                    String editStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "fe/EditDialog.ftl");
+                    String indexStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "fe/index.ftl");
+                    String detailStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "fe/DetailDialog.ftl");
+                    String editStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "fe/EditDialog.ftl");
 
                     CodingDialog codingDialog = new CodingDialog(
                             indexStr
@@ -443,7 +371,7 @@ public class ToolWindowUI {
                                     editStr);
                     codingDialog.show();
                 } catch (Exception ex) {
-                    showErrorMsg(Throwables.getStackTraceAsString(ex));
+                    MessageUtil.showErrorMsg(Throwables.getStackTraceAsString(ex));
                     LOGGER.info(ex);
                 }
             }
@@ -452,24 +380,32 @@ public class ToolWindowUI {
         viewTestButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String checkResult = checkParam();
-                if (checkResult != null) {
-                    showErrorMsg(checkResult);
+                boolean settingsConfigured = Settings.settingsConfigured();
+                if (!settingsConfigured) {
+                    Messages.showMessageDialog("请先初始化基本配置", "tip", Messages.getInformationIcon());
                     return;
                 }
 
                 try {
-                    String testStr = CodeGenerate.getGeneratedModelStr(getConfigModel(), "test.ftl");
+                    String testStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "test.ftl");
                     CodingDialog codingDialog = new CodingDialog(testStr);
                     codingDialog.show();
                 } catch (Exception ex) {
-                    showErrorMsg(Throwables.getStackTraceAsString(ex));
+                    MessageUtil.showErrorMsg(Throwables.getStackTraceAsString(ex));
                     LOGGER.info(ex);
                 }
 
             }
         });
 
+        settingLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Settings dialog = new Settings();
+                dialog.pack();
+                dialog.setVisible(true);
+            }
+        });
     }
 
 
@@ -477,11 +413,23 @@ public class ToolWindowUI {
         String projectPath = textFieldProjectPath.getText();
         String mapperPath = (String) comboBoxMapperPath.getSelectedItem();
 
+//        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
+
+//        BasicConfig basicConfig = Settings.getBasicConfig();
+        
         ConfigModel configModel = new ConfigModel();
-        configModel.setJdbcHost(textFieldHost.getText());
-        configModel.setJdbcDatabase((String) comboBoxDatabase.getSelectedItem());
-        configModel.setJdbcUserName(textFieldUserName.getText());
-        configModel.setJdbcPassword(textFieldPassword.getText());
+//        configModel.setJdbcDatabase(basicConfig.getJdbcDatabase());
+//        configModel.setJdbcUserName(basicConfig.getJdbcUserName());
+//        configModel.setJdbcPassword(basicConfig.getJdbcPassword());
+//        configModel.setGroupId(basicConfig.getGroupId());
+//        configModel.setAuthor(basicConfig.getAuthor());
+//        configModel.setJdkVersion(basicConfig.getJdkVersion());
+//
+//        configModel.setResultClassReference(basicConfig.getResultClassReference());
+//        configModel.setResultClassName(basicConfig.getResultClassName());
+//
+//        configModel.setPageUtilClassReference(basicConfig.getPageClassReference());
+//        configModel.setPageUtilClassName(basicConfig.getPageClassName());
 
         configModel.setProjectPath(projectPath);
         configModel.setControllerPath(CommonUtil.fomatPath((String) comboBoxControllerPath.getSelectedItem()));
@@ -490,9 +438,6 @@ public class ToolWindowUI {
         configModel.setMapperJavaPath(CommonUtil.fomatPath(mapperPath));
         configModel.setMapperXmlPath(CommonUtil.fomatPath(mapperPath));
 
-        configModel.setAuthor(textFieldAuthor.getText());
-        String groupId = StringUtils.isEmpty(textFieldGroupId.getText()) ? PyrangeConstant.DEFAULT_GROUP_ID : textFieldGroupId.getText();
-        configModel.setGroupId(groupId);
 
         configModel.setGenerateModel(modelCheckBox.isSelected());
         configModel.setGenerateMapper(mapperCheckBox.isSelected());
@@ -511,28 +456,6 @@ public class ToolWindowUI {
 
         configModel.setTableName(textFieldTableName.getText());
         return configModel;
-    }
-
-    private String checkParam() {
-        if (CommonUtil.isNullOrEmpty(textFieldHost.getText())) {
-            return "Host:Port required";
-        }
-        if (CommonUtil.isNullOrEmpty(textFieldUserName.getText())) {
-            return "UserName required";
-        }
-        if (textFieldPassword.getPassword().length == 0) {
-            return "Password required";
-        }
-        if (CommonUtil.isNullOrEmpty(comboBoxDatabase.getSelectedItem())) {
-            return "Database required";
-        }
-        if (CommonUtil.isNullOrEmpty(textFieldTableName.getText())) {
-            return "TableName required";
-        }
-        if (CommonUtil.isNullOrEmpty(textFieldAuthor.getText())) {
-            return "author required";
-        }
-        return null;
     }
 
     private String checkPath() {
@@ -598,7 +521,7 @@ public class ToolWindowUI {
     private void comboBoxClickAction(JComboBox comboBox, String key) {
         String projectPath = textFieldProjectPath.getText();
         if (CommonUtil.isNullOrEmpty(projectPath)) {
-            showErrorMsg("ProjectPath required");
+            MessageUtil.showErrorMsg("ProjectPath required");
             return;
         }
         List<File> directoryByProjectPath = CommonUtil.searchDirectory(projectPath, key);
@@ -609,17 +532,8 @@ public class ToolWindowUI {
             });
             comboBox.setSelectedItem(directoryByProjectPath.get(0).getAbsolutePath());
         } else {
-            showErrorMsg("Not found " + key + " path");
+            MessageUtil.showErrorMsg("Not found " + key + " path");
         }
     }
 
-    private void showSuccessMsg(String msg) {
-        Notification notification = myBatisCode_notification_group.createNotification("Awesome-Pyrange message", msg, NotificationType.INFORMATION, null);
-        Notifications.Bus.notify(notification);
-    }
-
-    private void showErrorMsg(String msg) {
-        Notification notification = myBatisCode_notification_group.createNotification("Awesome-Pyrange Error Message", msg, NotificationType.ERROR, null);
-        Notifications.Bus.notify(notification);
-    }
 }

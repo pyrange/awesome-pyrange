@@ -1,6 +1,6 @@
 package ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot};
 
-import ${configModel.groupId}.common.model.dto.BasePage;
+import ${basicConfig.basePageClassReference};
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +12,7 @@ import lombok.Setter;
  **/
 @Getter
 @Setter
-public class ${generateInfo.moduleName}Query extends BasePage {
+public class ${generateInfo.moduleName}Query extends ${basicConfig.basePageClassName} {
 
     /**
      * 查询关键字
