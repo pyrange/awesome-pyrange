@@ -34,30 +34,30 @@ public class BasicConfig {
      */
     private String selectedCodeTemplate;
 
-    /**
-     * 结果包装类名
-     */
-    private String resultClassName;
-    /**
-     * 结果包装类引用
-     */
-    private String resultClassReference;
-    /**
-     * 分页类名
-     */
-    private String pageUtilClassName;
-    /**
-     * 分页类引用
-     */
-    private String pageClassUtilReference;
-    /**
-     * 分页基类名
-     */
-    private String basePageClassName;
-    /**
-     * 分页基类引用
-     */
-    private String basePageClassReference;
+//    /**
+//     * 结果包装类名
+//     */
+//    private String resultClassName;
+//    /**
+//     * 结果包装类引用
+//     */
+//    private String resultClassReference;
+//    /**
+//     * 分页类名
+//     */
+//    private String pageUtilClassName;
+//    /**
+//     * 分页类引用
+//     */
+//    private String pageClassUtilReference;
+//    /**
+//     * 分页基类名
+//     */
+//    private String basePageClassName;
+//    /**
+//     * 分页基类引用
+//     */
+//    private String basePageClassReference;
 
     public String getJdbcHost() {
         return jdbcHost;
@@ -115,64 +115,12 @@ public class BasicConfig {
         this.jdkVersion = jdkVersion;
     }
 
-    public String getResultClassName() {
-        return resultClassName;
-    }
-
-    public void setResultClassName(String resultClassName) {
-        this.resultClassName = resultClassName;
-    }
-
-    public String getResultClassReference() {
-        return resultClassReference;
-    }
-
-    public void setResultClassReference(String resultClassReference) {
-        this.resultClassReference = resultClassReference;
-    }
-
-    public String getPageUtilClassName() {
-        return pageUtilClassName;
-    }
-
-    public void setPageUtilClassName(String pageUtilClassName) {
-        this.pageUtilClassName = pageUtilClassName;
-    }
-
-    public String getPageUtilClassReference() {
-        return pageClassUtilReference;
-    }
-
-    public void setPageClassUtilReference(String pageClassUtilReference) {
-        this.pageClassUtilReference = pageClassUtilReference;
-    }
-
-    public String getBasePageClassName() {
-        return basePageClassName;
-    }
-
-    public void setBasePageClassName(String basePageClassName) {
-        this.basePageClassName = basePageClassName;
-    }
-
-    public String getBasePageClassReference() {
-        return basePageClassReference;
-    }
-
-    public void setBasePageClassReference(String basePageClassReference) {
-        this.basePageClassReference = basePageClassReference;
-    }
-
     public String[] getCodeTemplates() {
         return codeTemplates;
     }
 
     public void setCodeTemplates(String[] codeTemplates) {
         this.codeTemplates = codeTemplates;
-    }
-
-    public String getPageClassUtilReference() {
-        return pageClassUtilReference;
     }
 
     public String getSelectedCodeTemplate() {
@@ -182,4 +130,5 @@ public class BasicConfig {
     public void setSelectedCodeTemplate(String selectedCodeTemplate) {
         this.selectedCodeTemplate = selectedCodeTemplate;
     }
+
 }

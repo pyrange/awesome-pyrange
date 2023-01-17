@@ -8,8 +8,8 @@ import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generate
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Update;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Brief;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Detail;
-import ${basicConfig.resultClassReference};
-import ${basicConfig.pageUtilClassReference};
+import com.pyrange.common.model.dto.Result;
+import com.pyrange.common.util.PageUtil;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -57,7 +57,7 @@ public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.mod
 
     @Override
     public Result${"<List<"}${generateInfo.moduleName}Brief${">>"} list(${generateInfo.moduleName}Query query) {
-        ${basicConfig.pageUtilClassName}.startPage(query);
+        PageUtil.startPage(query);
         return Result.success(${generateInfo.moduleNameLowercase}Mapper.list(query));
     }
 }

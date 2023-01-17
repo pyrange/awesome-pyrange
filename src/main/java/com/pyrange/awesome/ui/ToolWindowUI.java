@@ -66,29 +66,31 @@ public class ToolWindowUI {
     private static final Logger LOGGER = Logger.getInstance(ToolWindowUI.class);
 
     public ToolWindowUI(Project project) {
-        this.baseProjectPath = project.getBasePath();
-        // 初始化checkbox
-        modelCheckBox.setSelected(true);
-        mapperCheckBox.setSelected(true);
-        controllerCheckBox.setSelected(true);
-        serviceCheckBox.setSelected(true);
-
         PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
 
-        textFieldTableName.setText(propertiesComponent.getValue("Pyrange-tableName"));
-        textFieldProjectPath.setText(propertiesComponent.getValue("Pyrange-projectPath"));
+        this.baseProjectPath = project.getBasePath();
+        // 初始化checkbox
+        controllerCheckBox.setSelected(propertiesComponent.getBoolean("PYRNAGE-WINDOWS-controllerCheckBox", true));
+        serviceCheckBox.setSelected(propertiesComponent.getBoolean("PYRNAGE-WINDOWS-serviceCheckBox", true));
+        mapperCheckBox.setSelected(propertiesComponent.getBoolean("PYRNAGE-WINDOWS-mapperCheckBox", true));
+        modelCheckBox.setSelected(propertiesComponent.getBoolean("PYRNAGE-WINDOWS-modelCheckBox", true));
+        testCheckBox.setSelected(propertiesComponent.getBoolean("PYRNAGE-WINDOWS-testCheckBox", true));
+        frontEndCheckBox.setSelected(propertiesComponent.getBoolean("PYRNAGE-WINDOWS-frontEndCheckBox", true));
 
-        comboBoxControllerPath.addItem(propertiesComponent.getValue("Pyrange-controllerPath"));
-        comboBoxControllerPath.setSelectedItem(propertiesComponent.getValue("Pyrange-controllerPath"));
+        textFieldTableName.setText(propertiesComponent.getValue("Pyrange-WINDOWStableName"));
+        textFieldProjectPath.setText(propertiesComponent.getValue("Pyrange-WINDOWSprojectPath"));
 
-        comboBoxServicePath.addItem(propertiesComponent.getValue("Pyrange-servicePath"));
-        comboBoxServicePath.setSelectedItem(propertiesComponent.getValue("Pyrange-servicePath"));
+        comboBoxControllerPath.addItem(propertiesComponent.getValue("Pyrange-WINDOWScontrollerPath"));
+        comboBoxControllerPath.setSelectedItem(propertiesComponent.getValue("Pyrange-WINDOWScontrollerPath"));
 
-        comboBoxModelPath.addItem(propertiesComponent.getValue("Pyrange-modelPath"));
-        comboBoxModelPath.setSelectedItem(propertiesComponent.getValue("Pyrange-modelPath"));
+        comboBoxServicePath.addItem(propertiesComponent.getValue("Pyrange-WINDOWSservicePath"));
+        comboBoxServicePath.setSelectedItem(propertiesComponent.getValue("Pyrange-WINDOWSservicePath"));
 
-        comboBoxMapperPath.addItem(propertiesComponent.getValue("Pyrange-mapperPath"));
-        comboBoxMapperPath.setSelectedItem(propertiesComponent.getValue("Pyrange-mapperPath"));
+        comboBoxModelPath.addItem(propertiesComponent.getValue("Pyrange-WINDOWSmodelPath"));
+        comboBoxModelPath.setSelectedItem(propertiesComponent.getValue("Pyrange-WINDOWSmodelPath"));
+
+        comboBoxMapperPath.addItem(propertiesComponent.getValue("Pyrange-WINDOWSmapperPath"));
+        comboBoxMapperPath.setSelectedItem(propertiesComponent.getValue("Pyrange-WINDOWSmapperPath"));
 
         comboBoxControllerPath.addPopupMenuListener(new PopupMenuListener() {
             @Override
@@ -237,13 +239,20 @@ public class ToolWindowUI {
                 String modelPath = (String) comboBoxModelPath.getSelectedItem();
                 String mapperPath = (String) comboBoxMapperPath.getSelectedItem();
 
-                propertiesComponent.setValue("Pyrange-tableName", tableName);
-                propertiesComponent.setValue("Pyrange-projectPath", projectPath);
-                propertiesComponent.setValue("Pyrange-modelPath", modelPath);
-                propertiesComponent.setValue("Pyrange-controllerPath", controllerPath);
-                propertiesComponent.setValue("Pyrange-servicePath", servicePath);
-                propertiesComponent.setValue("Pyrange-mapperPath", mapperPath);
-                propertiesComponent.setValue("Pyrange-modelPath", modelPath);
+                propertiesComponent.setValue("Pyrange-WINDOWStableName", tableName);
+                propertiesComponent.setValue("Pyrange-WINDOWSprojectPath", projectPath);
+                propertiesComponent.setValue("Pyrange-WINDOWSmodelPath", modelPath);
+                propertiesComponent.setValue("Pyrange-WINDOWScontrollerPath", controllerPath);
+                propertiesComponent.setValue("Pyrange-WINDOWSservicePath", servicePath);
+                propertiesComponent.setValue("Pyrange-WINDOWSmapperPath", mapperPath);
+                propertiesComponent.setValue("Pyrange-WINDOWSmodelPath", modelPath);
+
+                propertiesComponent.setValue("PYRNAGE-WINDOWS-controllerCheckBox", controllerCheckBox.isSelected());
+                propertiesComponent.setValue("PYRNAGE-WINDOWS-serviceCheckBox", serviceCheckBox.isSelected());
+                propertiesComponent.setValue("PYRNAGE-WINDOWS-mapperCheckBox", mapperCheckBox.isSelected());
+                propertiesComponent.setValue("PYRNAGE-WINDOWS-modelCheckBox", modelCheckBox.isSelected());
+                propertiesComponent.setValue("PYRNAGE-WINDOWS-frontEndCheckBox", frontEndCheckBox.isSelected());
+                propertiesComponent.setValue("PYRNAGE-WINDOWS-testCheckBox", testCheckBox.isSelected());
 
                 try {
                     CodeGenerate.generate(Settings.getBasicConfig(), getConfigModel());

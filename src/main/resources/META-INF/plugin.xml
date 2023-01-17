@@ -5,12 +5,20 @@
     <vendor email="512523616@qq.com" url="awesome.pyrange.com"></vendor>
 
     <description><![CDATA[
-      自动生成 Java controller、service、model、mapper、xml 以及前端代码
+    Awesome Pyrange(AP) is a code generator for Java & Web developer. It can help you generate code that includes controller, service, mapper, model, test case.
+    It will introspect a database table (or many tables) and will generate artifacts that can be used to access the table(s).
+    This lessens the initial nuisance of setting up objects and configuration files to interact with database tables.
+    AP seeks to make a major impact on the large percentage of database operations that are simple CRUD (Create, Retrieve, Update, Delete).
+
+    Awesome Pyrange(AP) 是个代码自动生成工具, 它可以帮助你生成 controller, service, mapper, model, 甚至包括 Vue 前端 和简单的测试用例.
+    AP 希望帮助开发减少重复, 麻烦, 无意义的工作, 帮助开发者将时间利用在更有价值地方.
+
     ]]></description>
 
     <change-notes><![CDATA[
-      1. 支持前端代码生成
+      1. 支持前后端, 测试代码生成
       2. 支持弹窗显示代码, 以便快速 Ctrl + C\V
+      3. 支持自定义模板配置, 以便不同环境或代码风格处理
     ]]>
     </change-notes>
 

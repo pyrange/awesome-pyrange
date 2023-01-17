@@ -1,6 +1,6 @@
 package ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot};
 
-import ${basicConfig.basePageClassReference};
+import com.pyrange.common.model.dto.BasePage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +12,7 @@ import lombok.Setter;
  **/
 @Getter
 @Setter
-public class ${generateInfo.moduleName}Query extends ${basicConfig.basePageClassName} {
+public class ${generateInfo.moduleName}Query extends BasePage {
 
     /**
      * 查询关键字

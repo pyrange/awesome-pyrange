@@ -3,6 +3,7 @@ package com.pyrange.awesome.generate;
 import com.pyrange.awesome.model.BasicConfig;
 import com.pyrange.awesome.model.ConfigModel;
 import com.pyrange.awesome.model.GenerateInfo;
+import com.pyrange.awesome.ui.Settings;
 import com.pyrange.awesome.util.FreeMarkUtil;
 
 import java.util.HashMap;
@@ -23,6 +24,6 @@ public class ControllerGenerate {
         root.put("basicConfig", basicConfig);
 
         String fileName = generateInfo.getModelNameUpperCamel() + "Controller.java";
-        FreeMarkUtil.generateFile(root, "controller.ftl", configModel.getControllerPath(), fileName);
+        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "controller.ftl", configModel.getControllerPath(), fileName);
     }
 }

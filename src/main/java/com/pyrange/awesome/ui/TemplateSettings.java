@@ -17,6 +17,7 @@ public class TemplateSettings extends JDialog {
     private JButton buttonOK;
     private JButton buttonCancel;
     private JComboBox codeTemplatesBox;
+    private JComboBox parentCodeTemplatesBox;
     private JButton controllerButton;
     private JButton serviceButton;
     private JButton serviceImplButton;
@@ -34,11 +35,15 @@ public class TemplateSettings extends JDialog {
     private JButton addNewTemplateButton;
     private JButton modelDetailButton;
     private JButton constantButton;
+    private JButton initialDefaultTemplateButton;
 
-    public TemplateSettings() {
+
+    public TemplateSettings(JComboBox parentCodeTemplatesBox) {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+
+        this.parentCodeTemplatesBox = parentCodeTemplatesBox;
 
         // 设置窗口位置
         this.setLocation(400, 200);//设置窗口居中显示
@@ -191,11 +196,14 @@ public class TemplateSettings extends JDialog {
             }
         });
 
+        /**
+         * 创建新的模板
+         */
         addNewTemplateButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
 //                Messages.InputDialog.
-                String templateName = Messages.showInputDialog("template name", "please input the new template name",
+                String codeTemplateName = Messages.showInputDialog("template name", "please input the new template name",
                         Messages.getInformationIcon(),
                         "",
                         new InputValidator() {
@@ -209,18 +217,58 @@ public class TemplateSettings extends JDialog {
                                 return checkTemplateName(inputString);
                             }
                         });
-                if (StringUtils.isEmpty(templateName)) {
+                if (StringUtils.isEmpty(codeTemplateName)) {
                     return;
                 }
+
                 // 创建模板
-                Result result = Settings.createNewTemplate(templateName);
+                Result result = Settings.createNewTemplate(codeTemplateName);
+                codeTemplatesBox.addItem(codeTemplateName);
+                codeTemplatesBox.setSelectedItem(codeTemplateName);
+                Settings.setSelectedCodeTemplate(codeTemplateName);
+
                 if (result.failed()) {
                     Messages.showMessageDialog(result.getMsg(), "tip", Messages.getInformationIcon());
                 }
             }
         });
+
+        // 初始化默认模板配置
+        initialDefaultTemplateButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String codeTemplateName = Messages.showInputDialog("请输入模板名称确认初始化模板配置", "恢复初始模板配置",
+                        Messages.getInformationIcon(),
+                        "",
+                        new InputValidator() {
+                            @Override
+                            public boolean checkInput(String inputString) {
+                                return checkTemplateName(inputString);
+                            }
+
+                            @Override
+                            public boolean canClose(String inputString) {
+                                return checkTemplateName(inputString);
+                            }
+                        });
+                if (StringUtils.isEmpty(codeTemplateName)) {
+                    return;
+                }
+                if (!codeTemplateName.equals(codeTemplatesBox.getSelectedItem().toString())) {
+                    Messages.showMessageDialog("输入模板集名称不正确", "tip", Messages.getInformationIcon());
+                    return;
+                }
+                FreeMarkUtil.initialDefaultTemplate(codeTemplateName);
+            }
+        });
     }
 
+    /**
+     * 检查模板名称
+     *
+     * @param templateName
+     * @return
+     */
     private boolean checkTemplateName(String templateName) {
         if (StringUtils.isEmpty(templateName)) {
             return false;
@@ -234,28 +282,35 @@ public class TemplateSettings extends JDialog {
         return true;
     }
 
+    /**
+     * 打开模板编辑页面
+     *
+     * @param selectedCodeTemplate
+     * @param templateName
+     */
     private void openEditTemplateDialog(String selectedCodeTemplate, String templateName) {
-        String templateStr = FreeMarkUtil.getTemplateStr(selectedCodeTemplate, templateName);
+        String templateStr = FreeMarkUtil.getTemplateContent(selectedCodeTemplate, templateName);
         TemplateEditDialog dialog = new TemplateEditDialog(templateStr, selectedCodeTemplate, templateName);
         dialog.pack();
         dialog.setVisible(true);
     }
 
+    /**
+     * ok按钮操作
+     */
     private void onOK() {
-        // add your code here
+        int itemCount = codeTemplatesBox.getItemCount();
+        parentCodeTemplatesBox.removeAllItems();
+        for (int i = 0; i < itemCount; i++) {
+            parentCodeTemplatesBox.addItem(codeTemplatesBox.getItemAt(i));
+        }
+        parentCodeTemplatesBox.setSelectedItem(codeTemplatesBox.getSelectedItem());
         dispose();
     }
 
     private void onCancel() {
         // add your code here if necessary
         dispose();
-    }
-
-    public static void main(String[] args) {
-        TemplateSettings dialog = new TemplateSettings();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
     }
 
     private void createUIComponents() {

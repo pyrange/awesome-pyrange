@@ -29,10 +29,11 @@ public class TestGenerate {
                 + "/test/";
         File file = new File(testConstantPath + "TestConstant.java");
         if (!file.exists()) {
-            FreeMarkUtil.generateFile(root, "test-constant.ftl", testConstantPath, "TestConstant.java");
+            FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(),
+                    "test-constant.ftl", testConstantPath, "TestConstant.java");
         }
 
-        FreeMarkUtil.generateFile(root, "test.ftl",
+        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "test.ftl",
                 configModel.getProjectPath() + "/src/test/java/" + generateInfo.getControllerPackageWithSlash(),
                 generateInfo.getModuleName() + "Test.java");
     }

@@ -25,7 +25,7 @@ public class MapperGenerate {
 
         String mapperFileName = generateInfo.getModuleName() + "Mapper.java";
         String mapperXmlFileName = generateInfo.getModuleName() + "Mapper.xml";
-        FreeMarkUtil.generateFile(root, "mapper.ftl", configModel.getMapperJavaPath(), mapperFileName);
-        FreeMarkUtil.generateFile(root, "mapperxml.ftl", configModel.getMapperXmlPath(), mapperXmlFileName);
+        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "mapper.ftl", configModel.getMapperJavaPath(), mapperFileName);
+        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "mapperxml.ftl", configModel.getMapperXmlPath(), mapperXmlFileName);
     }
 }

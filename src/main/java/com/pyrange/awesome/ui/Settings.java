@@ -1,7 +1,6 @@
 package com.pyrange.awesome.ui;
 
 import com.google.common.base.Throwables;
-import com.google.common.collect.Lists;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.ui.Messages;
@@ -17,14 +16,14 @@ import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import java.awt.event.*;
-import java.util.Arrays;
 import java.util.List;
 
 public class Settings extends JDialog {
 
     private static final Logger LOGGER = Logger.getInstance(Settings.class);
 
-    public static final String PYRANGE_CODE_TEMPLATE = "Pyrange-codeTemplates";
+    public static final String PYRANGE_CODE_TEMPLATE = "PYRANGE-SETTINGS-codeTemplates";
+    public static final String PYRANGE_SELECTED_CODE_TEMPLATE = "PYRANGE-SETTINGS-selectedCodeTemplates";
 
     private JPanel contentPane;
     private JButton buttonOK;
@@ -44,7 +43,7 @@ public class Settings extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         // 设置窗口位置
-        this.setLocation(400, 200);//设置窗口居中显示
+        this.setLocation(400, 200);
 
         BasicConfig basicConfig = getBasicConfig();
         textFieldHost.setText(basicConfig.getJdbcHost());
@@ -58,10 +57,6 @@ public class Settings extends JDialog {
         jdkComboBox.addItem("11");
         jdkComboBox.addItem("17");
         jdkComboBox.setSelectedItem(basicConfig.getJdkVersion().toString());
-
-//        resultClassReferenceTextField.setText(basicConfig.getResultClassReference());
-//        pageClassReferenceTextField.setText(basicConfig.getPageUtilClassReference());
-//        basePageClassTextField.setText(basicConfig.getBasePageClassReference());
 
         // 模板设置
         for (String template : basicConfig.getCodeTemplates()) {
@@ -140,11 +135,10 @@ public class Settings extends JDialog {
             }
         });
 
-
         setTemplateButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                TemplateSettings dialog = new TemplateSettings();
+                TemplateSettings dialog = new TemplateSettings(codeTemplatesBox);
 //                Test dialog = new Test();
                 dialog.pack();
                 dialog.setVisible(true);
@@ -161,19 +155,15 @@ public class Settings extends JDialog {
         }
 
         PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
-        propertiesComponent.setValue("Pyrange-jdbcHost", textFieldHost.getText());
-        propertiesComponent.setValue("Pyrange-jdbcDatabase", (String) comboBoxDatabase.getSelectedItem());
-        propertiesComponent.setValue("Pyrange-jdbcUserName", textFieldUserName.getText());
-        propertiesComponent.setValue("Pyrange-jdbcPassword", String.valueOf(textFieldPassword.getPassword()));
-        propertiesComponent.setValue("Pyrange-author", textFieldAuthor.getText());
-        propertiesComponent.setValue("Pyrange-groupId", textFieldGroupId.getText());
-        propertiesComponent.setValue("Pyrange-settingsConfigured", true);
-        propertiesComponent.setValue("Pyrange-jdkVersion", jdkComboBox.getSelectedItem().toString());
-
-//        propertiesComponent.setValue("Pyrange-resultClass", resultClassReferenceTextField.getText());
-//        propertiesComponent.setValue("Pyrange-pageUtilClassReference", pageClassReferenceTextField.getText());
-//        propertiesComponent.setValue("Pyrange-basePageClassReference", basePageClassTextField.getText());
-
+        propertiesComponent.setValue("PYRANGE-SETTINGS-jdbcHost", textFieldHost.getText());
+        propertiesComponent.setValue("PYRANGE-SETTINGS-jdbcDatabase", (String) comboBoxDatabase.getSelectedItem());
+        propertiesComponent.setValue("PYRANGE-SETTINGS-jdbcUserName", textFieldUserName.getText());
+        propertiesComponent.setValue("PYRANGE-SETTINGS-jdbcPassword", String.valueOf(textFieldPassword.getPassword()));
+        propertiesComponent.setValue("PYRANGE-SETTINGS-author", textFieldAuthor.getText());
+        propertiesComponent.setValue("PYRANGE-SETTINGS-groupId", textFieldGroupId.getText());
+        propertiesComponent.setValue("PYRANGE-SETTINGS-settingsConfigured", true);
+        propertiesComponent.setValue("PYRANGE-SETTINGS-jdkVersion", jdkComboBox.getSelectedItem().toString());
+        setSelectedCodeTemplate(codeTemplatesBox.getSelectedItem().toString());
         dispose();
     }
 
@@ -214,41 +204,20 @@ public class Settings extends JDialog {
 
     public static boolean settingsConfigured() {
         PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
-        return propertiesComponent.getBoolean("Pyrange-settingsConfigured");
+        return propertiesComponent.getBoolean("PYRANGE-SETTINGS-settingsConfigured");
     }
 
     public static BasicConfig getBasicConfig() {
         PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
         BasicConfig basicConfig = new BasicConfig();
-        basicConfig.setJdbcHost(propertiesComponent.getValue("Pyrange-jdbcHost"));
-        basicConfig.setJdbcDatabase(propertiesComponent.getValue("Pyrange-jdbcDatabase"));
-        basicConfig.setJdbcUserName(propertiesComponent.getValue("Pyrange-jdbcUserName"));
-        basicConfig.setJdbcPassword(propertiesComponent.getValue("Pyrange-jdbcPassword"));
-        String groupId = StringUtils.isEmpty(propertiesComponent.getValue("Pyrange-groupId")) ? PyrangeConstant.DEFAULT_GROUP_ID : propertiesComponent.getValue("Pyrange-groupId");
+        basicConfig.setJdbcHost(propertiesComponent.getValue("PYRANGE-SETTINGS-jdbcHost"));
+        basicConfig.setJdbcDatabase(propertiesComponent.getValue("PYRANGE-SETTINGS-jdbcDatabase"));
+        basicConfig.setJdbcUserName(propertiesComponent.getValue("PYRANGE-SETTINGS-jdbcUserName"));
+        basicConfig.setJdbcPassword(propertiesComponent.getValue("PYRANGE-SETTINGS-jdbcPassword"));
+        String groupId = StringUtils.isEmpty(propertiesComponent.getValue("PYRANGE-SETTINGS-groupId")) ? PyrangeConstant.DEFAULT_GROUP_ID : propertiesComponent.getValue("PYRANGE-SETTINGS-groupId");
         basicConfig.setGroupId(groupId);
-        basicConfig.setAuthor(propertiesComponent.getValue("Pyrange-author"));
-        basicConfig.setJdkVersion(propertiesComponent.getInt("Pyrange-jdkVersion", 11));
-
-        String resultClassReference = propertiesComponent.getValue("Pyrange-resultClass");
-        if (StringUtils.isEmpty(resultClassReference)) {
-            resultClassReference = "com.pyrange.common.model.dto.Result";
-        }
-        basicConfig.setResultClassReference(resultClassReference);
-        basicConfig.setResultClassName(resultClassReference.substring(resultClassReference.lastIndexOf(".") + 1));
-
-        String pageUtilClassReference = propertiesComponent.getValue("Pyrange-pageUtilClassReference");
-        if (StringUtils.isEmpty(pageUtilClassReference)) {
-            pageUtilClassReference = "com.github.pagehelper.PageHelper";
-        }
-        basicConfig.setPageClassUtilReference(pageUtilClassReference);
-        basicConfig.setPageUtilClassName(pageUtilClassReference.substring(pageUtilClassReference.lastIndexOf(".") + 1));
-
-        String basePageClassReference = propertiesComponent.getValue("Pyrange-basePageClassReference");
-        if (StringUtils.isEmpty(basePageClassReference)) {
-            basePageClassReference = "com.pyrange.common.model.dto.BasePage";
-        }
-        basicConfig.setBasePageClassReference(basePageClassReference);
-        basicConfig.setBasePageClassName(basePageClassReference.substring(basePageClassReference.lastIndexOf(".") + 1));
+        basicConfig.setAuthor(propertiesComponent.getValue("PYRANGE-SETTINGS-author"));
+        basicConfig.setJdkVersion(propertiesComponent.getInt("PYRANGE-SETTINGS-jdkVersion", 11));
 
         String[] codeTemplate = propertiesComponent.getValues(PYRANGE_CODE_TEMPLATE);
         if (codeTemplate == null) {
@@ -256,7 +225,7 @@ public class Settings extends JDialog {
             propertiesComponent.setValues(PYRANGE_CODE_TEMPLATE, codeTemplate);
         }
         basicConfig.setCodeTemplates(codeTemplate);
-        String selectedCodeTemplate = propertiesComponent.getValue("Pyrange-selectedCodeTemplate");
+        String selectedCodeTemplate = propertiesComponent.getValue(PYRANGE_SELECTED_CODE_TEMPLATE);
         if (StringUtils.isEmpty(selectedCodeTemplate)) {
             selectedCodeTemplate = "default";
         }
@@ -289,5 +258,19 @@ public class Settings extends JDialog {
         System.arraycopy(original, index, destination, index
                 + 1, length - index);
         return destination;
+    }
+
+    /**
+     * 设置选择的模板集合
+     *
+     * @param selectedCodeTemplate
+     */
+    public static void setSelectedCodeTemplate(String selectedCodeTemplate) {
+        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
+        propertiesComponent.setValue(PYRANGE_SELECTED_CODE_TEMPLATE, selectedCodeTemplate);
+    }
+
+    public JComboBox getCodeTemplatesBox() {
+        return codeTemplatesBox;
     }
 }

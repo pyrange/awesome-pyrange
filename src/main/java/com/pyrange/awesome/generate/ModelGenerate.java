@@ -23,27 +23,27 @@ public class ModelGenerate {
         root.put("configModel", configModel);
         root.put("basicConfig", basicConfig);
 
-        FreeMarkUtil.generateFile(root, "model/po.ftl",
+        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "model/po.ftl",
                 configModel.getModelPath() + "/" + generateInfo.getModuleNameWithSlash(),
                 generateInfo.getModuleName() + "Po.java");
 
-        FreeMarkUtil.generateFile(root, "model/query.ftl",
+        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "model/query.ftl",
                 configModel.getModelPath() + "/" + generateInfo.getModuleNameWithSlash(),
                 generateInfo.getModuleName() + "Query.java");
 
-        FreeMarkUtil.generateFile(root, "model/update.ftl",
+        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "model/update.ftl",
                 configModel.getModelPath() + "/" + generateInfo.getModuleNameWithSlash(),
                 generateInfo.getModuleName() + "Update.java");
 
-        FreeMarkUtil.generateFile(root, "model/insert.ftl",
+        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "model/insert.ftl",
                 configModel.getModelPath() + "/" + generateInfo.getModuleNameWithSlash(),
                 generateInfo.getModuleName() + "Insert.java");
 
-        FreeMarkUtil.generateFile(root, "model/detail.ftl",
+        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "model/detail.ftl",
                 configModel.getModelPath() + "/" + generateInfo.getModuleNameWithSlash(),
                 generateInfo.getModuleName() + "Detail.java");
 
-        FreeMarkUtil.generateFile(root, "model/brief.ftl",
+        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "model/brief.ftl",
                 configModel.getModelPath() + "/" + generateInfo.getModuleNameWithSlash(),
                 generateInfo.getModuleName() + "Brief.java");
     }

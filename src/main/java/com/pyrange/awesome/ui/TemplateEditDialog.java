@@ -1,5 +1,8 @@
 package com.pyrange.awesome.ui;
 
+import com.intellij.openapi.ui.Messages;
+import com.pyrange.awesome.util.FreeMarkUtil;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,9 +12,14 @@ public class TemplateEditDialog extends JDialog {
     private JButton buttonOK;
     private JButton buttonCancel;
     private JTextArea templateTextArea;
+    private String selectedCodeTemplate;
+    private String templateName;
 
     public TemplateEditDialog(String templateStr, String selectedCodeTemplate, String templateName) {
         setContentPane(contentPane);
+
+        this.selectedCodeTemplate = selectedCodeTemplate;
+        this.templateName = templateName;
 
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -47,12 +55,12 @@ public class TemplateEditDialog extends JDialog {
     }
 
     private void onOK() {
-        // add your code here
+        FreeMarkUtil.saveTemplate(selectedCodeTemplate, templateName, templateTextArea.getText());
+        Messages.showMessageDialog("保存成功", "tip", Messages.getInformationIcon());
         dispose();
     }
 
     private void onCancel() {
-        // add your code here if necessary
         dispose();
     }
 

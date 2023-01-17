@@ -21,17 +21,17 @@ public class CodeGenerate {
         TableInfo tableInfo = getTableInfo(basicConfig, configModel);
         GenerateInfo generateInfo = getGenerateInfo(basicConfig, configModel, tableInfo);
 
-        if (configModel.getGenerateModel()) {
-            ModelGenerate.generate(basicConfig, configModel, generateInfo);
-        }
-        if (configModel.getGenerateMapper()) {
-            MapperGenerate.generate(basicConfig, configModel, generateInfo);
-        }
         if (configModel.getGenerateController()) {
             ControllerGenerate.generate(basicConfig, configModel, generateInfo);
         }
         if (configModel.getGenerateService()) {
             ServiceGenerate.generate(basicConfig, configModel, generateInfo);
+        }
+        if (configModel.getGenerateMapper()) {
+            MapperGenerate.generate(basicConfig, configModel, generateInfo);
+        }
+        if (configModel.getGenerateModel()) {
+            ModelGenerate.generate(basicConfig, configModel, generateInfo);
         }
         if (configModel.getGenerateFrontEnd()) {
             FrontEndGenerate.generate(basicConfig, configModel, generateInfo);

@@ -6,6 +6,7 @@ public class FileUtils {
 
     /**
      * 获取文件内容
+     *
      * @param fileDir
      * @return
      */
@@ -17,7 +18,7 @@ public class FileUtils {
         try {
             br = new BufferedReader(new InputStreamReader(resourceAsStream));
             while ((line = br.readLine()) != null) {
-                builder.append(line).append(System.getProperty("line.separator"));;
+                builder.append(line).append(System.getProperty("line.separator"));
             }
             br.close();
         } catch (FileNotFoundException e) {
