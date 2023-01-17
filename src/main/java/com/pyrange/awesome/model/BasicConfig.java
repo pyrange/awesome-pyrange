@@ -24,6 +24,16 @@ public class BasicConfig {
      * JDK 版本
      */
     private Integer jdkVersion;
+
+    /**
+     * 代码模板
+     */
+    private String[] codeTemplates;
+    /**
+     * 选择的代码模板
+     */
+    private String selectedCodeTemplate;
+
     /**
      * 结果包装类名
      */
@@ -151,5 +161,25 @@ public class BasicConfig {
 
     public void setBasePageClassReference(String basePageClassReference) {
         this.basePageClassReference = basePageClassReference;
+    }
+
+    public String[] getCodeTemplates() {
+        return codeTemplates;
+    }
+
+    public void setCodeTemplates(String[] codeTemplates) {
+        this.codeTemplates = codeTemplates;
+    }
+
+    public String getPageClassUtilReference() {
+        return pageClassUtilReference;
+    }
+
+    public String getSelectedCodeTemplate() {
+        return selectedCodeTemplate;
+    }
+
+    public void setSelectedCodeTemplate(String selectedCodeTemplate) {
+        this.selectedCodeTemplate = selectedCodeTemplate;
     }
 }

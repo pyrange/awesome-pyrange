@@ -6,7 +6,6 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.pyrange.awesome.PyrangeException;
-import com.pyrange.awesome.ui.setting.Settings;
 import com.pyrange.awesome.util.MessageUtil;
 import com.pyrange.awesome.generate.CodeGenerate;
 import com.pyrange.awesome.model.ConfigModel;

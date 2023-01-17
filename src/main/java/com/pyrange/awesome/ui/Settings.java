@@ -1,4 +1,4 @@
-package com.pyrange.awesome.ui.setting;
+package com.pyrange.awesome.ui;
 
 import com.google.common.base.Throwables;
 import com.intellij.ide.util.PropertiesComponent;
@@ -31,16 +31,18 @@ public class Settings extends JDialog {
     private JTextField textFieldAuthor;
     private JTextField textFieldGroupId;
     private JComboBox jdkComboBox;
-    private JTextField resultClassReferenceTextFReield;
+    private JTextField resultClassReferenceTextField;
     private JTextField pageClassReferenceTextField;
     private JTextField basePageClassTextField;
+    private JComboBox codeTemplatesBox;
+    private JButton setTemplateButton;
 
     public Settings() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-        // 设置窗口位置居中
-        this.setLocationRelativeTo(null);
+        // 设置窗口位置
+        this.setLocation(400, 200);//设置窗口居中显示
 
         BasicConfig basicConfig = getBasicConfig();
         textFieldHost.setText(basicConfig.getJdbcHost());
@@ -53,11 +55,17 @@ public class Settings extends JDialog {
         jdkComboBox.addItem("8");
         jdkComboBox.addItem("11");
         jdkComboBox.addItem("17");
-        jdkComboBox.setSelectedItem(basicConfig.getJdkVersion());
+        jdkComboBox.setSelectedItem(basicConfig.getJdkVersion().toString());
 
-        resultClassReferenceTextFReield.setText(basicConfig.getResultClassReference());
+        resultClassReferenceTextField.setText(basicConfig.getResultClassReference());
         pageClassReferenceTextField.setText(basicConfig.getPageUtilClassReference());
         basePageClassTextField.setText(basicConfig.getBasePageClassReference());
+
+        // 模板设置
+        for (String template : basicConfig.getCodeTemplates()) {
+            codeTemplatesBox.addItem(template);
+        }
+        codeTemplatesBox.setSelectedItem(basicConfig.getSelectedCodeTemplate());
 
 
         buttonOK.addActionListener(new ActionListener() {
@@ -129,6 +137,17 @@ public class Settings extends JDialog {
 
             }
         });
+
+
+        setTemplateButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                TemplateSettings dialog = new TemplateSettings();
+                dialog.pack();
+                dialog.setVisible(true);
+            }
+        });
+
     }
 
     private void onOK() {
@@ -148,7 +167,7 @@ public class Settings extends JDialog {
         propertiesComponent.setValue("Pyrange-settingsConfigured", true);
         propertiesComponent.setValue("Pyrange-jdkVersion", jdkComboBox.getSelectedItem().toString());
 
-        propertiesComponent.setValue("Pyrange-resultClass", resultClassReferenceTextFReield.getText());
+        propertiesComponent.setValue("Pyrange-resultClass", resultClassReferenceTextField.getText());
         propertiesComponent.setValue("Pyrange-pageUtilClassReference", pageClassReferenceTextField.getText());
         propertiesComponent.setValue("Pyrange-basePageClassReference", basePageClassTextField.getText());
         
@@ -227,6 +246,18 @@ public class Settings extends JDialog {
         }
         basicConfig.setBasePageClassReference(basePageClassReference);
         basicConfig.setBasePageClassName(basePageClassReference.substring(basePageClassReference.lastIndexOf(".")  + 1));
+
+        String[] codeTemplate = propertiesComponent.getValues("Pyrange-codeTemplates");
+        if (codeTemplate == null) {
+            codeTemplate = new String[]{"default"};
+            propertiesComponent.setValues("Pyrange-codeTemplates", codeTemplate);
+        }
+        basicConfig.setCodeTemplates(codeTemplate);
+        String selectedCodeTemplate = propertiesComponent.getValue("Pyrange-selectedCodeTemplate");
+        if (StringUtils.isEmpty(selectedCodeTemplate)) {
+            selectedCodeTemplate = "default";
+        }
+        basicConfig.setSelectedCodeTemplate(selectedCodeTemplate);
 
         return basicConfig;
     }
