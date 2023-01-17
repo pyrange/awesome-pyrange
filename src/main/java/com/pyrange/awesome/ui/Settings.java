@@ -1,11 +1,13 @@
 package com.pyrange.awesome.ui;
 
 import com.google.common.base.Throwables;
+import com.google.common.collect.Lists;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.ui.Messages;
 import com.pyrange.awesome.PyrangeConstant;
 import com.pyrange.awesome.model.BasicConfig;
+import com.pyrange.awesome.model.Result;
 import com.pyrange.awesome.util.CommonUtil;
 import com.pyrange.awesome.util.MessageUtil;
 import com.pyrange.awesome.util.TableUtil;
@@ -15,11 +17,14 @@ import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import java.awt.event.*;
+import java.util.Arrays;
 import java.util.List;
 
 public class Settings extends JDialog {
 
     private static final Logger LOGGER = Logger.getInstance(Settings.class);
+
+    public static final String PYRANGE_CODE_TEMPLATE = "Pyrange-codeTemplates";
 
     private JPanel contentPane;
     private JButton buttonOK;
@@ -31,9 +36,6 @@ public class Settings extends JDialog {
     private JTextField textFieldAuthor;
     private JTextField textFieldGroupId;
     private JComboBox jdkComboBox;
-    private JTextField resultClassReferenceTextField;
-    private JTextField pageClassReferenceTextField;
-    private JTextField basePageClassTextField;
     private JComboBox codeTemplatesBox;
     private JButton setTemplateButton;
 
@@ -57,9 +59,9 @@ public class Settings extends JDialog {
         jdkComboBox.addItem("17");
         jdkComboBox.setSelectedItem(basicConfig.getJdkVersion().toString());
 
-        resultClassReferenceTextField.setText(basicConfig.getResultClassReference());
-        pageClassReferenceTextField.setText(basicConfig.getPageUtilClassReference());
-        basePageClassTextField.setText(basicConfig.getBasePageClassReference());
+//        resultClassReferenceTextField.setText(basicConfig.getResultClassReference());
+//        pageClassReferenceTextField.setText(basicConfig.getPageUtilClassReference());
+//        basePageClassTextField.setText(basicConfig.getBasePageClassReference());
 
         // 模板设置
         for (String template : basicConfig.getCodeTemplates()) {
@@ -143,6 +145,7 @@ public class Settings extends JDialog {
             @Override
             public void mouseClicked(MouseEvent e) {
                 TemplateSettings dialog = new TemplateSettings();
+//                Test dialog = new Test();
                 dialog.pack();
                 dialog.setVisible(true);
             }
@@ -167,10 +170,10 @@ public class Settings extends JDialog {
         propertiesComponent.setValue("Pyrange-settingsConfigured", true);
         propertiesComponent.setValue("Pyrange-jdkVersion", jdkComboBox.getSelectedItem().toString());
 
-        propertiesComponent.setValue("Pyrange-resultClass", resultClassReferenceTextField.getText());
-        propertiesComponent.setValue("Pyrange-pageUtilClassReference", pageClassReferenceTextField.getText());
-        propertiesComponent.setValue("Pyrange-basePageClassReference", basePageClassTextField.getText());
-        
+//        propertiesComponent.setValue("Pyrange-resultClass", resultClassReferenceTextField.getText());
+//        propertiesComponent.setValue("Pyrange-pageUtilClassReference", pageClassReferenceTextField.getText());
+//        propertiesComponent.setValue("Pyrange-basePageClassReference", basePageClassTextField.getText());
+
         dispose();
     }
 
@@ -231,7 +234,7 @@ public class Settings extends JDialog {
             resultClassReference = "com.pyrange.common.model.dto.Result";
         }
         basicConfig.setResultClassReference(resultClassReference);
-        basicConfig.setResultClassName(resultClassReference.substring(resultClassReference.lastIndexOf(".")  + 1));
+        basicConfig.setResultClassName(resultClassReference.substring(resultClassReference.lastIndexOf(".") + 1));
 
         String pageUtilClassReference = propertiesComponent.getValue("Pyrange-pageUtilClassReference");
         if (StringUtils.isEmpty(pageUtilClassReference)) {
@@ -245,12 +248,12 @@ public class Settings extends JDialog {
             basePageClassReference = "com.pyrange.common.model.dto.BasePage";
         }
         basicConfig.setBasePageClassReference(basePageClassReference);
-        basicConfig.setBasePageClassName(basePageClassReference.substring(basePageClassReference.lastIndexOf(".")  + 1));
+        basicConfig.setBasePageClassName(basePageClassReference.substring(basePageClassReference.lastIndexOf(".") + 1));
 
-        String[] codeTemplate = propertiesComponent.getValues("Pyrange-codeTemplates");
+        String[] codeTemplate = propertiesComponent.getValues(PYRANGE_CODE_TEMPLATE);
         if (codeTemplate == null) {
             codeTemplate = new String[]{"default"};
-            propertiesComponent.setValues("Pyrange-codeTemplates", codeTemplate);
+            propertiesComponent.setValues(PYRANGE_CODE_TEMPLATE, codeTemplate);
         }
         basicConfig.setCodeTemplates(codeTemplate);
         String selectedCodeTemplate = propertiesComponent.getValue("Pyrange-selectedCodeTemplate");
@@ -263,4 +266,28 @@ public class Settings extends JDialog {
     }
 
 
+    public static Result createNewTemplate(String newTemplateName) {
+        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
+        String[] codeTemplates = propertiesComponent.getValues(PYRANGE_CODE_TEMPLATE);
+        for (String value : codeTemplates) {
+            if (newTemplateName.equals(value)) {
+                return Result.failure("模板名称已存在");
+            }
+        }
+
+        codeTemplates = insertElement(codeTemplates, newTemplateName, 0);
+        propertiesComponent.setValues(PYRANGE_CODE_TEMPLATE, codeTemplates);
+        return Result.success();
+    }
+
+    private static String[] insertElement(String original[],
+                                          String element, int index) {
+        int length = original.length;
+        String destination[] = new String[length + 1];
+        System.arraycopy(original, 0, destination, 0, index);
+        destination[index] = element;
+        System.arraycopy(original, index, destination, index
+                + 1, length - index);
+        return destination;
+    }
 }

@@ -1,10 +1,16 @@
 package com.pyrange.awesome.ui;
 
+import com.intellij.openapi.ui.InputValidator;
+import com.intellij.openapi.ui.Messages;
 import com.pyrange.awesome.model.BasicConfig;
+import com.pyrange.awesome.model.Result;
 import com.pyrange.awesome.util.FreeMarkUtil;
+import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TemplateSettings extends JDialog {
     private JPanel contentPane;
@@ -19,14 +25,15 @@ public class TemplateSettings extends JDialog {
     private JButton insertButton;
     private JButton updateButton;
     private JButton briefButton;
-    private JButton POButton;
+    private JButton poButton;
     private JButton queryButton;
     private JButton testButton;
-    private JButton indexButton;
+    private JButton feIndexButton;
     private JButton feDetailButton;
     private JButton editButton;
-    private JButton ModelDetailButton;
     private JButton addNewTemplateButton;
+    private JButton modelDetailButton;
+    private JButton constantButton;
 
     public TemplateSettings() {
         setContentPane(contentPane);
@@ -75,16 +82,163 @@ public class TemplateSettings extends JDialog {
         controllerButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String templateStr = FreeMarkUtil.getTemplateStr();
-                TemplateEditDialog dialog = new TemplateEditDialog(templateStr);
-                dialog.pack();
-                dialog.setVisible(true);
+                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "controller.ftl");
+            }
+        });
+
+        serviceButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "service.ftl");
+            }
+        });
+
+        serviceImplButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "service-impl.ftl");
+            }
+        });
+
+        mapperButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "mapper.ftl");
+            }
+        });
+
+        mapperXmlButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "mapperxml.ftl");
+            }
+        });
+
+        insertButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "model/insert.ftl");
+            }
+        });
+
+        updateButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "model/update.ftl");
+            }
+        });
+
+        poButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "model/po.ftl");
+            }
+        });
+
+        queryButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "model/query.ftl");
+            }
+        });
+
+        briefButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "model/brief.ftl");
+            }
+        });
+
+        modelDetailButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "model/detail.ftl");
+            }
+        });
+
+        feIndexButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "fe/index.ftl");
+            }
+        });
+
+        editButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "fe/EditDialog.ftl");
+            }
+        });
+
+        feDetailButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "fe/DetailDialog.ftl");
+            }
+        });
+
+        testButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "test.ftl");
+            }
+        });
+
+        constantButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "test-constant.ftl");
+            }
+        });
+
+        addNewTemplateButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+//                Messages.InputDialog.
+                String templateName = Messages.showInputDialog("template name", "please input the new template name",
+                        Messages.getInformationIcon(),
+                        "",
+                        new InputValidator() {
+                            @Override
+                            public boolean checkInput(String inputString) {
+                                return checkTemplateName(inputString);
+                            }
+
+                            @Override
+                            public boolean canClose(String inputString) {
+                                return checkTemplateName(inputString);
+                            }
+                        });
+                if (StringUtils.isEmpty(templateName)) {
+                    return;
+                }
+                // 创建模板
+                Result result = Settings.createNewTemplate(templateName);
+                if (result.failed()) {
+                    Messages.showMessageDialog(result.getMsg(), "tip", Messages.getInformationIcon());
+                }
             }
         });
     }
 
-    private void openEditTemplateDialog(String template) {
+    private boolean checkTemplateName(String templateName) {
+        if (StringUtils.isEmpty(templateName)) {
+            return false;
+        }
+        String regEx = "[ _`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]|\n|\r|\t";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(templateName);
+        if (m.find()) {
+            return false;
+        }
+        return true;
+    }
 
+    private void openEditTemplateDialog(String selectedCodeTemplate, String templateName) {
+        String templateStr = FreeMarkUtil.getTemplateStr(selectedCodeTemplate, templateName);
+        TemplateEditDialog dialog = new TemplateEditDialog(templateStr, selectedCodeTemplate, templateName);
+        dialog.pack();
+        dialog.setVisible(true);
     }
 
     private void onOK() {

@@ -1,16 +1,22 @@
 package com.pyrange.awesome.util;
 
+import com.google.common.collect.Lists;
+import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.util.io.IOUtil;
 import com.pyrange.awesome.model.BasicConfig;
 import com.pyrange.awesome.model.ConfigModel;
 import com.pyrange.awesome.model.GenerateInfo;
+import com.pyrange.awesome.model.Result;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.StringTemplateLoader;
 import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -96,9 +102,16 @@ public class FreeMarkUtil {
         }
     }
 
-    public static String getTemplateStr() {
+    public static final String PYRANGE_TEMPLATE_PREFIX = "Pyrange-TEMPLATE-STORAGE-";
 
-        return "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    public static String getTemplateStr(String selectedCodeTemplate, String templateName) {
+        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
+        String value = propertiesComponent.getValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-" + templateName);
+        if (StringUtils.isEmpty(value)) {
+            return FileUtils.readFile("/template/" + templateName);
+        }
+
+        return value;
     }
 
 }

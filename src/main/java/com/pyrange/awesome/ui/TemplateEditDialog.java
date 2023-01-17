@@ -1,6 +1,7 @@
 package com.pyrange.awesome.ui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class TemplateEditDialog extends JDialog {
@@ -9,10 +10,12 @@ public class TemplateEditDialog extends JDialog {
     private JButton buttonCancel;
     private JTextArea templateTextArea;
 
-    public TemplateEditDialog(String templateStr) {
+    public TemplateEditDialog(String templateStr, String selectedCodeTemplate, String templateName) {
         setContentPane(contentPane);
+
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+        this.setPreferredSize(new Dimension(1000, 700));
 
         templateTextArea.setText(templateStr);
         buttonOK.addActionListener(new ActionListener() {

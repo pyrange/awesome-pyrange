@@ -1,5 +1,6 @@
 package com.pyrange.awesome.util;
 
+import com.google.common.base.Throwables;
 import com.intellij.notification.*;
 
 public class MessageUtil {
@@ -14,6 +15,12 @@ public class MessageUtil {
 
     public static void showErrorMsg(String msg) {
         Notification notification = pyrange_notification_group.createNotification("Awesome-Pyrange Error Message", msg, NotificationType.ERROR, null);
+        Notifications.Bus.notify(notification);
+    }
+    public static void showErrorMsg(String msg, Exception e) {
+        Notification notification = pyrange_notification_group.createNotification("Awesome-Pyrange Error Message",
+                msg + "/n" + Throwables.getStackTraceAsString(e),
+                NotificationType.ERROR, null);
         Notifications.Bus.notify(notification);
     }
 }

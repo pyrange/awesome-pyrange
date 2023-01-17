@@ -19,7 +19,7 @@
     <colspec value="fill:127px:noGrow"/>
     <colspec value="left:273dlu:noGrow"/>
     <constraints>
-      <xy x="48" y="54" width="683" height="337"/>
+      <xy x="48" y="54" width="683" height="341"/>
     </constraints>
     <properties/>
     <border type="none" title="代码模板设置"/>
@@ -126,15 +126,15 @@
       <grid id="aab6f" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-          <forms/>
+          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
         <children>
           <component id="19796" class="javax.swing.JButton" binding="serviceButton" default-binding="true">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="1" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Service"/>
@@ -210,7 +210,7 @@
               <text value="Brief"/>
             </properties>
           </component>
-          <component id="cb18b" class="javax.swing.JButton" binding="POButton" default-binding="true">
+          <component id="cb18b" class="javax.swing.JButton" binding="poButton" default-binding="true">
             <constraints>
               <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -226,7 +226,7 @@
               <text value="Query"/>
             </properties>
           </component>
-          <component id="b74ad" class="javax.swing.JButton" binding="ModelDetailButton" custom-create="true">
+          <component id="8cab6" class="javax.swing.JButton" binding="modelDetailButton">
             <constraints>
               <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -245,7 +245,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="a5d3b" class="javax.swing.JButton" binding="indexButton" default-binding="true">
+          <component id="a5d3b" class="javax.swing.JButton" binding="feIndexButton" default-binding="true">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -271,15 +271,6 @@
           </component>
         </children>
       </grid>
-      <component id="f02b2" class="javax.swing.JButton" binding="testButton" default-binding="true">
-        <constraints>
-          <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <forms/>
-        </constraints>
-        <properties>
-          <text value="Test"/>
-        </properties>
-      </component>
       <grid id="d23c7" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
@@ -295,12 +286,39 @@
             </constraints>
             <properties/>
           </component>
-          <component id="d030b" class="javax.swing.JButton" binding="新增模板Button" default-binding="true">
+          <component id="d030b" class="javax.swing.JButton" binding="addNewTemplateButton">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="新增模板"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="9eb22" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="f02b2" class="javax.swing.JButton" binding="testButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Test"/>
+            </properties>
+          </component>
+          <component id="cc8f2" class="javax.swing.JButton" binding="constantButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Constant"/>
             </properties>
           </component>
         </children>
