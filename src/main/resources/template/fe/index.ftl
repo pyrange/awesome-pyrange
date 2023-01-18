@@ -50,10 +50,7 @@
     <!-- 详情弹窗 -->
     <DetailDialog :visible.sync="detailDialogData.visible" :data="detailDialogData.detail" />
     <!-- 编辑弹窗 -->
-    <EditDialog
-      :visible.sync="detailDialogData.visible"
-      :data="detailDialogData.detail"
-      @success="getTableListData"
+    <EditDialog :visible.sync="editDialogData.visible" :data="editDialogData.detail" @success="getTableListData"
     />
   </div>
 </template>
@@ -61,7 +58,7 @@
 <script>
 import paging from '@/mixins/paging'
 import { getList, getDetail } from '@/api/table'
-import DetailDialog from './components/DetailDialog.ftl'
+import DetailDialog from './components/DetailDialog.vue'
 import EditDialog from './components/EditDialog.vue'
 export default {
   components: {

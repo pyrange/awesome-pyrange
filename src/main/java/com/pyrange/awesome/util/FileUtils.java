@@ -16,7 +16,7 @@ public class FileUtils {
         BufferedReader br = null;
         String line;
         try {
-            br = new BufferedReader(new InputStreamReader(resourceAsStream));
+            br = new BufferedReader(new InputStreamReader(resourceAsStream, "UTF-8"));
             while ((line = br.readLine()) != null) {
                 builder.append(line).append(System.getProperty("line.separator"));
             }
