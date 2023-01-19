@@ -99,7 +99,7 @@
           params
         })
         if (res.status === 200) {
-          this.listData = res.data.list
+          this.list = res.data
           this.page.total = res.data.totalItems
         }
         this.listLoading = false
