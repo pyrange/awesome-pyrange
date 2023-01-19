@@ -26,7 +26,7 @@
         <template slot-scope="{row}">
           <el-button type="primary" size="mini" @click="handleDetail(row)">查看</el-button>
           <el-button type="primary" size="mini" @click="handleEdit(row)">编辑</el-button>
-          <el-button type="danger" size="mini" @click="handleDel(row.boxId)">删除</el-button>
+          <el-button type="danger" size="mini" @click="handleDel(row.${generateInfo.primaryKeyCamel})">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -94,7 +94,7 @@
           pageSize: this.page.pageSize
         }
         const res = await request({
-          url: 'api/box',
+          url: 'api/${generateInfo.moduleNameWithSlash}',
           method: 'get',
           params
         })
@@ -110,7 +110,7 @@
       // 查看详情
       async handleDetail(row) {
         const res = await request({
-          <#noparse>url: `api/box/${row.id}`,</#noparse>
+          url: `api/${generateInfo.moduleNameWithSlash}/<#noparse>${row.</#noparse>${generateInfo.primaryKeyCamel}}`,
           method: 'get'
         })
         if (res.status === 200 && res.data) {
@@ -121,7 +121,7 @@
       // 修改
       async handleEdit(row) {
         const res = await request({
-          <#noparse>url: `api/box/${row.id}`,</#noparse>
+          url: `api/${generateInfo.moduleNameWithSlash}/<#noparse>${row.</#noparse>${generateInfo.primaryKeyCamel}}`,
           method: 'get'
         })
         if (res.status === 200 && res.data) {
@@ -129,14 +129,14 @@
           this.editDialogData.visible = true
         }
       },
-      handleDel(id) {
+      handleDel(${generateInfo.primaryKeyCamel}) {
         this.$confirm('此操作将永久删除, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
           request({
-            <#noparse>url: `api/box/${id}`,</#noparse>
+            url: `api/${generateInfo.moduleNameWithSlash}/${generateInfo.primaryKeyCamel}`,
             method: 'delete'
           }).then(() => {
             this.$message({
