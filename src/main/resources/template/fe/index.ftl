@@ -50,8 +50,8 @@
 <script>
   import paging from '@/mixins/paging'
   import request from '@/api/axios'
-  import DetailDialog from './component/ZimoyunDetailDialog.vue'
-  import EditDialog from './component/ZimoyunEditDialog.vue'
+  import DetailDialog from './component/${generateInfo.moduleName}DetailDialog.vue'
+  import EditDialog from './component/${generateInfo.moduleName}EditDialog.vue'
   export default {
     components: {
       DetailDialog,
