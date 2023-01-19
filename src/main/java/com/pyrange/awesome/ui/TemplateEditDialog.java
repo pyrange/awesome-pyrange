@@ -26,6 +26,7 @@ public class TemplateEditDialog extends JDialog {
         this.setPreferredSize(new Dimension(1000, 700));
 
         templateTextArea.setText(templateStr);
+        templateTextArea.setCaretPosition(0);
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();

@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class CodingDialog extends DialogWrapper {
 
-    private String content;
+    private final String content;
 
     public CodingDialog(String content) {
         super(true);
@@ -40,11 +40,4 @@ public class CodingDialog extends DialogWrapper {
         return dialogPanel;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
 }
