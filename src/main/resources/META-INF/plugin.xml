@@ -16,9 +16,11 @@
     ]]></description>
 
     <change-notes><![CDATA[
-      1. 支持前后端, 测试代码生成
-      2. 支持弹窗显示代码, 以便快速 Ctrl + C\V
-      3. 支持自定义模板配置, 以便不同环境或代码风格处理
+      - feature: generating code that includes controller, service, mapper, model, even test case and Vue code.
+      - feature: custom code style
+      - 支持前后端, 测试代码生成
+      - 支持弹窗显示代码, 以便快速 Ctrl + C\V
+      - 支持自定义模板配置, 以便不同环境或代码风格处理
     ]]>
     </change-notes>
 

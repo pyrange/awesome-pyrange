@@ -29,6 +29,14 @@ export default {
         return {}
       }
     }
+  },
+  created() {
+    console.log(this.data);
+  },
+  methods: {
+    handleClose() {
+      this.$emit('update:visible', false)
+    }
   }
 }
 </script>

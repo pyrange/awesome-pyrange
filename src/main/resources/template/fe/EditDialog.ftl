@@ -72,12 +72,8 @@ export default {
       }
     }
   },
-  watch: {
-    visible(val) {
-      if (val) {
-        this.ruleForm = Object.assign({}, this.data)
-      }
-    }
+  created() {
+    this.ruleForm = Object.assign({}, this.data)
   },
   methods: {
     // 取消
