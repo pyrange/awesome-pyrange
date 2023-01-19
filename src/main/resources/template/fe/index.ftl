@@ -94,7 +94,7 @@
           pageSize: this.page.pageSize
         }
         const res = await request({
-          url: 'api/${generateInfo.moduleNameWithSlash}',
+          url: '${generateInfo.moduleNameWithSlash}',
           method: 'get',
           params
         })
@@ -110,7 +110,7 @@
       // 查看详情
       async handleDetail(row) {
         const res = await request({
-          url: `api/${generateInfo.moduleNameWithSlash}/<#noparse>${row.</#noparse>${generateInfo.primaryKeyCamel}}`,
+          url: `${generateInfo.moduleNameWithSlash}/<#noparse>${row.</#noparse>${generateInfo.primaryKeyCamel}}`,
           method: 'get'
         })
         if (res.status === 200 && res.data) {
@@ -121,7 +121,7 @@
       // 修改
       async handleEdit(row) {
         const res = await request({
-          url: `api/${generateInfo.moduleNameWithSlash}/<#noparse>${row.</#noparse>${generateInfo.primaryKeyCamel}}`,
+          url: `${generateInfo.moduleNameWithSlash}/<#noparse>${row.</#noparse>${generateInfo.primaryKeyCamel}}`,
           method: 'get'
         })
         if (res.status === 200 && res.data) {
@@ -136,7 +136,7 @@
           type: 'warning'
         }).then(() => {
           request({
-            url: `api/${generateInfo.moduleNameWithSlash}/${generateInfo.primaryKeyCamel}`,
+            url: `${generateInfo.moduleNameWithSlash}/${generateInfo.primaryKeyCamel}`,
             method: 'delete'
           }).then(() => {
             this.$message({

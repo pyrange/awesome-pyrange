@@ -48,5 +48,6 @@
         SELECT <#list generateInfo.columnList as column><#if column_has_next>${column.columnName},${"\n               "}<#else>${column.columnName}</#if></#list>
           FROM ${generateInfo.tableName}
          WHERE deleted = 0
+         ORDER BY ${generateInfo.primaryKey} DESC
     </select>
 </mapper>
