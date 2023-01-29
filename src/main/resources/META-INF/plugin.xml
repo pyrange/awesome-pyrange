@@ -2,7 +2,7 @@
     <id>com.pyrange</id>
     <name>awesome-pyrange</name>
     <version>1.0</version>
-    <vendor email="512523616@qq.com" url="awesome.pyrange.com"></vendor>
+    <vendor email="512523616@qq.com" url="https://github.com/pyrange/awesome-pyrange"></vendor>
 
     <description><![CDATA[
     Awesome Pyrange(AP) is a code generator for Java & Web developer. It can help you generate code that includes controller, service, mapper, model, even test case and Vue code.
