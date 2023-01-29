@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="详情" :visible.sync="visible" append-to-body top="50px" width="800px">
+  <el-dialog title="详情" :visible.sync="visible" append-to-body top="50px" width="800px" :before-close="handleClose">
     <el-descriptions>
 <#list generateInfo.columnList as column>
     <#if "${column.columnCamelName}"?ends_with("ed")>

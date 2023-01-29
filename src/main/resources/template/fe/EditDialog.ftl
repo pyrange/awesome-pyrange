@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="编辑" :visible.sync="visible" append-to-body top="50px" width="800px">
+  <el-dialog title="编辑" :visible.sync="visible" append-to-body top="50px" width="800px" :before-close="handleClose">
     <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="120px">
 <#list generateInfo.columnList as column>
   <#if "${column.columnCamelName}"?ends_with("ed")>
@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     // 取消
-    handleCancel() {
+    handleClose() {
       this.$refs['ruleForm'].resetFields()
       this.$emit('update:visible', false)
     },
@@ -88,7 +88,7 @@ export default {
         if (valid) {
           const data = this.ruleForm
           const res = await request({
-            url: `/api/table/list`,
+            url: '${generateInfo.moduleNameWithSlash}',
             method: 'put',
             data
           })
