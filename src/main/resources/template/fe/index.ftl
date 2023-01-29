@@ -3,12 +3,20 @@
     <!-- 搜索 -->
     <div class="search">
       <div class="search-item">
-        <el-input v-model="keyword" size="small" clearable suffix-icon="el-icon-search"
-          style="width: auto;" placeholder="输入关键字搜索" @blur="onKeywordChange"@keyup.enter.native="$event.target.blur()"/>
+        <el-input
+                v-model="keyword"
+                size="small"
+                clearable
+                suffix-icon="el-icon-search"
+                style="width: auto;"
+                placeholder="输入关键字搜索"
+                @blur="onKeywordChange"
+                @keyup.enter.native="$event.target.blur()"
+        />
       </div>
     </div>
     <!-- 列表 -->
-    <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" fit highlight-current-row>
+    <el-table v-loading="listLoading" :data="listData" element-loading-text="Loading" fit highlight-current-row>
 <#list generateInfo.columnList as column>
       <el-table-column align="center" prop="${column.columnCamelName}" label="${column.columnComment}">
   <#if "${column.columnCamelName}"?ends_with("ed")>
@@ -46,12 +54,11 @@
   </div>
 </template>
 
-
 <script>
   import paging from '@/mixins/paging'
   import request from '@/api/axios'
-  import DetailDialog from './component/${generateInfo.moduleName}DetailDialog.vue'
-  import EditDialog from './component/${generateInfo.moduleName}EditDialog.vue'
+  import DetailDialog from './component/DetailDialog.vue'
+  import EditDialog from './component/EditDialog.vue'
   export default {
     components: {
       DetailDialog,
@@ -99,7 +106,7 @@
           params
         })
         if (res.status === 200) {
-          this.list = res.data
+          this.listData = res.data.list
           this.page.total = res.data.totalItems
         }
         this.listLoading = false
@@ -136,7 +143,7 @@
           type: 'warning'
         }).then(() => {
           request({
-            url: `${generateInfo.moduleNameWithSlash}/${generateInfo.primaryKeyCamel}`,
+            url: `${generateInfo.moduleNameWithSlash}/<#noparse>${row.</#noparse>${generateInfo.primaryKeyCamel}}`,
             method: 'delete'
           }).then(() => {
             this.$message({

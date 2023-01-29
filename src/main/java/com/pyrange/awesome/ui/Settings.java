@@ -240,7 +240,7 @@ public class Settings extends JDialog {
         String[] codeTemplates = propertiesComponent.getValues(PYRANGE_CODE_TEMPLATE);
         for (String value : codeTemplates) {
             if (newTemplateName.equals(value)) {
-                return Result.failure("模板名称已存在");
+                return Result.failure("the template name already exists");
             }
         }
 
@@ -261,7 +261,7 @@ public class Settings extends JDialog {
     }
 
     /**
-     * 设置选择的模板集合
+     * setSelectedCodeTemplate
      *
      * @param selectedCodeTemplate
      */

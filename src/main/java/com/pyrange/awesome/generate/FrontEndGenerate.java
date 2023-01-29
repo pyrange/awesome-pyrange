@@ -22,16 +22,13 @@ public class FrontEndGenerate {
         root.put("configModel", configModel);
         root.put("basicConfig", basicConfig);
 
-        String indexFileName = generateInfo.getModuleName() + ".vue";
         FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "fe/index.ftl",
-                configModel.getProjectPath() + "/" + generateInfo.getModuleName(), indexFileName);
+                configModel.getProjectPath() + "/" + generateInfo.getModuleName(), "index.vue");
 
-        String detailFileName = generateInfo.getModuleName() + "DetailDialog.vue";
         FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "fe/DetailDialog.ftl",
-                configModel.getProjectPath() + "/" + generateInfo.getModuleName() + "/component/", detailFileName);
+                configModel.getProjectPath() + "/" + generateInfo.getModuleName() + "/component/", "DetailDialog.vue");
 
-        String editFileName = generateInfo.getModuleName() + "EditDialog.vue";
         FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "fe/EditDialog.ftl",
-                configModel.getProjectPath() + "/" + generateInfo.getModuleName() + "/component/", editFileName);
+                configModel.getProjectPath() + "/" + generateInfo.getModuleName() + "/component/", "EditDialog.vue");
     }
 }

@@ -233,11 +233,12 @@ public class TemplateSettings extends JDialog {
             }
         });
 
-        // 初始化默认模板配置
+        // initialDefaultTemplateButton
         initialDefaultTemplateButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String codeTemplateName = Messages.showInputDialog("请输入模板名称确认初始化模板配置", "恢复初始模板配置",
+                String codeTemplateName = Messages.showInputDialog("please input the template name to insure you want restore the default",
+                        "restore to the default template",
                         Messages.getInformationIcon(),
                         "",
                         new InputValidator() {
@@ -255,7 +256,7 @@ public class TemplateSettings extends JDialog {
                     return;
                 }
                 if (!codeTemplateName.equals(codeTemplatesBox.getSelectedItem().toString())) {
-                    Messages.showMessageDialog("输入模板集名称不正确", "tip", Messages.getInformationIcon());
+                    Messages.showMessageDialog("the template name you input is not equal to the current", "tip", Messages.getInformationIcon());
                     return;
                 }
                 FreeMarkUtil.initialDefaultTemplate(codeTemplateName);
@@ -264,7 +265,7 @@ public class TemplateSettings extends JDialog {
     }
 
     /**
-     * 检查模板名称
+     * checkTemplateName
      *
      * @param templateName
      * @return
