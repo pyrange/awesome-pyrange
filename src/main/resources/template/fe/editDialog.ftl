@@ -66,9 +66,16 @@ export default {
       btnLoading: false,
       ruleForm: {},
       rules: {
-        name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
-        age: [{ required: true, message: '请输入年龄', trigger: 'blur' }],
-        type: [{ required: true, message: '请选择类型', trigger: 'change' }]
+<#list generateInfo.columnList as column>
+  <#if "${column.nullable}" =="NO">
+        ${column.columnCamelName}: [
+          { required: true, message: '请输入${column.columnComment}', trigger: 'blur' },
+    <#if column.columnJavaTypeName == 'String'>
+          { min: 1, max: ${column.characterMaximumLength}, message: '长度在 1 到 ${column.characterMaximumLength} 个字符', trigger: 'blur' }
+    </#if>
+        ],
+  </#if>
+</#list>
       }
     }
   },

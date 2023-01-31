@@ -23,12 +23,15 @@ public class FrontEndGenerate {
         root.put("basicConfig", basicConfig);
 
         FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "fe/index.ftl",
-                configModel.getProjectPath() + "/" + generateInfo.getModuleName(), "index.vue");
+                configModel.getProjectPath() + "/" + generateInfo.getModuleNameLowercase(), "index.vue");
 
-        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "fe/DetailDialog.ftl",
-                configModel.getProjectPath() + "/" + generateInfo.getModuleName() + "/component/", "DetailDialog.vue");
+        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "fe/addDrawer.ftl",
+                configModel.getProjectPath() + "/" + generateInfo.getModuleNameLowercase() + "/component/", "addDrawer.vue");
 
-        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "fe/EditDialog.ftl",
-                configModel.getProjectPath() + "/" + generateInfo.getModuleName() + "/component/", "EditDialog.vue");
+        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "fe/detailDialog.ftl",
+                configModel.getProjectPath() + "/" + generateInfo.getModuleNameLowercase() + "/component/", "detailDialog.vue");
+
+        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "fe/editDialog.ftl",
+                configModel.getProjectPath() + "/" + generateInfo.getModuleNameLowercase() + "/component/", "editDialog.vue");
     }
 }

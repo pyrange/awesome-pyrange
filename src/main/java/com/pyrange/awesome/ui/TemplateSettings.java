@@ -171,14 +171,14 @@ public class TemplateSettings extends JDialog {
         editButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "fe/EditDialog.ftl");
+                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "fe/editDialog.ftl");
             }
         });
 
         feDetailButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "fe/DetailDialog.ftl");
+                openEditTemplateDialog(codeTemplatesBox.getSelectedItem().toString(), "fe/detailDialog.ftl");
             }
         });
 

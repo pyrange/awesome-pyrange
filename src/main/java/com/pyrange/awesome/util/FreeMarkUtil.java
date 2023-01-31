@@ -160,8 +160,8 @@ public class FreeMarkUtil {
         propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-model/brief.ftl");
         propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-model/detail.ftl");
         propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-fe/index.ftl");
-        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-fe/EditDialog.ftl");
-        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-fe/DetailDialog.ftl");
+        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-fe/editDialog.ftl");
+        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-fe/detailDialog.ftl");
         propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-test.ftl");
         propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-test-constant.ftl");
     }
