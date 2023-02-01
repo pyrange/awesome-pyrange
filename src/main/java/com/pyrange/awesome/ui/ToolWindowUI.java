@@ -39,6 +39,7 @@ public class ToolWindowUI {
     private JButton projectPathSelectButton;
     private JButton servicePathSelectButton;
     private JButton controllerPathSelectButton;
+    private JButton fePathSelectButton;
 
     private JCheckBox controllerCheckBox;
     private JCheckBox serviceCheckBox;
@@ -55,6 +56,7 @@ public class ToolWindowUI {
     private JButton viewFEButton;
     private JButton viewTestButton;
     private JLabel settingLabel;
+    private JComboBox comboBoxFePath;
 
 
     private String baseProjectPath;
@@ -70,28 +72,31 @@ public class ToolWindowUI {
 
         this.baseProjectPath = project.getBasePath();
         // 初始化checkbox
-        controllerCheckBox.setSelected(propertiesComponent.getBoolean("PYRNAGE-WINDOWS-controllerCheckBox", true));
-        serviceCheckBox.setSelected(propertiesComponent.getBoolean("PYRNAGE-WINDOWS-serviceCheckBox", true));
-        mapperCheckBox.setSelected(propertiesComponent.getBoolean("PYRNAGE-WINDOWS-mapperCheckBox", true));
-        modelCheckBox.setSelected(propertiesComponent.getBoolean("PYRNAGE-WINDOWS-modelCheckBox", true));
-        testCheckBox.setSelected(propertiesComponent.getBoolean("PYRNAGE-WINDOWS-testCheckBox", true));
-        frontEndCheckBox.setSelected(propertiesComponent.getBoolean("PYRNAGE-WINDOWS-frontEndCheckBox", true));
+        controllerCheckBox.setSelected(propertiesComponent.getBoolean("Pyrange-Windows-controllerCheckBox", true));
+        serviceCheckBox.setSelected(propertiesComponent.getBoolean("Pyrange-Windows-serviceCheckBox", true));
+        mapperCheckBox.setSelected(propertiesComponent.getBoolean("Pyrange-Windows-mapperCheckBox", true));
+        modelCheckBox.setSelected(propertiesComponent.getBoolean("Pyrange-Windows-modelCheckBox", true));
+        testCheckBox.setSelected(propertiesComponent.getBoolean("Pyrange-Windows-testCheckBox", true));
+        frontEndCheckBox.setSelected(propertiesComponent.getBoolean("Pyrange-Windows-frontEndCheckBox", true));
 
-        textFieldTableName.setText(propertiesComponent.getValue("Pyrange-WINDOWStableName"));
-        textFieldProjectPath.setText(propertiesComponent.getValue("Pyrange-WINDOWSprojectPath"));
+        textFieldTableName.setText(propertiesComponent.getValue("Pyrange-Windows-tableName"));
+        textFieldProjectPath.setText(propertiesComponent.getValue("Pyrange-Windows-projectPath"));
 
-        comboBoxControllerPath.addItem(propertiesComponent.getValue("Pyrange-WINDOWScontrollerPath"));
-        comboBoxControllerPath.setSelectedItem(propertiesComponent.getValue("Pyrange-WINDOWScontrollerPath"));
+        comboBoxControllerPath.addItem(propertiesComponent.getValue("Pyrange-Windows-controllerPath"));
+        comboBoxControllerPath.setSelectedItem(propertiesComponent.getValue("Pyrange-Windows-controllerPath"));
 
-        comboBoxServicePath.addItem(propertiesComponent.getValue("Pyrange-WINDOWSservicePath"));
-        comboBoxServicePath.setSelectedItem(propertiesComponent.getValue("Pyrange-WINDOWSservicePath"));
+        comboBoxServicePath.addItem(propertiesComponent.getValue("Pyrange-Windows-servicePath"));
+        comboBoxServicePath.setSelectedItem(propertiesComponent.getValue("Pyrange-Windows-servicePath"));
 
-        comboBoxModelPath.addItem(propertiesComponent.getValue("Pyrange-WINDOWSmodelPath"));
-        comboBoxModelPath.setSelectedItem(propertiesComponent.getValue("Pyrange-WINDOWSmodelPath"));
+        comboBoxModelPath.addItem(propertiesComponent.getValue("Pyrange-Windows-modelPath"));
+        comboBoxModelPath.setSelectedItem(propertiesComponent.getValue("Pyrange-Windows-modelPath"));
 
-        comboBoxMapperPath.addItem(propertiesComponent.getValue("Pyrange-WINDOWSmapperPath"));
-        comboBoxMapperPath.setSelectedItem(propertiesComponent.getValue("Pyrange-WINDOWSmapperPath"));
+        comboBoxMapperPath.addItem(propertiesComponent.getValue("Pyrange-Windows-mapperPath"));
+        comboBoxMapperPath.setSelectedItem(propertiesComponent.getValue("Pyrange-Windows-mapperPath"));
 
+        comboBoxFePath.addItem(propertiesComponent.getValue("Pyrange-Windows-fePath"));
+        comboBoxFePath.setSelectedItem(propertiesComponent.getValue("Pyrange-Windows-fePath"));
+        
         comboBoxControllerPath.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
@@ -161,6 +166,7 @@ public class ToolWindowUI {
                 comboBoxClickAction(comboBoxServicePath, "service");
                 comboBoxClickAction(comboBoxModelPath, "model");
                 comboBoxClickAction(comboBoxMapperPath, "dao");
+                setPathAsProject(comboBoxFePath);
             }
 
         });
@@ -190,6 +196,13 @@ public class ToolWindowUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 selectPathBtnAction(comboBoxMapperPath, "select a mapper path");
+            }
+        });
+
+        fePathSelectButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectPathBtnAction(comboBoxFePath, "select a fe path");
             }
         });
 
@@ -239,20 +252,20 @@ public class ToolWindowUI {
                 String modelPath = (String) comboBoxModelPath.getSelectedItem();
                 String mapperPath = (String) comboBoxMapperPath.getSelectedItem();
 
-                propertiesComponent.setValue("Pyrange-WINDOWStableName", tableName);
-                propertiesComponent.setValue("Pyrange-WINDOWSprojectPath", projectPath);
-                propertiesComponent.setValue("Pyrange-WINDOWSmodelPath", modelPath);
-                propertiesComponent.setValue("Pyrange-WINDOWScontrollerPath", controllerPath);
-                propertiesComponent.setValue("Pyrange-WINDOWSservicePath", servicePath);
-                propertiesComponent.setValue("Pyrange-WINDOWSmapperPath", mapperPath);
-                propertiesComponent.setValue("Pyrange-WINDOWSmodelPath", modelPath);
+                propertiesComponent.setValue("Pyrange-Windows-tableName", tableName);
+                propertiesComponent.setValue("Pyrange-Windows-projectPath", projectPath);
+                propertiesComponent.setValue("Pyrange-Windows-modelPath", modelPath);
+                propertiesComponent.setValue("Pyrange-Windows-controllerPath", controllerPath);
+                propertiesComponent.setValue("Pyrange-Windows-servicePath", servicePath);
+                propertiesComponent.setValue("Pyrange-Windows-mapperPath", mapperPath);
+                propertiesComponent.setValue("Pyrange-Windows-modelPath", modelPath);
 
-                propertiesComponent.setValue("PYRNAGE-WINDOWS-controllerCheckBox", controllerCheckBox.isSelected());
-                propertiesComponent.setValue("PYRNAGE-WINDOWS-serviceCheckBox", serviceCheckBox.isSelected());
-                propertiesComponent.setValue("PYRNAGE-WINDOWS-mapperCheckBox", mapperCheckBox.isSelected());
-                propertiesComponent.setValue("PYRNAGE-WINDOWS-modelCheckBox", modelCheckBox.isSelected());
-                propertiesComponent.setValue("PYRNAGE-WINDOWS-frontEndCheckBox", frontEndCheckBox.isSelected());
-                propertiesComponent.setValue("PYRNAGE-WINDOWS-testCheckBox", testCheckBox.isSelected());
+                propertiesComponent.setValue("Pyrange-Windows-controllerCheckBox", controllerCheckBox.isSelected());
+                propertiesComponent.setValue("Pyrange-Windows-serviceCheckBox", serviceCheckBox.isSelected());
+                propertiesComponent.setValue("Pyrange-Windows-mapperCheckBox", mapperCheckBox.isSelected());
+                propertiesComponent.setValue("Pyrange-Windows-modelCheckBox", modelCheckBox.isSelected());
+                propertiesComponent.setValue("Pyrange-Windows-frontEndCheckBox", frontEndCheckBox.isSelected());
+                propertiesComponent.setValue("Pyrange-Windows-testCheckBox", testCheckBox.isSelected());
 
                 try {
                     CodeGenerate.generate(Settings.getBasicConfig(), getConfigModel());
@@ -273,7 +286,7 @@ public class ToolWindowUI {
             public void mouseClicked(MouseEvent e) {
                 boolean settingsConfigured = Settings.settingsConfigured();
                 if (!settingsConfigured) {
-                    Messages.showMessageDialog("请先初始化基本配置", "tip", Messages.getInformationIcon());
+                    Messages.showMessageDialog("please set the basic settings first", "tip", Messages.getInformationIcon());
                     return;
                 }
 
@@ -448,6 +461,7 @@ public class ToolWindowUI {
         configModel.setModelPath(CommonUtil.fomatPath((String) comboBoxModelPath.getSelectedItem()));
         configModel.setMapperJavaPath(CommonUtil.fomatPath(mapperPath));
         configModel.setMapperXmlPath(CommonUtil.fomatPath(mapperPath));
+        configModel.setFePath(CommonUtil.fomatPath((String) comboBoxFePath.getSelectedItem()));
 
 
         configModel.setGenerateModel(modelCheckBox.isSelected());
@@ -463,6 +477,7 @@ public class ToolWindowUI {
             configModel.setModelPath(CommonUtil.fomatPath(projectPath));
             configModel.setMapperJavaPath(CommonUtil.fomatPath(projectPath));
             configModel.setMapperXmlPath(CommonUtil.fomatPath(projectPath));
+            configModel.setFePath(CommonUtil.fomatPath(projectPath));
         }
 
         configModel.setTableName(textFieldTableName.getText());
@@ -473,17 +488,23 @@ public class ToolWindowUI {
         if (CommonUtil.isNullOrEmpty(textFieldProjectPath.getText())) {
             return "ProjectPath required";
         }
-        if (!samePathCheckBox.isSelected() && CommonUtil.isNullOrEmpty(comboBoxControllerPath.getSelectedItem())) {
+        if (samePathCheckBox.isSelected()) {
+            return null;
+        }
+        if (controllerCheckBox.isSelected() && CommonUtil.isNullOrEmpty(comboBoxControllerPath.getSelectedItem())) {
             return "ControllerPath required";
         }
-        if (!samePathCheckBox.isSelected() && CommonUtil.isNullOrEmpty(comboBoxServicePath.getSelectedItem())) {
+        if (serviceCheckBox.isSelected() && CommonUtil.isNullOrEmpty(comboBoxServicePath.getSelectedItem())) {
             return "ServicePath required";
         }
-        if (!samePathCheckBox.isSelected() && CommonUtil.isNullOrEmpty(comboBoxModelPath.getSelectedItem())) {
+        if (modelCheckBox.isSelected() && CommonUtil.isNullOrEmpty(comboBoxModelPath.getSelectedItem())) {
             return "ModelPath required";
         }
-        if (!samePathCheckBox.isSelected() && CommonUtil.isNullOrEmpty(comboBoxMapperPath.getSelectedItem())) {
+        if (mapperCheckBox.isSelected() && CommonUtil.isNullOrEmpty(comboBoxMapperPath.getSelectedItem())) {
             return "MapperPath required";
+        }
+        if (frontEndCheckBox.isSelected() && CommonUtil.isNullOrEmpty(comboBoxFePath.getSelectedItem())) {
+            return "FePath required";
         }
         return null;
     }
@@ -543,8 +564,20 @@ public class ToolWindowUI {
             });
             comboBox.setSelectedItem(directoryByProjectPath.get(0).getAbsolutePath());
         } else {
-            MessageUtil.showErrorMsg("Not found " + key + " path");
+            MessageUtil.showErrorMsg("Didn't found " + key + " path");
         }
     }
 
+    private void setPathAsProject(JComboBox comboBox) {
+        String projectPath = textFieldProjectPath.getText();
+        if (CommonUtil.isNullOrEmpty(projectPath)) {
+            MessageUtil.showErrorMsg("ProjectPath required");
+            return;
+        }
+        comboBox.removeAllItems();
+        comboBox.addItem(projectPath);
+    }
+
+    private void createUIComponents() {
+    }
 }

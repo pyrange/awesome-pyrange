@@ -7,47 +7,16 @@ package com.pyrange.awesome.model;
  * @date: 2018-6-11
  **/
 public class ConfigModel {
-//    private String jdbcHost;
-//    private String jdbcDatabase;
-//    private String jdbcUserName;
-//    private String jdbcPassword;
-//
+
     private String tableName;
-//
-//    /**
-//     * 组织ID
-//     * com.xx
-//     */
-//    private String groupId;
-//    /**
-//     * JDK 版本
-//     */
-//    private Integer jdkVersion;
-//    /**
-//     * 结果包装类名
-//     */
-//    private String resultClassName;
-//    /**
-//     * 结果包装类引用
-//     */
-//    private String resultClassReference;
-//    /**
-//     * 分页类名
-//     */
-//    private String pageUtilClassName;
-//    /**
-//     * 分页类引用
-//     */
-//    private String pageUtilClassReference;
 
-
-//    private String author;
-    private String modelPath;
     private String projectPath;
-    private String mapperJavaPath;
-    private String mapperXmlPath;
     private String controllerPath;
     private String servicePath;
+    private String mapperJavaPath;
+    private String mapperXmlPath;
+    private String modelPath;
+    private String fePath;
 
     private Boolean generateModel;
     private Boolean generateMapper;
@@ -159,5 +128,13 @@ public class ConfigModel {
 
     public String getModelPath() {
         return modelPath;
+    }
+
+    public String getFePath() {
+        return fePath;
+    }
+
+    public void setFePath(String fePath) {
+        this.fePath = fePath;
     }
 }

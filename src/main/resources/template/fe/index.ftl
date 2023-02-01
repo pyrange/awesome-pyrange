@@ -68,7 +68,7 @@
   </#if>
       </el-table-column>
 </#list>
-      <el-table-column align="center" label="操作" width="300">
+      <el-table-column align="center" label="操作" fixed width="220">
         <template slot-scope="{row}">
           <el-button type="primary" size="mini" @click="handleDetail(row)">查看</el-button>
           <el-button type="primary" size="mini" @click="handleEdit(row)">编辑</el-button>
