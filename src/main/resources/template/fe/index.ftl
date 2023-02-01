@@ -61,7 +61,7 @@
       <el-table-column align="center" prop="${column.columnCamelName}" label="${column.columnComment}">
     <#if column_index == 1>
         <template slot-scope="{row}">
-          <el-link type="primary" @click="handleDetail(row)">{{row.teacherName}}</el-link>
+          <el-link type="primary" @click="handleDetail(row)">{{row.${column.columnCamelName}}}</el-link>
         </template>
     <#elseif "${column.columnCamelName}"?ends_with("ed")>
         <template slot-scope="{row}">

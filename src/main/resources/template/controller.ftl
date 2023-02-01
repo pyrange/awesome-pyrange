@@ -44,12 +44,12 @@ public class ${generateInfo.moduleName}Controller {
     /**
      * 删除
      *
-     * @param teacherId
+     * @param ${generateInfo.primaryKeyLowerCamel}
      * @return Result
      **/
-    @DeleteMapping("{teacherId}")
+    @DeleteMapping("{${generateInfo.primaryKeyLowerCamel}}")
     public Result delete(@PathVariable("${generateInfo.primaryKeyLowerCamel}") ${generateInfo.primaryKeyJavaTypeName} ${generateInfo.primaryKeyLowerCamel}) {
-        return teacherService.delete(${generateInfo.primaryKeyLowerCamel});
+        return ${generateInfo.moduleNameLowercase}Service.delete(${generateInfo.primaryKeyLowerCamel});
     }
 
     /**
