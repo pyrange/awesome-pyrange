@@ -1,4 +1,5 @@
 package ${generateInfo.servicePackage};
+import ${basicConfig.groupId}.common.model.dto.Page;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Query;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Insert;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Update;
@@ -24,6 +25,14 @@ public interface ${generateInfo.moduleName}Service {
     Result insert(${generateInfo.moduleName}Insert insert);
 
     /**
+     * 删除
+     *
+     * @param ${generateInfo.primaryKeyLowerCamel}
+     * @return Result
+     **/
+    Result delete(${generateInfo.primaryKeyJavaTypeName} ${generateInfo.primaryKeyLowerCamel});
+
+    /**
      * 修改
      *
      * @param update
@@ -34,10 +43,10 @@ public interface ${generateInfo.moduleName}Service {
     /**
      * 详情
      *
-     * @param id
+     * @param ${generateInfo.primaryKeyLowerCamel}
      * @return ${generateInfo.moduleName}Detail
      **/
-    Result${"<"}${generateInfo.moduleName}Detail${">"} detail(${generateInfo.primaryKeyJavaTypeName} id);
+    Result${"<"}${generateInfo.moduleName}Detail${">"} detail(${generateInfo.primaryKeyJavaTypeName} ${generateInfo.primaryKeyLowerCamel});
 
     /**
      * 列表
@@ -45,5 +54,5 @@ public interface ${generateInfo.moduleName}Service {
      * @param query
      * @return ${generateInfo.moduleName}Brief
      **/
-    Result${"<List<"}${generateInfo.moduleName}Brief${">>"} list(${generateInfo.moduleName}Query query);
+    Result${"<Page<List<"}${generateInfo.moduleName}Brief${">>>"} list(${generateInfo.moduleName}Query query);
 }

@@ -4,7 +4,7 @@
     <el-form :model="formData" :rules="rules" ref="formData" label-width="100px" style="padding: 20px 40px 20px 20px;">
       <h3>基本信息</h3>
 <#list generateInfo.columnList as column>
-  <#if "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
+  <#if generateInfo.primaryKey == column.columnName || "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
   <#elseif "${column.columnCamelName}"?matches("(can|allow).*")>
     <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
       <el-switch v-model="formData.${column.columnCamelName}" :active-value="1" :inactive-value="0"></el-switch>
@@ -62,13 +62,13 @@ export default {
       },
       rules: {
 <#list generateInfo.columnList as column>
-  <#if "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
+  <#if generateInfo.primaryKey == column.columnName || "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
   <#elseif "${column.nullable}" =="NO">
         ${column.columnCamelName}: [
           { required: true, message: '请输入${column.columnComment}', trigger: 'blur' },
-  <#if column.columnJavaTypeName == 'String'>
+    <#if column.columnJavaTypeName == 'String'>
           { min: 1, max: ${column.characterMaximumLength}, message: '长度在 1 到 ${column.characterMaximumLength} 个字符', trigger: 'blur' }
-  </#if>
+    </#if>
         ],
   </#if>
 </#list>

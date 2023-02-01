@@ -56,10 +56,14 @@
     <!-- 列表 -->
     <el-table v-loading="listLoading" :data="listData" element-loading-text="Loading" fit highlight-current-row>
 <#list generateInfo.columnList as column>
-  <#if "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
+  <#if generateInfo.primaryKey == column.columnCamelName || "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|updateUserName|updateUserId|updateTime")>
   <#else>
       <el-table-column align="center" prop="${column.columnCamelName}" label="${column.columnComment}">
-    <#if "${column.columnCamelName}"?ends_with("ed")>
+    <#if column_index == 1>
+        <template slot-scope="{row}">
+          <el-link type="primary" @click="handleDetail(row)">{{row.teacherName}}</el-link>
+        </template>
+    <#elseif "${column.columnCamelName}"?ends_with("ed")>
         <template slot-scope="{row}">
           {{ row.${column.columnCamelName} | dictFilter('whether') }}
         </template>
@@ -67,15 +71,14 @@
         <template slot-scope="{row}">
           {{ row.${column.columnCamelName} | dictFilter('${column.columnCamelName}') }}
         </template>
-      </el-table-column>
     </#if>
+      </el-table-column>
   </#if>
 </#list>
-      <el-table-column align="center" label="操作" fixed="right" width="220">
+      <el-table-column align="center" label="操作" fixed="right" width="150">
         <template slot-scope="{row}">
-          <el-button type="primary" size="mini" @click="handleDetail(row)">查看</el-button>
           <el-button type="primary" size="mini" @click="handleEdit(row)">编辑</el-button>
-          <el-button type="danger" size="mini" @click="handleDel(row.${generateInfo.primaryKeyCamel})">删除</el-button>
+          <el-button type="danger" size="mini" @click="handleDel(row.${generateInfo.primaryKeyLowerCamel})">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -87,7 +90,7 @@
     <!-- 详情弹窗 -->
     <detailDialog v-if="detailDialogData.visible" :visible.sync="detailDialogData.visible" :data="detailDialogData.detail" />
     <!-- 编辑弹窗 -->
-    <editDialog v-if="editDialogData.visible" :visible.sync="editDialogData.visible" :data="editDialogData.detail" @success="getTableListData" />
+    <editDialog v-if="editDialogData.visible" :visible.sync="editDialogData.visible" :data="editDialogData.detail" @success="initTable" />
     <!-- 新增 -->
     <addDrawer v-if="addDrawerVisible" :drawer.sync="addDrawerVisible" @success="addSuccess" />
   </div>
@@ -134,11 +137,11 @@ export default {
     }
   },
   created() {
-    this.getTableListData(1)
+    this.initTable(1)
   },
   methods: {
     // 获取列表数据
-    async getTableListData(num) {
+    async initTable(num) {
       if (num) {
         this.page.pageNum = num
       }
@@ -146,8 +149,8 @@ export default {
       const params = {
         keyword: this.searchData.keyword,
         status: this.searchData.status,
-        startTime: this.searchData.date ? this.searchData.date[0] : '',
-        endTime: this.searchData.date ? this.searchData.date[1] : '',
+        startDate: this.searchData.date ? this.searchData.date[0] : '',
+        endDate: this.searchData.date ? this.searchData.date[1] : '',
         pageNum: this.page.pageNum,
         pageSize: this.page.pageSize
       }
@@ -166,18 +169,18 @@ export default {
     // 重置查询条件
     resetField() {
       this.$refs['searchForm'].resetFields()
-      this.getTableListData(1)
+      this.initTable(1)
     },
 
     // 搜索查询
     handleSearch() {
-      this.getTableListData(1)
+      this.initTable(1)
     },
 
     // 查看详情
     async handleDetail(row) {
       const res = await request({
-        url: `${generateInfo.moduleNameWithSlash}/<#noparse>${row.</#noparse>${generateInfo.primaryKeyCamel}}`,
+        url: `${generateInfo.moduleNameWithSlash}/<#noparse>${row.</#noparse>${generateInfo.primaryKeyLowerCamel}}`,
         method: 'get'
       })
       if (res.status === 200 && res.data) {
@@ -194,13 +197,13 @@ export default {
     // 添加成功 回调
     addSuccess() {
       this.addDrawerVisible = false
-      this.getTableListData(1)
+      this.initTable(1)
     },
 
     // 修改
     async handleEdit(row) {
       const res = await request({
-        url: `${generateInfo.moduleNameWithSlash}/<#noparse>${row.</#noparse>${generateInfo.primaryKeyCamel}}`,
+        url: `${generateInfo.moduleNameWithSlash}/<#noparse>${row.</#noparse>${generateInfo.primaryKeyLowerCamel}}`,
         method: 'get'
       })
       if (res.status === 200 && res.data) {
@@ -210,20 +213,21 @@ export default {
     },
 
     // 删除
-    handleDel(${generateInfo.primaryKeyCamel}) {
+    handleDel(${generateInfo.primaryKeyLowerCamel}) {
       this.$confirm('此操作将永久删除, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         request({
-          url: `${generateInfo.moduleNameWithSlash}/<#noparse>${row.</#noparse>${generateInfo.primaryKeyCamel}}`,
+          url: `${generateInfo.moduleNameWithSlash}/<#noparse>${</#noparse>${generateInfo.primaryKeyLowerCamel}}`,
           method: 'delete'
         }).then(() => {
           this.$message({
             type: 'success',
             message: '删除成功!'
           })
+          this.handleSearch()
         })
       }).catch(() => {
         this.$message({

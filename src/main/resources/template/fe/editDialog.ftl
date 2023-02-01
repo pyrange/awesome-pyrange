@@ -2,7 +2,7 @@
   <el-dialog title="编辑" :visible.sync="visible" append-to-body top="50px" width="800px" :before-close="handleClose">
     <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="120px">
 <#list generateInfo.columnList as column>
-  <#if "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
+  <#if generateInfo.primaryKey == column.columnName || "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
   <#elseif "${column.columnCamelName}"?ends_with("ed")>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
         <el-radio-group v-model="ruleForm.${column.columnCamelName}">
@@ -41,7 +41,7 @@
 </#list>
       <el-form-item>
         <el-button type="primary" :loading="btnLoading" @click="handleSubmit">保存</el-button>
-        <el-button @click="handleCancel">取消</el-button>
+        <el-button @click="handleClose">取消</el-button>
       </el-form-item>
     </el-form>
   </el-dialog>
@@ -68,8 +68,7 @@ export default {
       ruleForm: {},
       rules: {
 <#list generateInfo.columnList as column>
-
-  <#if "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
+  <#if generateInfo.primaryKey == column.columnCamelName || "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
   <#elseif "${column.nullable}" =="NO">
         ${column.columnCamelName}: [
           { required: true, message: '请输入${column.columnComment}', trigger: 'blur' },

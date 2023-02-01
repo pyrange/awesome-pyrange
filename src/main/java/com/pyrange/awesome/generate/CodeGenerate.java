@@ -118,7 +118,8 @@ public class CodeGenerate {
             }
             if (tableColumn.isPrimaryKey()) {
                 generateInfo.setPrimaryKey(SqlReservedWords.containsWord(tableColumn.getColumnName()) ? "`" + tableColumn.getColumnName() + "`" : tableColumn.getColumnName());
-                generateInfo.setPrimaryKeyCamel(CommonUtil.getNameLowerCamel(tableColumn.getColumnName()));
+                generateInfo.setPrimaryKeyLowerCamel(CommonUtil.getNameLowerCamel(tableColumn.getColumnName()));
+                generateInfo.setPrimaryKeyUpperCamel(CommonUtil.getNameUpperCamel(tableColumn.getColumnName()));
                 generateInfo.setPrimaryKeyJdbcType(DataTypeEnum.getJdbcTypeByDataType(tableColumn.getDataType()));
                 generateInfo.setPrimaryKeyJavaTypeName(DataTypeEnum.getJavaTypeNameByDataType(tableColumn.getDataType()));
                 generateInfo.setPrimaryKeyJavaType(DataTypeEnum.getJdbcTypeByDataType(tableColumn.getDataType()));

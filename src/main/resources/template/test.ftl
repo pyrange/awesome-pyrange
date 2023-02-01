@@ -39,6 +39,8 @@ public class ${generateInfo.moduleName}Test {
     public void insertTest() throws Exception {
         ${generateInfo.moduleName}Insert insert = new ${generateInfo.moduleName}Insert();
         <#list generateInfo.columnList as column>
+            <#if generateInfo.primaryKey == column.columnCamelName || "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
+            <#else>
             <#if column.columnJavaTypeName == 'String'>
                 insert.${column.setterName}("1");
             <#elseIf column.columnJavaTypeName == 'Integer'>
@@ -49,6 +51,7 @@ public class ${generateInfo.moduleName}Test {
                 insert.${column.setterName}(LocalDateTime.now());
             <#else>
                 insert.${column.setterName}("1");
+            </#if>
             </#if>
         </#list>
         String jsonRequest = JSON.toJSONString(insert);
@@ -69,6 +72,8 @@ public class ${generateInfo.moduleName}Test {
     public void updateTest() throws Exception {
         ${generateInfo.moduleName}Update update = new ${generateInfo.moduleName}Update();
         <#list generateInfo.columnList as column>
+            <#if "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
+            <#else>
             <#if column.columnJavaTypeName == 'String'>
                 update.${column.setterName}("1");
             <#elseIf column.columnJavaTypeName == 'Integer'>
@@ -79,6 +84,7 @@ public class ${generateInfo.moduleName}Test {
                 update.${column.setterName}(LocalDateTime.now());
             <#else>
                 update.${column.setterName}("1");
+            </#if>
             </#if>
         </#list>
         String jsonRequest = JSON.toJSONString(update);

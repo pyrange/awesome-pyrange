@@ -37,7 +37,7 @@ public interface ${generateInfo.moduleName}Mapper {
      * @param id
      * @return ${generateInfo.moduleName}
      **/
-    ${generateInfo.moduleName}Detail brief(${generateInfo.primaryKeyJavaTypeName} id);
+    ${generateInfo.moduleName}Detail brief(${generateInfo.primaryKeyJavaTypeName} ${generateInfo.primaryKeyLowerCamel});
 
     /**
      * 详情
@@ -45,7 +45,7 @@ public interface ${generateInfo.moduleName}Mapper {
      * @param id
      * @return ${generateInfo.moduleName}
      **/
-    ${generateInfo.moduleName}Detail detail(${generateInfo.primaryKeyJavaTypeName} id);
+    ${generateInfo.moduleName}Detail detail(${generateInfo.primaryKeyJavaTypeName} ${generateInfo.primaryKeyLowerCamel});
 
     /**
      * 查询列表

@@ -24,10 +24,8 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class ${generateInfo.moduleName}Insert {
 
-    // TODO ${basicConfig.author} 记得删除无用字段；记得删除无用字段；记得删除无用字段；记得删除无用字段；记得删除无用字段；
 <#list generateInfo.columnList as column>
-
-    <#if "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
+    <#if generateInfo.primaryKey == column.columnCamelName || "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
     <#else>
     /** ${column.columnComment} */
         <#if column.nullable == 'NO'>
@@ -37,6 +35,7 @@ public class ${generateInfo.moduleName}Insert {
     @Length(min = 1, max = ${column.characterMaximumLength}, message = "${column.columnComment}长度不能超过${column.characterMaximumLength}位")
         </#if>
     private ${column.columnJavaTypeName} ${column.columnCamelName};
+
     </#if>
 </#list>
 }

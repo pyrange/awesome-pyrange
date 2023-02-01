@@ -7,5 +7,5 @@ package com.pyrange.awesome;
  */
 public class PyrangeConstant {
 
-    public static final String DEFAULT_GROUP_ID = "com.pyrange";
+    public static final String DEFAULT_GROUP_ID = "com.xx";
 }

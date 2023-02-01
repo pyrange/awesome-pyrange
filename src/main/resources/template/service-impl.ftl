@@ -1,5 +1,6 @@
 package ${generateInfo.servicePackage}.impl;
 
+import ${basicConfig.groupId}.common.model.dto.Page;
 import ${generateInfo.servicePackage}.${generateInfo.moduleName}Service;
 import ${generateInfo.mapperPackage}.${generateInfo.moduleName}Mapper;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Po;
@@ -41,6 +42,17 @@ public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.mod
     }
 
     @Override
+    public Result delete(Integer ${generateInfo.primaryKeyLowerCamel}) {
+        ${generateInfo.moduleName}Po ${generateInfo.moduleNameLowercase}Po = ${generateInfo.moduleName}Po.builder()
+            .${generateInfo.primaryKeyLowerCamel}(${generateInfo.primaryKeyLowerCamel})
+            .updateTime(LocalDateTime.now())
+            .deleted(1)
+            .build();
+        ${generateInfo.moduleNameLowercase}Mapper.update(${generateInfo.moduleNameLowercase}Po);
+        return Result.success("删除成功");
+    }
+
+    @Override
     public Result update(${generateInfo.moduleName}Update update) {
         ${generateInfo.moduleName}Po ${generateInfo.moduleNameLowercase}Po = ${generateInfo.moduleName}Po.builder()
                 .updateTime(LocalDateTime.now())
@@ -51,13 +63,16 @@ public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.mod
     }
 
     @Override
-    public Result${"<"}${generateInfo.moduleName}Detail${">"} detail(${generateInfo.primaryKeyJavaTypeName} id) {
-        return Result.success(${generateInfo.moduleNameLowercase}Mapper.detail(id));
+    public Result${"<"}${generateInfo.moduleName}Detail${">"} detail(${generateInfo.primaryKeyJavaTypeName} ${generateInfo.primaryKeyLowerCamel}) {
+        return Result.success(${generateInfo.moduleNameLowercase}Mapper.detail(${generateInfo.primaryKeyLowerCamel}));
     }
 
     @Override
-    public Result${"<List<"}${generateInfo.moduleName}Brief${">>"} list(${generateInfo.moduleName}Query query) {
+    public Result${"<Page<List<"}${generateInfo.moduleName}Brief${">>>"} list(${generateInfo.moduleName}Query query) {
+        if (query.getEndDate() != null) {
+            query.setEndDate(query.getEndDate().plusDays(1));
+        }
         PageUtil.startPage(query);
-        return Result.success(${generateInfo.moduleNameLowercase}Mapper.list(query));
+        return Result.page(${generateInfo.moduleNameLowercase}Mapper.list(query));
     }
 }

@@ -1,4 +1,5 @@
 package ${generateInfo.controllerPackage};
+import ${basicConfig.groupId}.common.model.dto.Page;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Query;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Insert;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Update;
@@ -41,6 +42,17 @@ public class ${generateInfo.moduleName}Controller {
     }
 
     /**
+     * 删除
+     *
+     * @param teacherId
+     * @return Result
+     **/
+    @DeleteMapping("{teacherId}")
+    public Result delete(@PathVariable("${generateInfo.primaryKeyLowerCamel}") ${generateInfo.primaryKeyJavaTypeName} ${generateInfo.primaryKeyLowerCamel}) {
+        return teacherService.delete(${generateInfo.primaryKeyLowerCamel});
+    }
+
+    /**
      * 更新
      *
      * @param update
@@ -54,12 +66,12 @@ public class ${generateInfo.moduleName}Controller {
     /**
      * 详情
      *
-     * @param id
+     * @param ${generateInfo.primaryKeyLowerCamel}
      * @return Result${"<"}${generateInfo.moduleName}Detail${">"}
      **/
-    @GetMapping("{id}")
-    public Result${"<"}${generateInfo.moduleName}Detail${">"} detail(@PathVariable("id") ${generateInfo.primaryKeyJavaTypeName} id) {
-        return ${generateInfo.moduleNameLowercase}Service.detail(id);
+    @GetMapping("{${generateInfo.primaryKeyLowerCamel}}")
+    public Result${"<"}${generateInfo.moduleName}Detail${">"} detail(@PathVariable("${generateInfo.primaryKeyLowerCamel}") ${generateInfo.primaryKeyJavaTypeName} ${generateInfo.primaryKeyLowerCamel}) {
+        return ${generateInfo.moduleNameLowercase}Service.detail(${generateInfo.primaryKeyLowerCamel});
     }
 
     /**
@@ -69,7 +81,7 @@ public class ${generateInfo.moduleName}Controller {
      * @return Result${"<List<"}${generateInfo.moduleName}Simple${">>"}
      **/
     @GetMapping
-    public Result${"<List<"}${generateInfo.moduleName}Brief${">>"} list(@ModelAttribute @Valid ${generateInfo.moduleName}Query query) {
+    public Result${"<Page<List<"}${generateInfo.moduleName}Brief${">>>"} list(@ModelAttribute @Valid ${generateInfo.moduleName}Query query) {
         return ${generateInfo.moduleNameLowercase}Service.list(query);
     }
 }

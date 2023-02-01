@@ -51,7 +51,8 @@ public class GenerateInfo {
     private String primaryKeyJavaTypeName;
     private String primaryKeyJdbcType;
     private String primaryKey;
-    private String primaryKeyCamel;
+    private String primaryKeyLowerCamel;
+    private String primaryKeyUpperCamel;
 
     public String getTableComment() {
         return tableComment;
@@ -157,12 +158,12 @@ public class GenerateInfo {
         this.primaryKey = primaryKey;
     }
 
-    public String getPrimaryKeyCamel() {
-        return primaryKeyCamel;
+    public String getPrimaryKeyLowerCamel() {
+        return primaryKeyLowerCamel;
     }
 
-    public void setPrimaryKeyCamel(String primaryKeyCamel) {
-        this.primaryKeyCamel = primaryKeyCamel;
+    public void setPrimaryKeyLowerCamel(String primaryKeyLowerCamel) {
+        this.primaryKeyLowerCamel = primaryKeyLowerCamel;
     }
 
     public String getModelNameLowerCamel() {
@@ -243,5 +244,13 @@ public class GenerateInfo {
 
     public void setControllerPackageWithSlash(String controllerPackageWithSlash) {
         this.controllerPackageWithSlash = controllerPackageWithSlash;
+    }
+
+    public String getPrimaryKeyUpperCamel() {
+        return primaryKeyUpperCamel;
+    }
+
+    public void setPrimaryKeyUpperCamel(String primaryKeyUpperCamel) {
+        this.primaryKeyUpperCamel = primaryKeyUpperCamel;
     }
 }
