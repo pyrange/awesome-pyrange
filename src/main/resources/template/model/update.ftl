@@ -28,13 +28,16 @@ public class ${generateInfo.moduleName}Update {
     // TODO ${basicConfig.author} 记得删除无用字段；记得删除无用字段；记得删除无用字段；记得删除无用字段；记得删除无用字段；
 <#list generateInfo.columnList as column>
 
+    <#if "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
+    <#else>
     /** ${column.columnComment} */
-    <#if column.nullable == 'NO'>
+        <#if column.nullable == 'NO'>
     @NotNull(message = "${column.columnComment}不能为空")
-    </#if>
-    <#if column.columnJavaTypeName == 'String'>
+        </#if>
+        <#if column.columnJavaTypeName == 'String'>
     @Length(min = 1, max = ${column.characterMaximumLength}, message = "${column.columnComment}长度不能超过${column.characterMaximumLength}位")
-    </#if>
+        </#if>
     private ${column.columnJavaTypeName} ${column.columnCamelName};
+    </#if>
 </#list>
 }

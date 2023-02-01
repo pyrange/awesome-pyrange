@@ -16,7 +16,7 @@ import java.util.List;
 public interface ${generateInfo.moduleName}Mapper {
 
     /**
-     * 全字段新增
+     * 新增
      *
      * @param insert
      * @return int 新增条数

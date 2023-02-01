@@ -251,6 +251,7 @@ public class ToolWindowUI {
                 String servicePath = (String) comboBoxServicePath.getSelectedItem();
                 String modelPath = (String) comboBoxModelPath.getSelectedItem();
                 String mapperPath = (String) comboBoxMapperPath.getSelectedItem();
+                String fePath = (String) comboBoxFePath.getSelectedItem();
 
                 propertiesComponent.setValue("Pyrange-Windows-tableName", tableName);
                 propertiesComponent.setValue("Pyrange-Windows-projectPath", projectPath);
@@ -259,6 +260,7 @@ public class ToolWindowUI {
                 propertiesComponent.setValue("Pyrange-Windows-servicePath", servicePath);
                 propertiesComponent.setValue("Pyrange-Windows-mapperPath", mapperPath);
                 propertiesComponent.setValue("Pyrange-Windows-modelPath", modelPath);
+                propertiesComponent.setValue("Pyrange-Windows-fePath", fePath);
 
                 propertiesComponent.setValue("Pyrange-Windows-controllerCheckBox", controllerCheckBox.isSelected());
                 propertiesComponent.setValue("Pyrange-Windows-serviceCheckBox", serviceCheckBox.isSelected());

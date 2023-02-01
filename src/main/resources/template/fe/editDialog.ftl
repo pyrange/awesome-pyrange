@@ -2,7 +2,8 @@
   <el-dialog title="编辑" :visible.sync="visible" append-to-body top="50px" width="800px" :before-close="handleClose">
     <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="120px">
 <#list generateInfo.columnList as column>
-  <#if "${column.columnCamelName}"?ends_with("ed")>
+  <#if "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
+  <#elseif "${column.columnCamelName}"?ends_with("ed")>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
         <el-radio-group v-model="ruleForm.${column.columnCamelName}">
           <el-radio :label="0">否</el-radio>
@@ -67,7 +68,9 @@ export default {
       ruleForm: {},
       rules: {
 <#list generateInfo.columnList as column>
-  <#if "${column.nullable}" =="NO">
+
+  <#if "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
+  <#elseif "${column.nullable}" =="NO">
         ${column.columnCamelName}: [
           { required: true, message: '请输入${column.columnComment}', trigger: 'blur' },
     <#if column.columnJavaTypeName == 'String'>
@@ -102,6 +105,7 @@ export default {
           if (res.status === 200) {
             this.$message.success('修改成功')
             this.$emit('success')
+            this.$emit('update:visible', false)
           }
         } else {
           this.btnLoading = false

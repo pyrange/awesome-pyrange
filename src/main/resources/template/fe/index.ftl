@@ -56,17 +56,20 @@
     <!-- 列表 -->
     <el-table v-loading="listLoading" :data="listData" element-loading-text="Loading" fit highlight-current-row>
 <#list generateInfo.columnList as column>
+  <#if "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
+  <#else>
       <el-table-column align="center" prop="${column.columnCamelName}" label="${column.columnComment}">
-  <#if "${column.columnCamelName}"?ends_with("ed")>
+    <#if "${column.columnCamelName}"?ends_with("ed")>
         <template slot-scope="{row}">
           {{ row.${column.columnCamelName} | dictFilter('whether') }}
         </template>
-  <#elseif "${column.columnCamelName}"?matches(".*?(Status|Type|Strategy).*")>
+    <#elseif "${column.columnCamelName}"?matches(".*?(Status|Type|Strategy).*")>
         <template slot-scope="{row}">
           {{ row.${column.columnCamelName} | dictFilter('${column.columnCamelName}') }}
         </template>
-  </#if>
       </el-table-column>
+    </#if>
+  </#if>
 </#list>
       <el-table-column align="center" label="操作" fixed="right" width="220">
         <template slot-scope="{row}">

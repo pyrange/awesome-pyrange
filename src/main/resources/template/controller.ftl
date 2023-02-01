@@ -8,6 +8,12 @@ import ${generateInfo.servicePackage}.${generateInfo.moduleName}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ${basicConfig.groupId}.common.model.dto.Result;
+
+<#if basicConfig.jdkVersion == 17>
+import jakarta.validation.Valid;
+<#else>
+import javax.validation.Valid;
+</#if>
 import java.util.List;
 
 /**
@@ -30,7 +36,7 @@ public class ${generateInfo.moduleName}Controller {
      * @return Result
      **/
     @PostMapping
-    public Result insert(@RequestBody ${generateInfo.moduleName}Insert insert) {
+    public Result insert(@RequestBody @Valid ${generateInfo.moduleName}Insert insert) {
         return ${generateInfo.moduleNameLowercase}Service.insert(insert);
     }
 
@@ -41,7 +47,7 @@ public class ${generateInfo.moduleName}Controller {
      * @return Result
      **/
     @PutMapping
-    public Result update(@RequestBody ${generateInfo.moduleName}Update update) {
+    public Result update(@RequestBody @Valid ${generateInfo.moduleName}Update update) {
         return ${generateInfo.moduleNameLowercase}Service.update(update);
     }
 
@@ -63,7 +69,7 @@ public class ${generateInfo.moduleName}Controller {
      * @return Result${"<List<"}${generateInfo.moduleName}Simple${">>"}
      **/
     @GetMapping
-    public Result${"<List<"}${generateInfo.moduleName}Brief${">>"} list(${generateInfo.moduleName}Query query) {
+    public Result${"<List<"}${generateInfo.moduleName}Brief${">>"} list(@ModelAttribute @Valid ${generateInfo.moduleName}Query query) {
         return ${generateInfo.moduleNameLowercase}Service.list(query);
     }
 }
