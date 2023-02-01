@@ -30,7 +30,7 @@ public class GenerateColumnInfo {
      */
     private String columnJdbcType;
     /**
-     * 字段类型名称
+     * 字段Java类型名称
      */
     private String columnJavaTypeName;
     /**

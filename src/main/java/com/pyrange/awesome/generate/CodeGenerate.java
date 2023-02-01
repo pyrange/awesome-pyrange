@@ -66,7 +66,7 @@ public class CodeGenerate {
             }
         }
         if (CommonUtil.isNullOrEmpty(priKey)) {
-            throw new Exception("Table has not primaryKey. Model generated!");
+            throw new Exception("The table doesn't not have primary key, plrease set before using!");
         }
         return tableInfo;
     }

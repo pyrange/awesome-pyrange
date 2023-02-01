@@ -6,13 +6,29 @@
 <#list generateInfo.columnList as column>
   <#if generateInfo.primaryKey == column.columnName || "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
   <#elseif "${column.columnCamelName}"?matches("(can|allow).*")>
-    <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-      <el-switch v-model="formData.${column.columnCamelName}" :active-value="1" :inactive-value="0"></el-switch>
-    </el-form-item>
+      <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
+        <el-switch v-model="formData.${column.columnCamelName}" :active-value="1" :inactive-value="0"></el-switch>
+      </el-form-item>
   <#elseif "${column.columnCamelName}"?matches(".*?(ed|able)")>
-    <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-      <el-switch v-model="formData.${column.columnCamelName}" :active-value="1" :inactive-value="0"></el-switch>
-    </el-form-item>
+      <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
+        <el-switch v-model="formData.${column.columnCamelName}" :active-value="1" :inactive-value="0"></el-switch>
+      </el-form-item>
+  <#elseif "${column.columnCamelName}"?matches(".*?(Id)")>
+      <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
+        <el-input v-model="formData.${column.columnCamelName}" />
+        <!--
+          <el-select v-model="formData.${column.columnCamelName}" multiple filterable
+             remote reserve-keyword  placeholder="请输入关键词"
+             :remote-method="remoteMethod" :loading="true">
+              <el-option
+                v-for="item in ${column.columnCamelName}Dict"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+              -->
+        </el-select>
+      </el-form-item>
   <#elseif "${column.columnCamelName}"?matches(".*?(Date|Time).*")>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
         <el-date-picker v-model="formData.${column.columnCamelName}" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:ss" type="datetime"
@@ -24,6 +40,14 @@
           <el-option label="label0" :value="0"></el-option>
           <el-option label="label1" :value="1"></el-option>
         </el-select>
+      </el-form-item>
+  <#elseif "${column.columnJavaTypeName}"?matches("Integer")>
+      <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
+        <el-input-number v-model="formData.${column.columnCamelName}" :min="1" :max="1000000" :precision="0" label="${column.columnComment}"></el-input-number>
+      </el-form-item>
+  <#elseif "${column.columnJavaTypeName}"?matches("BigDecimal")>
+      <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
+        <el-input-number v-model="formData.${column.columnCamelName}" :min="1" :max="1000000" label="${column.columnComment}"></el-input-number>
       </el-form-item>
   <#else>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">

@@ -11,32 +11,56 @@
         </el-radio-group>
       </el-form-item>
   <#elseif "${column.columnCamelName}"?ends_with("able")>
-    <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-      <el-radio-group v-model="ruleForm.${column.columnCamelName}">
-        <el-radio :label="0">否</el-radio>
-        <el-radio :label="1">是</el-radio>
-      </el-radio-group>
-    </el-form-item>
-  <#elseif "${column.columnCamelName}"?ends_with("date")>
-    <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-      <el-date-picker v-model="ruleForm.${column.columnCamelName}" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" />
-    </el-form-item>
-  <#elseif "${column.columnCamelName}"?ends_with("time")>
-    <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-      <el-date-picker v-model="ruleForm.${column.columnCamelName}" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" />
-    </el-form-item>
+      <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
+        <el-radio-group v-model="ruleForm.${column.columnCamelName}">
+          <el-radio :label="0">否</el-radio>
+          <el-radio :label="1">是</el-radio>
+        </el-radio-group>
+      </el-form-item>
+  <#elseif "${column.columnCamelName}"?matches(".*?(Id)")>
+      <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
+        <el-input v-model="ruleForm.${column.columnCamelName}" />
+        <!--
+        <el-select v-model="ruleForm.${column.columnCamelName}" multiple filterable
+           remote reserve-keyword  placeholder="请输入关键词"
+           :remote-method="remoteMethod" :loading="true">
+            <el-option
+              v-for="item in ${column.columnCamelName}Dict"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+            -->
+        </el-select>
+      </el-form-item>
+  <#elseif "${column.columnCamelName}"?ends_with("Date")>
+      <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
+        <el-date-picker v-model="ruleForm.${column.columnCamelName}" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" />
+      </el-form-item>
+  <#elseif "${column.columnCamelName}"?ends_with("Time")>
+      <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
+        <el-date-picker v-model="ruleForm.${column.columnCamelName}" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" />
+      </el-form-item>
   <#elseif "${column.columnCamelName}"?matches(".*?(Status|Type|Strategy).*")>
-    <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-      <el-select v-model="ruleForm.${column.columnCamelName}" placeholder="请选择">
-        <el-option label="" value="全部" />
-        <el-option :label="0" value="开启" />
-        <el-option :label="1" value="关闭" />
-      </el-select>
-    </el-form-item>
+      <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
+        <el-select v-model="ruleForm.${column.columnCamelName}" placeholder="请选择">
+          <el-option label="" value="全部" />
+          <el-option :label="0" value="开启" />
+          <el-option :label="1" value="关闭" />
+        </el-select>
+      </el-form-item>
+  <#elseif "${column.columnJavaTypeName}"?matches("Integer")>
+      <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
+        <el-input-number v-model="ruleForm.${column.columnCamelName}" :min="1" :max="1000000" :precision="0" label="${column.columnComment}"></el-input-number>
+      </el-form-item>
+  <#elseif "${column.columnJavaTypeName}"?matches("BigDecimal")>
+      <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
+        <el-input-number v-model="ruleForm.${column.columnCamelName}" :min="1" :max="1000000" label="${column.columnComment}"></el-input-number>
+      </el-form-item>
   <#else>
-    <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-      <el-input v-model="ruleForm.${column.columnCamelName}" />
-    </el-form-item>
+      <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
+        <el-input v-model="ruleForm.${column.columnCamelName}" />
+      </el-form-item>
   </#if>
 </#list>
       <el-form-item>
