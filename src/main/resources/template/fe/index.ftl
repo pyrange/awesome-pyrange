@@ -23,11 +23,11 @@
             </el-date-picker>
           </el-form-item>
           <!-- 默认 需要收起 -->
-          <el-form-item v-show="!isfold" class="search-item" label="启用：" prop="disable">
+          <el-form-item v-show="!isFold" class="search-item" label="启用：" prop="disable">
             <el-switch v-model="searchData.disable" :active-value="1" :inactive-value="0"  @change="handleSearch">
             </el-switch>
           </el-form-item>
-          <el-form-item v-show="!isfold" class="search-item" label="是否启用：" prop="disable">
+          <el-form-item v-show="!isFold" class="search-item" label="是否启用：" prop="disable">
             <el-select v-model="searchData.disable" style="width: 100%" placeholder="请选择" filterable
                        @change="handleSearch">
               <el-option label="关闭" :value="0"> </el-option>
@@ -40,7 +40,7 @@
         <!-- 重置搜索表单 -->
         <svg-icon iconClass="clear" style="font-size: 20px; cursor: pointer;" @click="resetField"></svg-icon>
         <!-- 展开/收起 -->
-        <span class="fold" @click="isfold = !isfold"> {{ isfold ? '展开' : '收起' }} <i :class=" isfold ? 'el-icon-arrow-down' : 'el-icon-arrow-up'"></i> </span>
+        <span class="fold" @click="isFold = !isFold"> {{ isFold ? '展开' : '收起' }} <i :class=" isFold ? 'el-icon-arrow-down' : 'el-icon-arrow-up'"></i> </span>
       </el-col>
     </el-row>
 
@@ -68,7 +68,7 @@
   </#if>
       </el-table-column>
 </#list>
-      <el-table-column align="center" label="操作" fixed width="220">
+      <el-table-column align="center" label="操作" fixed="right" width="220">
         <template slot-scope="{row}">
           <el-button type="primary" size="mini" @click="handleDetail(row)">查看</el-button>
           <el-button type="primary" size="mini" @click="handleEdit(row)">编辑</el-button>
@@ -106,7 +106,7 @@ export default {
   data() {
     return {
       listData: null,
-      isfold: true,
+      isFold: true,
       addDrawerVisible: false,
       listLoading: true,
       searchData: {

@@ -485,11 +485,8 @@ public class ToolWindowUI {
     }
 
     private String checkPath() {
-        if (CommonUtil.isNullOrEmpty(textFieldProjectPath.getText())) {
+        if (samePathCheckBox.isSelected() && CommonUtil.isNullOrEmpty(textFieldProjectPath.getText())) {
             return "ProjectPath required";
-        }
-        if (samePathCheckBox.isSelected()) {
-            return null;
         }
         if (controllerCheckBox.isSelected() && CommonUtil.isNullOrEmpty(comboBoxControllerPath.getSelectedItem())) {
             return "ControllerPath required";
