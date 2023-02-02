@@ -35,6 +35,8 @@ public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.mod
     public Result insert(${generateInfo.moduleName}Insert insert) {
         ${generateInfo.moduleName}Po ${generateInfo.moduleNameLowercase}Po = ${generateInfo.moduleName}Po.builder()
                 .createTime(LocalDateTime.now())
+                //.createUserId(SessionUtil.getUserId())
+                //.createUserName(SessionUtil.getUserName())
                 .build();
         BeanUtils.copyProperties(insert, ${generateInfo.moduleNameLowercase}Po);
         ${generateInfo.moduleNameLowercase}Mapper.insert(${generateInfo.moduleNameLowercase}Po);

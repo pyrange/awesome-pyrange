@@ -25,5 +25,6 @@ public class ${generateInfo.moduleName}Po {
     <#list generateInfo.columnList as column>
     /** ${column.columnComment} */
     private ${column.columnJavaTypeName} ${column.columnCamelName};
+
     </#list>
 }

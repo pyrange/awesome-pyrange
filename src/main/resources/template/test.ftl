@@ -39,7 +39,7 @@ public class ${generateInfo.moduleName}Test {
     public void insertTest() throws Exception {
         ${generateInfo.moduleName}Insert insert = new ${generateInfo.moduleName}Insert();
         <#list generateInfo.columnList as column>
-            <#if generateInfo.primaryKey == column.columnCamelName || "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
+            <#if generateInfo.primaryKey == column.columnCamelName || "${column.columnCamelName}"?matches("deleted|isDel|isDelete|isDeleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
             <#else>
             <#if column.columnJavaTypeName == 'String'>
                 insert.${column.setterName}("1");
@@ -72,7 +72,7 @@ public class ${generateInfo.moduleName}Test {
     public void updateTest() throws Exception {
         ${generateInfo.moduleName}Update update = new ${generateInfo.moduleName}Update();
         <#list generateInfo.columnList as column>
-            <#if "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
+            <#if "${column.columnCamelName}"?matches("deleted|isDel|isDelete|isDeleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
             <#else>
             <#if column.columnJavaTypeName == 'String'>
                 update.${column.setterName}("1");

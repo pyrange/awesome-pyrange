@@ -56,9 +56,9 @@
     <!-- 列表 -->
     <el-table v-loading="listLoading" :data="listData" element-loading-text="Loading" fit highlight-current-row>
 <#list generateInfo.columnList as column>
-  <#if generateInfo.primaryKey == column.columnCamelName || "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|updateUserName|updateUserId|updateTime")>
+  <#if generateInfo.primaryKey == column.columnCamelName || "${column.columnCamelName}"?matches("deleted|isDel|isDelete|isDeleted|createUserName|createUserId|updateUserName|updateUserId|updateTime")>
   <#else>
-      <el-table-column align="center" prop="${column.columnCamelName}" label="${column.columnComment}">
+      <el-table-column align="center" prop="${column.columnCamelName}" <#if "${column.columnJavaTypeName}"?matches("LocalDateTime")>width="140" </#if>label="${column.columnComment}">
     <#if column_index == 1>
         <template slot-scope="{row}">
           <el-link type="primary" @click="handleDetail(row)">{{row.${column.columnCamelName}}}</el-link>
@@ -184,7 +184,7 @@ export default {
         method: 'get'
       })
       if (res.status === 200 && res.data) {
-        this.detailDialogData.detail = row
+        this.detailDialogData.detail = res.data
         this.detailDialogData.visible = true
       }
     },
@@ -207,7 +207,7 @@ export default {
         method: 'get'
       })
       if (res.status === 200 && res.data) {
-        this.editDialogData.detail = row
+        this.editDialogData.detail = res.data
         this.editDialogData.visible = true
       }
     },

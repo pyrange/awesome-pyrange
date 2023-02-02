@@ -12,9 +12,11 @@ public class GenerateInfo {
 
     private String moduleName;
     private String moduleNameUppercaseCamel;
+    private String moduleNameLowercase;
     private String moduleNameWithDot;
     private String moduleNameWithSlash;
-    private String moduleNameLowercase;
+    private String moduleNameWithHyphen;
+    private String moduleNameWithUnderscore;
 
     private String tableComment;
     private String tableName;
@@ -252,5 +254,21 @@ public class GenerateInfo {
 
     public void setPrimaryKeyUpperCamel(String primaryKeyUpperCamel) {
         this.primaryKeyUpperCamel = primaryKeyUpperCamel;
+    }
+
+    public String getModuleNameWithHyphen() {
+        return moduleNameWithHyphen;
+    }
+
+    public void setModuleNameWithHyphen(String moduleNameWithHyphen) {
+        this.moduleNameWithHyphen = moduleNameWithHyphen;
+    }
+
+    public String getModuleNameWithUnderscore() {
+        return moduleNameWithUnderscore;
+    }
+
+    public void setModuleNameWithUnderscore(String moduleNameWithUnderscore) {
+        this.moduleNameWithUnderscore = moduleNameWithUnderscore;
     }
 }

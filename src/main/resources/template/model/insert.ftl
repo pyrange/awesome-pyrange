@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 public class ${generateInfo.moduleName}Insert {
 
 <#list generateInfo.columnList as column>
-    <#if generateInfo.primaryKey == column.columnCamelName || "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
+    <#if generateInfo.primaryKey == column.columnCamelName || "${column.columnCamelName}"?matches("deleted|isDel|isDelete|isDeleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
     <#else>
     /** ${column.columnComment} */
         <#if column.nullable == 'NO'>

@@ -52,7 +52,7 @@ public interface ${generateInfo.moduleName}Service {
      * 列表
      *
      * @param query
-     * @return ${generateInfo.moduleName}Brief
+     * @return Result${"<Page<List<"}${generateInfo.moduleName}Brief${">>>"}
      **/
     Result${"<Page<List<"}${generateInfo.moduleName}Brief${">>>"} list(${generateInfo.moduleName}Query query);
 }

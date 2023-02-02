@@ -4,12 +4,12 @@
 
     <insert id="insert" parameterType="${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Po" keyProperty="${generateInfo.primaryKeyLowerCamel}" useGeneratedKeys="true">
         INSERT INTO ${generateInfo.tableName}
-            (<#list generateInfo.columnList as column><#if column_has_next><#if generateInfo.primaryKey != column.columnName && !column.columnName?matches("deleted|updateUserName|updateUserId|updateTime")>${column.columnName}, </#if><#else>${column.columnName}</#if><#if (column_index+1)%8 == 0>${"\n             "}</#if></#list>)
+            (<#list generateInfo.columnList as column><#if column_has_next><#if generateInfo.primaryKey != column.columnName && !column.columnName?matches("deleted|isDel|isDelete|isDeleted|updateUserName|updateUserId|updateTime")>${column.columnName}, </#if><#else>${column.columnName}</#if><#if (column_index+1)%8 == 0>${"\n             "}</#if></#list>)
         VALUES (
         <#list generateInfo.columnList as column>
             <#if generateInfo.primaryKey != column.columnName>
                 <#if column_has_next>
-                    <#if generateInfo.primaryKey != column.columnName && !column.columnName?matches("deleted|updateUserName|updateUserId|updateTime")>
+                    <#if generateInfo.primaryKey != column.columnName && !column.columnName?matches("deleted|isDel|isDelete|isDeleted|updateUserName|updateUserId|updateTime")>
             ${"#\{"}${column.columnCamelName}, jdbcType=${column.columnJdbcType}${"}"},
                     </#if>
                 <#else>
@@ -34,20 +34,20 @@
         WHERE ${generateInfo.primaryKey} = ${"#\{"}${generateInfo.primaryKeyLowerCamel}, jdbcType=${generateInfo.primaryKeyJdbcType}${"}"}
     </update>
 
-    <select id="brief" parameterType="${generateInfo.primaryKeyJavaTypeName}" resultType="${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Detail">
-        SELECT <#list generateInfo.columnList as column><#if column_has_next><#if !"${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>${column.columnName},${"\n               "}</#if><#else>${column.columnName}</#if></#list>
+    <select id="brief" parameterType="${generateInfo.primaryKeyJavaTypeName}" resultType="${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Brief">
+        SELECT <#list generateInfo.columnList as column><#if column_has_next><#if !"${column.columnCamelName}"?matches("deleted|isDel|isDelete|isDeleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>${column.columnName},${"\n               "}</#if><#else>${column.columnName}</#if></#list>
           FROM ${generateInfo.tableName}
          WHERE ${generateInfo.primaryKey} = ${"#\{"}${generateInfo.primaryKeyLowerCamel}, jdbcType=${generateInfo.primaryKeyJdbcType}${"}"}
     </select>
 
     <select id="detail" parameterType="${generateInfo.primaryKeyJavaTypeName}" resultType="${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Detail">
-        SELECT <#list generateInfo.columnList as column><#if column_has_next>${column.columnName},${"\n               "}<#else>${column.columnName}</#if></#list>
+        SELECT <#list generateInfo.columnList as column><#if column_has_next><#if !"${column.columnCamelName}"?matches("deleted|isDel|isDelete|isDeleted")>${column.columnName},${"\n               "}</#if><#else>${column.columnName}</#if></#list>
           FROM ${generateInfo.tableName}
          WHERE ${generateInfo.primaryKey} = ${"#\{"}${generateInfo.primaryKeyLowerCamel}, jdbcType=${generateInfo.primaryKeyJdbcType}${"}"}
     </select>
 
     <select id="list" resultType="${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Brief">
-        SELECT <#list generateInfo.columnList as column><#if column_has_next><#if !"${column.columnCamelName}"?matches("deleted|createUserName|createUserId|updateUserName|updateUserId|updateTime")>${column.columnName},${"\n               "}</#if><#else>${column.columnName}</#if></#list>
+        SELECT <#list generateInfo.columnList as column><#if column_has_next><#if !"${column.columnCamelName}"?matches("deleted|isDel|isDelete|isDeleted|createUserName|createUserId|updateUserName|updateUserId|updateTime")>${column.columnName},${"\n               "}</#if><#else>${column.columnName}</#if></#list>
           FROM ${generateInfo.tableName}
          WHERE deleted = 0
         <if test="startDate != null">

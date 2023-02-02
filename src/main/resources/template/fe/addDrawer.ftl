@@ -26,8 +26,8 @@
                 :label="item.label"
                 :value="item.value">
               </el-option>
-              -->
-        </el-select>
+          </el-select>
+        -->
       </el-form-item>
   <#elseif "${column.columnCamelName}"?matches(".*?(Date|Time).*")>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">

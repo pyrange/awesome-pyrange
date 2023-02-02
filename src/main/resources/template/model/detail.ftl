@@ -18,8 +18,11 @@ import java.time.LocalDateTime;
 public class ${generateInfo.moduleName}Detail {
 
 <#list generateInfo.columnList as column>
+    <#if "${column.columnCamelName}"?matches("deleted|isDel|isDelete|isDeleted")>
+    <#else>
     /** ${column.columnComment} */
     private ${column.columnJavaTypeName} ${column.columnCamelName};
 
+    </#if>
 </#list>
 }

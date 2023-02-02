@@ -34,23 +34,23 @@ public interface ${generateInfo.moduleName}Mapper {
     /**
      * 概要
      *
-     * @param id
-     * @return ${generateInfo.moduleName}
+     * @param ${generateInfo.primaryKeyLowerCamel}
+     * @return ${generateInfo.moduleName}Brief
      **/
-    ${generateInfo.moduleName}Detail brief(${generateInfo.primaryKeyJavaTypeName} ${generateInfo.primaryKeyLowerCamel});
+    ${generateInfo.moduleName}Brief brief(${generateInfo.primaryKeyJavaTypeName} ${generateInfo.primaryKeyLowerCamel});
 
     /**
      * 详情
      *
-     * @param id
-     * @return ${generateInfo.moduleName}
+     * @param ${generateInfo.primaryKeyLowerCamel}
+     * @return ${generateInfo.moduleName}Detail
      **/
     ${generateInfo.moduleName}Detail detail(${generateInfo.primaryKeyJavaTypeName} ${generateInfo.primaryKeyLowerCamel});
 
     /**
      * 查询列表
      *
-     * @return ${generateInfo.moduleName}
+     * @return List<${generateInfo.moduleName}${"Brief>"}
      **/
     List<${generateInfo.moduleName}${"Brief>"} list(${generateInfo.moduleName}Query query);
 }

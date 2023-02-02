@@ -81,6 +81,8 @@ public class CodeGenerate {
         generateInfo.setModuleNameLowercase(moduleName.toLowerCase());
         generateInfo.setModuleNameWithDot(CommonUtil.str2LowercaseWithDot(tableInfo.getTableName()));
         generateInfo.setModuleNameWithSlash(CommonUtil.str2LowercaseWithSlash(tableInfo.getTableName()));
+        generateInfo.setModuleNameWithHyphen(CommonUtil.str2LowercaseWithHyphen(tableInfo.getTableName()));
+        generateInfo.setModuleNameWithUnderscore(CommonUtil.str2LowercaseWithUnderscore(tableInfo.getTableName()));
 
         generateInfo.setModelNameLowercase(CommonUtil.getNameLowercase(tableInfo.getTableName()));
         generateInfo.setModelNameUpperCamel(CommonUtil.getNameUpperCamel(tableInfo.getTableName()));

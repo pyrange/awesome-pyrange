@@ -48,6 +48,39 @@ public class CommonUtil {
     }
 
     /**
+     * 表名转小写 连接符
+     *
+     * @param tableName
+     * @return 转换后的字符串
+     */
+    public static String str2LowercaseWithHyphen(String tableName) {
+        if (isNullOrEmpty(tableName)) {
+            return "";
+        }
+        // 表名下划线分割, 直接替换成小写逗号
+        if (tableName.contains("_")) {
+            return tableName.replace("_", "-").toLowerCase();
+        }
+
+        return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, tableName)
+                .replace("_", "-").toLowerCase();
+    }
+
+    /**
+     * 表名转小写 下划线
+     *
+     * @param tableName
+     * @return 转换后的字符串
+     */
+    public static String str2LowercaseWithUnderscore(String tableName) {
+        if (isNullOrEmpty(tableName)) {
+            return "";
+        }
+
+        return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, tableName).toLowerCase();
+    }
+
+    /**
      * 表名转小写
      *
      * @param tableName
