@@ -6,7 +6,7 @@
         <el-form ref="searchForm" :inline="true" class="search-box" :model="searchData">
           <el-form-item class="search-item" label="关键字搜索：" prop="keyword">
             <el-input v-model="searchData.keyword" clearable suffix-icon="el-icon-search"
-                      placeholder="输入关键字搜索" @keyup.enter.native="handleSearch" />
+                      placeholder="请输入关键字搜索" @keyup.enter.native="handleSearch" />
           </el-form-item>
           <el-form-item class="search-item" label="状态：" prop="status">
             <el-select v-model="searchData.status" style="width: 100%" placeholder="请选择" filterable

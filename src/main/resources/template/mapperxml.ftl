@@ -56,6 +56,10 @@
         <if test="endDate != null">
            AND createTime &lt; <#noparse>#{endDate, jdbcType=TIMESTAMP}</#noparse>
         </if>
+        <if test="keyword != null and keyword != ''">
+            AND (name LIKE CONCAT('%', <#noparse>#{keyword}</#noparse>, '%')
+            OR tel LIKE CONCAT('%', <#noparse>#{keyword}</#noparse>, '%'))
+        </if>
          ORDER BY ${generateInfo.primaryKey} DESC
     </select>
 </mapper>
