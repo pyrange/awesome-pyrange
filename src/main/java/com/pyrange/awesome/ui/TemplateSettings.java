@@ -5,6 +5,7 @@ import com.intellij.openapi.ui.Messages;
 import com.pyrange.awesome.model.BasicConfig;
 import com.pyrange.awesome.model.Result;
 import com.pyrange.awesome.util.FreeMarkUtil;
+import com.pyrange.awesome.util.TemplateUtil;
 import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
@@ -47,7 +48,7 @@ public class TemplateSettings extends JDialog {
 
         // 设置窗口位置
         this.setLocation(400, 200);//设置窗口居中显示
-        BasicConfig basicConfig = Settings.getBasicConfig();
+        BasicConfig basicConfig = BasicConfig.getBasicConfig();
 
         // 模板设置
         for (String template : basicConfig.getCodeTemplates()) {
@@ -259,7 +260,7 @@ public class TemplateSettings extends JDialog {
                     Messages.showMessageDialog("the template name you input is not equal to the current", "tip", Messages.getInformationIcon());
                     return;
                 }
-                FreeMarkUtil.initialDefaultTemplate(codeTemplateName);
+                TemplateUtil.initialDefaultTemplate(codeTemplateName);
             }
         });
     }
@@ -290,7 +291,7 @@ public class TemplateSettings extends JDialog {
      * @param templateName
      */
     private void openEditTemplateDialog(String selectedCodeTemplate, String templateName) {
-        String templateStr = FreeMarkUtil.getTemplateContent(selectedCodeTemplate, templateName);
+        String templateStr = TemplateUtil.getTemplateContent(selectedCodeTemplate, templateName);
         TemplateEditDialog dialog = new TemplateEditDialog(templateStr, selectedCodeTemplate, templateName);
         dialog.pack();
         dialog.setVisible(true);

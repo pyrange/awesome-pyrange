@@ -10,6 +10,7 @@ import com.pyrange.awesome.model.Result;
 import com.pyrange.awesome.util.CommonUtil;
 import com.pyrange.awesome.util.MessageUtil;
 import com.pyrange.awesome.util.TableUtil;
+import com.pyrange.awesome.util.TemplateUtil;
 import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
@@ -40,6 +41,7 @@ public class Settings extends JDialog {
     private JRadioButton cloudConfigYes;
     private JRadioButton cloudConfigNo;
     private JButton loadCloudConfigButton;
+    private JTextField cloudConfigUrl;
 
     public Settings() {
         setContentPane(contentPane);
@@ -48,7 +50,7 @@ public class Settings extends JDialog {
         // 设置窗口位置
         this.setLocation(400, 200);
 
-        BasicConfig basicConfig = getBasicConfig();
+        BasicConfig basicConfig = BasicConfig.getBasicConfig();
         textFieldHost.setText(basicConfig.getJdbcHost());
         textFieldUserName.setText(basicConfig.getJdbcUserName());
         textFieldPassword.setText(basicConfig.getJdbcPassword());
@@ -66,7 +68,12 @@ public class Settings extends JDialog {
             codeTemplatesBox.addItem(template);
         }
         codeTemplatesBox.setSelectedItem(basicConfig.getSelectedCodeTemplate());
-
+        if (basicConfig.isCloudConfigEnabled()) {
+            cloudConfigYes.setSelected(true);
+        } else {
+            cloudConfigNo.setSelected(true);
+        }
+        cloudConfigUrl.setText(basicConfig.getCloudConfigUrl());
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -142,9 +149,20 @@ public class Settings extends JDialog {
             @Override
             public void mouseClicked(MouseEvent e) {
                 TemplateSettings dialog = new TemplateSettings(codeTemplatesBox);
-//                Test dialog = new Test();
                 dialog.pack();
                 dialog.setVisible(true);
+            }
+        });
+
+        loadCloudConfigButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String cloudConfigUrlText = cloudConfigUrl.getText();
+                if (StringUtils.isEmpty(cloudConfigUrlText)) {
+                    Messages.showMessageDialog("please input your cloud config url", "error", Messages.getInformationIcon());
+                    return;
+                }
+                TemplateUtil.loadCloudTemplate(cloudConfigUrlText);
             }
         });
 
@@ -166,8 +184,14 @@ public class Settings extends JDialog {
         propertiesComponent.setValue("PYRANGE-SETTINGS-groupId", textFieldGroupId.getText());
         propertiesComponent.setValue("PYRANGE-SETTINGS-settingsConfigured", true);
         propertiesComponent.setValue("PYRANGE-SETTINGS-jdkVersion", jdkComboBox.getSelectedItem().toString());
-        propertiesComponent.setValue("PYRANGE-SETTINGS-cloudConfigEnabled", cloudConfigYes.isSelected());
-
+        propertiesComponent.setValue("PYRANGE-SETTINGS-cloudConfigUrl", cloudConfigUrl.getText());
+        boolean cloudConfigYesSelected = cloudConfigYes.isSelected();
+        propertiesComponent.setValue("PYRANGE-SETTINGS-cloudConfigEnabled", cloudConfigYesSelected);
+        boolean haveCloudConfigSet = propertiesComponent.getBoolean("PYRANGE-SETTINGS-haveCloudConfigSet", false);
+        if (cloudConfigYesSelected && !haveCloudConfigSet) {
+            Messages.showMessageDialog("if you want to use cloud config, please load the cloud templates first", "tip", Messages.getInformationIcon());
+            return;
+        }
         setSelectedCodeTemplate(codeTemplatesBox.getSelectedItem().toString());
         dispose();
     }
@@ -211,34 +235,6 @@ public class Settings extends JDialog {
         return propertiesComponent.getBoolean("PYRANGE-SETTINGS-settingsConfigured");
     }
 
-    public static BasicConfig getBasicConfig() {
-        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
-        BasicConfig basicConfig = new BasicConfig();
-        basicConfig.setJdbcHost(propertiesComponent.getValue("PYRANGE-SETTINGS-jdbcHost"));
-        basicConfig.setJdbcDatabase(propertiesComponent.getValue("PYRANGE-SETTINGS-jdbcDatabase"));
-        basicConfig.setJdbcUserName(propertiesComponent.getValue("PYRANGE-SETTINGS-jdbcUserName"));
-        basicConfig.setJdbcPassword(propertiesComponent.getValue("PYRANGE-SETTINGS-jdbcPassword"));
-        String groupId = StringUtils.isEmpty(propertiesComponent.getValue("PYRANGE-SETTINGS-groupId")) ? PyrangeConstant.DEFAULT_GROUP_ID : propertiesComponent.getValue("PYRANGE-SETTINGS-groupId");
-        basicConfig.setGroupId(groupId);
-        basicConfig.setAuthor(propertiesComponent.getValue("PYRANGE-SETTINGS-author"));
-        basicConfig.setJdkVersion(propertiesComponent.getInt("PYRANGE-SETTINGS-jdkVersion", 11));
-        basicConfig.setCloudConfigEnabled(propertiesComponent.getBoolean("PYRANGE-SETTINGS-cloudConfigEnabled", false));
-
-        String[] codeTemplate = propertiesComponent.getValues(PYRANGE_CODE_TEMPLATE);
-        if (codeTemplate == null) {
-            codeTemplate = new String[]{"default"};
-            propertiesComponent.setValues(PYRANGE_CODE_TEMPLATE, codeTemplate);
-        }
-        basicConfig.setCodeTemplates(codeTemplate);
-        String selectedCodeTemplate = propertiesComponent.getValue(PYRANGE_SELECTED_CODE_TEMPLATE);
-        if (StringUtils.isEmpty(selectedCodeTemplate)) {
-            selectedCodeTemplate = "default";
-        }
-        basicConfig.setSelectedCodeTemplate(selectedCodeTemplate);
-
-        return basicConfig;
-    }
-
 
     public static Result createNewTemplate(String newTemplateName) {
         PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
@@ -254,10 +250,10 @@ public class Settings extends JDialog {
         return Result.success();
     }
 
-    private static String[] insertElement(String original[],
+    private static String[] insertElement(String[] original,
                                           String element, int index) {
         int length = original.length;
-        String destination[] = new String[length + 1];
+        String[] destination = new String[length + 1];
         System.arraycopy(original, 0, destination, 0, index);
         destination[index] = element;
         System.arraycopy(original, index, destination, index

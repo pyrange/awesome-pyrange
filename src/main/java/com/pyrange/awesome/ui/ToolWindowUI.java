@@ -6,6 +6,7 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.pyrange.awesome.PyrangeException;
+import com.pyrange.awesome.model.BasicConfig;
 import com.pyrange.awesome.util.MessageUtil;
 import com.pyrange.awesome.generate.CodeGenerate;
 import com.pyrange.awesome.model.ConfigModel;
@@ -19,6 +20,12 @@ import java.awt.event.*;
 import java.io.File;
 import java.util.List;
 
+/**
+ * 工具图形化窗口
+ *
+ * @author chenjw
+ * @date 2023-2-3
+ */
 public class ToolWindowUI {
 
     private static final String SEPARATOR_LINE = "\n\n" + "--------------------------------------------------------------------------------------------------------------------------------------------------------" + "\n\n";
@@ -96,7 +103,7 @@ public class ToolWindowUI {
 
         comboBoxFePath.addItem(propertiesComponent.getValue("Pyrange-Windows-fePath"));
         comboBoxFePath.setSelectedItem(propertiesComponent.getValue("Pyrange-Windows-fePath"));
-        
+
         comboBoxControllerPath.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
@@ -270,7 +277,7 @@ public class ToolWindowUI {
                 propertiesComponent.setValue("Pyrange-Windows-testCheckBox", testCheckBox.isSelected());
 
                 try {
-                    CodeGenerate.generate(Settings.getBasicConfig(), getConfigModel());
+                    CodeGenerate.generate(BasicConfig.getBasicConfig(), getConfigModel());
                     MessageUtil.showSuccessMsg("Table " + tableName + " has been generated successfully!");
                 } catch (PyrangeException e1) {
                     MessageUtil.showErrorMsg(e1.getMessage());
@@ -293,7 +300,7 @@ public class ToolWindowUI {
                 }
 
                 try {
-                    String controllerStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "controller.ftl");
+                    String controllerStr = CodeGenerate.getGeneratedModelStr(BasicConfig.getBasicConfig(), getConfigModel(), "controller.ftl");
 
                     CodingDialog codingDialog = new CodingDialog(controllerStr);
                     codingDialog.show();
@@ -314,8 +321,8 @@ public class ToolWindowUI {
                 }
 
                 try {
-                    String serviceImplStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "service-impl.ftl");
-                    String serviceStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "service.ftl");
+                    String serviceImplStr = CodeGenerate.getGeneratedModelStr(BasicConfig.getBasicConfig(), getConfigModel(), "service-impl.ftl");
+                    String serviceStr = CodeGenerate.getGeneratedModelStr(BasicConfig.getBasicConfig(), getConfigModel(), "service.ftl");
 
                     CodingDialog codingDialog = new CodingDialog(serviceImplStr + SEPARATOR_LINE + serviceStr);
                     codingDialog.show();
@@ -336,8 +343,8 @@ public class ToolWindowUI {
                 }
 
                 try {
-                    String insertStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "model/insert.ftl");
-                    String poStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "model/po.ftl");
+                    String insertStr = CodeGenerate.getGeneratedModelStr(BasicConfig.getBasicConfig(), getConfigModel(), "model/insert.ftl");
+                    String poStr = CodeGenerate.getGeneratedModelStr(BasicConfig.getBasicConfig(), getConfigModel(), "model/po.ftl");
 
                     CodingDialog codingDialog = new CodingDialog(poStr + SEPARATOR_LINE + insertStr);
                     codingDialog.show();
@@ -359,8 +366,8 @@ public class ToolWindowUI {
                 }
 
                 try {
-                    String mapperStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "mapper.ftl");
-                    String mapperXmlStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "mapperxml.ftl");
+                    String mapperStr = CodeGenerate.getGeneratedModelStr(BasicConfig.getBasicConfig(), getConfigModel(), "mapper.ftl");
+                    String mapperXmlStr = CodeGenerate.getGeneratedModelStr(BasicConfig.getBasicConfig(), getConfigModel(), "mapperxml.ftl");
 
                     CodingDialog codingDialog = new CodingDialog(mapperXmlStr + SEPARATOR_LINE + mapperStr);
                     codingDialog.show();
@@ -382,10 +389,10 @@ public class ToolWindowUI {
                 }
 
                 try {
-                    String indexStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "fe/index.ftl");
-                    String addStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "fe/addDrawer.ftl");
-                    String detailStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "fe/detailDialog.ftl");
-                    String editStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "fe/editDialog.ftl");
+                    String indexStr = CodeGenerate.getGeneratedModelStr(BasicConfig.getBasicConfig(), getConfigModel(), "fe/index.ftl");
+                    String addStr = CodeGenerate.getGeneratedModelStr(BasicConfig.getBasicConfig(), getConfigModel(), "fe/addDrawer.ftl");
+                    String detailStr = CodeGenerate.getGeneratedModelStr(BasicConfig.getBasicConfig(), getConfigModel(), "fe/detailDialog.ftl");
+                    String editStr = CodeGenerate.getGeneratedModelStr(BasicConfig.getBasicConfig(), getConfigModel(), "fe/editDialog.ftl");
 
                     CodingDialog codingDialog = new CodingDialog(
                             indexStr
@@ -413,7 +420,7 @@ public class ToolWindowUI {
                 }
 
                 try {
-                    String testStr = CodeGenerate.getGeneratedModelStr(Settings.getBasicConfig(), getConfigModel(), "test.ftl");
+                    String testStr = CodeGenerate.getGeneratedModelStr(BasicConfig.getBasicConfig(), getConfigModel(), "test.ftl");
                     CodingDialog codingDialog = new CodingDialog(testStr);
                     codingDialog.show();
                 } catch (Exception ex) {
@@ -441,8 +448,8 @@ public class ToolWindowUI {
 
 //        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
 
-//        BasicConfig basicConfig = Settings.getBasicConfig();
-        
+//        BasicConfig basicConfig = BasicConfig.getBasicConfig();
+
         ConfigModel configModel = new ConfigModel();
 //        configModel.setJdbcDatabase(basicConfig.getJdbcDatabase());
 //        configModel.setJdbcUserName(basicConfig.getJdbcUserName());

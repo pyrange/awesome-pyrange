@@ -62,7 +62,7 @@ public class FreeMarkUtil {
     public static void generateFileByTemplateContent(Map<String, Object> root,
                                                      String selectedCodeTemplate, String templateName,
                                                      String fileDir, String fileName) throws Exception {
-        Template template = getTemplate(selectedCodeTemplate, templateName);
+        Template template = TemplateUtil.getTemplate(selectedCodeTemplate, templateName);
         if (!fileDir.endsWith("/")) {
             fileDir = fileDir + '/';
         }
@@ -82,7 +82,7 @@ public class FreeMarkUtil {
         root.put("basicConfig", basicConfig);
         root.put("configModel", configModel);
 
-        Template template = getTemplate(basicConfig.getSelectedCodeTemplate(), templateName);
+        Template template = TemplateUtil.getTemplate(basicConfig.getSelectedCodeTemplate(), templateName);
 
         StringWriter stringWriter = new StringWriter();
         BufferedWriter writer = new BufferedWriter(stringWriter);
@@ -100,69 +100,5 @@ public class FreeMarkUtil {
         return sb.toString();
     }
 
-    /**
-     * 创建新模板
-     *
-     * @param selectedCodeTemplate
-     * @param templateName
-     * @return
-     * @throws IOException
-     */
-    private static Template getTemplate(String selectedCodeTemplate, String templateName) throws IOException {
-        Configuration conf = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
-        // 获取模板加载器
-        String templateContent = getTemplateContent(selectedCodeTemplate, templateName);
-        StringTemplateLoader stringTemplateLoader = new StringTemplateLoader();
-        stringTemplateLoader.putTemplate(templateName, templateContent);
-        conf.setTemplateLoader(stringTemplateLoader);
-        return conf.getTemplate(templateName, "utf-8");
-    }
 
-    public static final String PYRANGE_TEMPLATE_PREFIX = "Pyrange-TEMPLATE-STORAGE-";
-
-    public static String getTemplateContent(String selectedCodeTemplate, String templateName) {
-        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
-        String value = propertiesComponent.getValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-" + templateName);
-        if (StringUtils.isEmpty(value)) {
-            return FileUtils.readFile("/template/" + templateName);
-        }
-
-        return value;
-    }
-
-    /**
-     * 保存模板信息
-     *
-     * @param selectedCodeTemplate
-     * @param templateName
-     */
-    public static void saveTemplate(String selectedCodeTemplate, String templateName, String templateContent) {
-        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
-        propertiesComponent.setValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-" + templateName,
-                templateContent);
-    }
-
-    /**
-     * 初始化模板
-     * @param selectedCodeTemplate
-     */
-    public static void initialDefaultTemplate(String selectedCodeTemplate) {
-        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
-        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-controller.ftl");
-        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-service.ftl");
-        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-service-impl.ftl");
-        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-mapper.ftl");
-        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-mapperxml.ftl");
-        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-model/insert.ftl");
-        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-model/update.ftl");
-        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-model/po.ftl");
-        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-model/query.ftl");
-        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-model/brief.ftl");
-        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-model/detail.ftl");
-        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-fe/index.ftl");
-        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-fe/editDialog.ftl");
-        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-fe/detailDialog.ftl");
-        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-test.ftl");
-        propertiesComponent.unsetValue(PYRANGE_TEMPLATE_PREFIX + selectedCodeTemplate + "-test-constant.ftl");
-    }
 }
