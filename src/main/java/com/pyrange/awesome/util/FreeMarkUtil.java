@@ -59,10 +59,9 @@ public class FreeMarkUtil {
      * @param fileName
      * @throws Exception
      */
-    public static void generateFileByTemplateContent(Map<String, Object> root,
-                                                     String selectedCodeTemplate, String templateName,
+    public static void generateFileByTemplateContent(Map<String, Object> root, String templateName,
                                                      String fileDir, String fileName) throws Exception {
-        Template template = TemplateUtil.getTemplate(selectedCodeTemplate, templateName);
+        Template template = TemplateUtil.getTemplate(templateName);
         if (!fileDir.endsWith("/")) {
             fileDir = fileDir + '/';
         }
@@ -82,7 +81,7 @@ public class FreeMarkUtil {
         root.put("basicConfig", basicConfig);
         root.put("configModel", configModel);
 
-        Template template = TemplateUtil.getTemplate(basicConfig.getSelectedCodeTemplate(), templateName);
+        Template template = TemplateUtil.getTemplate(templateName);
 
         StringWriter stringWriter = new StringWriter();
         BufferedWriter writer = new BufferedWriter(stringWriter);

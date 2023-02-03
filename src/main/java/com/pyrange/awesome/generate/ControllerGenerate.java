@@ -24,6 +24,6 @@ public class ControllerGenerate {
         root.put("basicConfig", basicConfig);
 
         String fileName = generateInfo.getModelNameUpperCamel() + "Controller.java";
-        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "controller.ftl", configModel.getControllerPath(), fileName);
+        FreeMarkUtil.generateFileByTemplateContent(root, "controller.ftl", configModel.getControllerPath(), fileName);
     }
 }

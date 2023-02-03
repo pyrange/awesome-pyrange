@@ -24,7 +24,7 @@ public class ServiceGenerate {
 
         String serviceName = generateInfo.getModuleName() + "Service.java";
         String serviceImplName = generateInfo.getModuleName() + "ServiceImpl.java";
-        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "service.ftl", configModel.getServicePath(), serviceName);
-        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "service-impl.ftl", configModel.getServicePath() + "/impl", serviceImplName);
+        FreeMarkUtil.generateFileByTemplateContent(root, "service.ftl", configModel.getServicePath(), serviceName);
+        FreeMarkUtil.generateFileByTemplateContent(root, "service-impl.ftl", configModel.getServicePath() + "/impl", serviceImplName);
     }
 }

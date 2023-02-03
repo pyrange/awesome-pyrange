@@ -22,16 +22,16 @@ public class FrontEndGenerate {
         root.put("configModel", configModel);
         root.put("basicConfig", basicConfig);
 
-        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "fe/index.ftl",
+        FreeMarkUtil.generateFileByTemplateContent(root, "fe/index.ftl",
                 configModel.getFePath() + "/" + generateInfo.getModuleNameWithHyphen(), "index.vue");
 
-        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "fe/addDrawer.ftl",
+        FreeMarkUtil.generateFileByTemplateContent(root, "fe/addDrawer.ftl",
                 configModel.getFePath() + "/" + generateInfo.getModuleNameWithHyphen() + "/component/", "addDrawer.vue");
 
-        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "fe/detailDialog.ftl",
+        FreeMarkUtil.generateFileByTemplateContent(root, "fe/detailDialog.ftl",
                 configModel.getFePath() + "/" + generateInfo.getModuleNameWithHyphen() + "/component/", "detailDialog.vue");
 
-        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "fe/editDialog.ftl",
+        FreeMarkUtil.generateFileByTemplateContent(root, "fe/editDialog.ftl",
                 configModel.getFePath() + "/" + generateInfo.getModuleNameWithHyphen() + "/component/", "editDialog.vue");
     }
 }

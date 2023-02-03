@@ -15,6 +15,7 @@ public class BasicConfig {
 
     public static final String PYRANGE_CODE_TEMPLATE = "PYRANGE-SETTINGS-codeTemplates";
     public static final String PYRANGE_SELECTED_CODE_TEMPLATE = "PYRANGE-SETTINGS-selectedCodeTemplates";
+    public static final String PYRANGE_CLOUD_TEMPLATE_NAME = "cloud";
 
     private String jdbcHost;
     private String jdbcDatabase;
@@ -80,6 +81,24 @@ public class BasicConfig {
         basicConfig.setSelectedCodeTemplate(selectedCodeTemplate);
 
         return basicConfig;
+    }
+
+    /**
+     * 获取模板集名称
+     * @return
+     */
+    public static String getTemplateCollectionName() {
+        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
+        boolean cloudConfigEnabled = propertiesComponent.getBoolean("PYRANGE-SETTINGS-cloudConfigEnabled", false);
+        if (cloudConfigEnabled) {
+            return PYRANGE_CLOUD_TEMPLATE_NAME;
+        }
+
+        String selectedCodeTemplate = propertiesComponent.getValue(PYRANGE_SELECTED_CODE_TEMPLATE);
+        if (StringUtils.isEmpty(selectedCodeTemplate)) {
+            return  "default";
+        }
+        return selectedCodeTemplate;
     }
 
     public String getJdbcHost() {

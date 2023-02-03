@@ -23,27 +23,27 @@ public class ModelGenerate {
         root.put("configModel", configModel);
         root.put("basicConfig", basicConfig);
 
-        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "model/po.ftl",
+        FreeMarkUtil.generateFileByTemplateContent(root, "model/po.ftl",
                 configModel.getModelPath() + "/" + generateInfo.getModuleNameWithSlash(),
                 generateInfo.getModuleName() + "Po.java");
 
-        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "model/query.ftl",
+        FreeMarkUtil.generateFileByTemplateContent(root, "model/query.ftl",
                 configModel.getModelPath() + "/" + generateInfo.getModuleNameWithSlash(),
                 generateInfo.getModuleName() + "Query.java");
 
-        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "model/update.ftl",
+        FreeMarkUtil.generateFileByTemplateContent(root, "model/update.ftl",
                 configModel.getModelPath() + "/" + generateInfo.getModuleNameWithSlash(),
                 generateInfo.getModuleName() + "Update.java");
 
-        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "model/insert.ftl",
+        FreeMarkUtil.generateFileByTemplateContent(root, "model/insert.ftl",
                 configModel.getModelPath() + "/" + generateInfo.getModuleNameWithSlash(),
                 generateInfo.getModuleName() + "Insert.java");
 
-        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "model/detail.ftl",
+        FreeMarkUtil.generateFileByTemplateContent(root, "model/detail.ftl",
                 configModel.getModelPath() + "/" + generateInfo.getModuleNameWithSlash(),
                 generateInfo.getModuleName() + "Detail.java");
 
-        FreeMarkUtil.generateFileByTemplateContent(root, basicConfig.getSelectedCodeTemplate(), "model/brief.ftl",
+        FreeMarkUtil.generateFileByTemplateContent(root, "model/brief.ftl",
                 configModel.getModelPath() + "/" + generateInfo.getModuleNameWithSlash(),
                 generateInfo.getModuleName() + "Brief.java");
     }
