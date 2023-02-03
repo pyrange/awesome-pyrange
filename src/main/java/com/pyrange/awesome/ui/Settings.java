@@ -37,6 +37,9 @@ public class Settings extends JDialog {
     private JComboBox jdkComboBox;
     private JComboBox codeTemplatesBox;
     private JButton setTemplateButton;
+    private JRadioButton cloudConfigYes;
+    private JRadioButton cloudConfigNo;
+    private JButton loadCloudConfigButton;
 
     public Settings() {
         setContentPane(contentPane);
@@ -163,6 +166,8 @@ public class Settings extends JDialog {
         propertiesComponent.setValue("PYRANGE-SETTINGS-groupId", textFieldGroupId.getText());
         propertiesComponent.setValue("PYRANGE-SETTINGS-settingsConfigured", true);
         propertiesComponent.setValue("PYRANGE-SETTINGS-jdkVersion", jdkComboBox.getSelectedItem().toString());
+        propertiesComponent.setValue("PYRANGE-SETTINGS-cloudConfigEnabled", cloudConfigYes.isSelected());
+
         setSelectedCodeTemplate(codeTemplatesBox.getSelectedItem().toString());
         dispose();
     }
@@ -178,7 +183,6 @@ public class Settings extends JDialog {
         dialog.setVisible(true);
         System.exit(0);
     }
-
 
     private String checkSettingsParam() {
         if (CommonUtil.isNullOrEmpty(textFieldHost.getText())) {
@@ -218,6 +222,7 @@ public class Settings extends JDialog {
         basicConfig.setGroupId(groupId);
         basicConfig.setAuthor(propertiesComponent.getValue("PYRANGE-SETTINGS-author"));
         basicConfig.setJdkVersion(propertiesComponent.getInt("PYRANGE-SETTINGS-jdkVersion", 11));
+        basicConfig.setCloudConfigEnabled(propertiesComponent.getBoolean("PYRANGE-SETTINGS-cloudConfigEnabled", false));
 
         String[] codeTemplate = propertiesComponent.getValues(PYRANGE_CODE_TEMPLATE);
         if (codeTemplate == null) {

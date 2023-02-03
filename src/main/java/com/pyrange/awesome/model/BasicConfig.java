@@ -34,6 +34,7 @@ public class BasicConfig {
      */
     private String selectedCodeTemplate;
 
+    private boolean cloudConfigEnabled;
 //    /**
 //     * 结果包装类名
 //     */
@@ -131,4 +132,11 @@ public class BasicConfig {
         this.selectedCodeTemplate = selectedCodeTemplate;
     }
 
+    public boolean isCloudConfigEnabled() {
+        return cloudConfigEnabled;
+    }
+
+    public void setCloudConfigEnabled(boolean cloudConfigEnabled) {
+        this.cloudConfigEnabled = cloudConfigEnabled;
+    }
 }
