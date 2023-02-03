@@ -9,11 +9,18 @@
 <#list generateInfo.columnList as column>
   <#if "${column.columnCamelName}"?matches("deleted|isDel|isDelete|isDeleted")>
   <#elseif "${column.columnCamelName}"?ends_with("ed")>
-      <el-descriptions-item label="${column.columnComment}">{{ data.${column.columnCamelName} | dictFilter('whether') }}</el-descriptions-item>
+      <el-descriptions-item label="${column.columnComment}">{{ dict.type.whether[data.${column.columnCamelName}] || "-" }}</el-descriptions-item>
   <#elseif "${column.columnCamelName}"?ends_with("able")>
-      <el-descriptions-item label="${column.columnComment}">{{ data.${column.columnCamelName} | dictFilter('whether') }}</el-descriptions-item>
-  <#elseif "${column.columnCamelName}"?matches(".*?(Status|Type|Strategy).*")>
-      <el-descriptions-item label="${column.columnComment}">{{ data.${column.columnCamelName} | dictFilter('${column.columnCamelName}') }}</el-descriptions-item>
+      <el-descriptions-item label="${column.columnComment}">{{ dict.type.whether[data.${column.columnCamelName}] || "-" }}</el-descriptions-item>
+  <#elseif "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy).*")>
+      <el-descriptions-item label="${column.columnComment}">{{ dict.type.${column.columnCamelName}[data.${column.columnCamelName}] || "-" }}</el-descriptions-item>
+  <#elseif "${column.columnCamelName}"?matches(".*?(img|Ima|image|Image|photo|Photo).*")>
+      <el-descriptions-item label="${column.columnComment}">
+        <el-image
+                style="width: 100px; height: 100px"
+                :src="data.${column.columnCamelName}"
+                fit="contain"></el-image>
+      </el-descriptions-item>
   <#else>
       <el-descriptions-item label="${column.columnComment}">{{ data.${column.columnCamelName} }}</el-descriptions-item>
   </#if>
@@ -24,6 +31,7 @@
 
 <script>
 export default {
+  dicts: ['whether', <#list generateInfo.columnList as column><#if "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy).*")>'${column.columnCamelName}', </#if></#list>],
   props: {
     visible: {
       type: Boolean,

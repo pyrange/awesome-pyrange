@@ -39,7 +39,7 @@
         <el-date-picker v-model="formData.${column.columnCamelName}" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:ss" type="datetime"
           placeholder="选择日期时间" />
       </el-form-item>
-  <#elseif "${column.columnCamelName}"?matches(".*?(Status|Type|Strategy).*")>
+  <#elseif "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy).*")>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
         <el-select v-model="formData.${column.columnCamelName}" placeholder="请选择">
           <el-option label="label0" :value="0"></el-option>
@@ -72,6 +72,7 @@
 <script>
 import request from '@/api/axios'
 export default {
+  dicts: ['whether', <#list generateInfo.columnList as column><#if "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy).*")>'${column.columnCamelName}', </#if></#list>],
   props: {
     drawer: {
       type: Boolean,

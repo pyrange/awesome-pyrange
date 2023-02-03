@@ -63,7 +63,7 @@
 <#list generateInfo.columnList as column>
   <#if generateInfo.primaryKey == column.columnCamelName || "${column.columnCamelName}"?matches("deleted|isDel|isDelete|isDeleted|createUserName|createUserId|updateUserName|updateUserId|updateTime")>
   <#else>
-      <el-table-column align="center" prop="${column.columnCamelName}" <#if "${column.columnJavaTypeName}"?matches("LocalDateTime")>width="140" </#if>label="${column.columnComment}">
+      <el-table-column align="center" prop="${column.columnCamelName}" <#if "${column.columnJavaTypeName}"?matches("LocalDateTime")>width="140" </#if><#if "${column.columnCamelName}"?matches(".*?(Title|Desc|Brief).*")>width="120" show-overflow-tooltip </#if>label="${column.columnComment}">
     <#if column_index == 1>
         <template slot-scope="{row}">
           <el-link type="primary" @click="handleDetail(row)">{{row.${column.columnCamelName}}}</el-link>
@@ -227,7 +227,7 @@ export default {
 
     // 修改成功 回调
     editSuccess() {
-      this.editDrawerVisible = false
+      this.editDialogData.visible = false
       this.initTable(1)
     },
 
