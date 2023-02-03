@@ -1,3 +1,8 @@
+<!--
+ * ${generateInfo.tableComment}列表
+ * @Author: ${generateInfo.author}
+ * @Date: ${generateInfo.date}
+-->
 <template>
   <div class="app-container">
     <!-- 搜索 -->
@@ -65,11 +70,18 @@
         </template>
     <#elseif "${column.columnCamelName}"?ends_with("ed")>
         <template slot-scope="{row}">
-          {{ row.${column.columnCamelName} | dictFilter('whether') }}
+          {{ dict.type.whether[row.${column.columnCamelName}] || "-" }}
         </template>
-    <#elseif "${column.columnCamelName}"?matches(".*?(Status|Type|Strategy).*")>
+    <#elseif "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy).*")>
         <template slot-scope="{row}">
-          {{ row.${column.columnCamelName} | dictFilter('${column.columnCamelName}') }}
+          {{ dict.type.${column.columnCamelName}[row.${column.columnCamelName}] || "-" }}
+        </template>
+    <#elseif "${column.columnCamelName}"?matches(".*?(img|Ima|image|Image|photo|Photo).*")>
+        <template slot-scope="{row}">
+          <el-image
+                  style="width: 80px; height: 80px"
+                  :src="row.${column.columnCamelName}"
+                  fit="contain"></el-image>
         </template>
     </#if>
       </el-table-column>
@@ -90,7 +102,7 @@
     <!-- 详情弹窗 -->
     <detailDialog v-if="detailDialogData.visible" :visible.sync="detailDialogData.visible" :data="detailDialogData.detail" />
     <!-- 编辑弹窗 -->
-    <editDialog v-if="editDialogData.visible" :visible.sync="editDialogData.visible" :data="editDialogData.detail" @success="initTable" />
+    <editDialog v-if="editDialogData.visible" :visible.sync="editDialogData.visible" :data="editDialogData.detail" @success="editSuccess" />
     <!-- 新增 -->
     <addDrawer v-if="addDrawerVisible" :drawer.sync="addDrawerVisible" @success="addSuccess" />
   </div>
@@ -103,6 +115,7 @@ import detailDialog from './component/detailDialog.vue'
 import editDialog from './component/editDialog.vue'
 import addDrawer from './component/addDrawer.vue'
 export default {
+  dicts: ['whether', <#list generateInfo.columnList as column><#if "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy).*")>'${column.columnCamelName}', </#if></#list>],
   components: {
     detailDialog,
     editDialog,
@@ -210,6 +223,12 @@ export default {
         this.editDialogData.detail = res.data
         this.editDialogData.visible = true
       }
+    },
+
+    // 修改成功 回调
+    editSuccess() {
+      this.editDrawerVisible = false
+      this.initTable(1)
     },
 
     // 删除

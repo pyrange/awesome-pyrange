@@ -1,3 +1,8 @@
+<!--
+ * ${generateInfo.tableComment}添加
+ * @Author: ${generateInfo.author}
+ * @Date: ${generateInfo.date}
+-->
 <template>
   <el-drawer title="新建${generateInfo.tableComment}" :visible.sync="drawer" direction="rtl" :size="500" :before-close="handleClose">
     <el-alert title="新建提示" type="warning" :closable="false" show-icon />
@@ -106,27 +111,26 @@ export default {
     },
     submitForm(formName) {
       this.btnLoading = true
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          request({
-            url: `${generateInfo.moduleNameWithSlash}`,
-            method: 'post',
-            data: this.formData
-          }).then(() => {
-            this.btnLoading = false
-            this.$message({
-              type: 'success',
-              message: '添加成功!'
+          try {
+            const res = await request({
+              url: `${generateInfo.moduleNameWithSlash}`,
+              method: 'post',
+              data: this.formData
             })
-            this.$emit('success')
-          }).catch(() => {
-            this.btnLoading = false
-          })
-        } else {
-          console.log('error submit!!');
-          this.btnLoading = false
-          return false;
+            if (res.status === 200) {
+              this.$message({
+                type: 'success',
+                message: '添加成功!'
+              })
+              this.$emit('success')
+            }
+          } catch (error) {
+            console.log(error);
+          }
         }
+        this.btnLoading = false
       });
     },
     resetForm(formName) {

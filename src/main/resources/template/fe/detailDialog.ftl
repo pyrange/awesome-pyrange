@@ -1,3 +1,8 @@
+<!--
+ * ${generateInfo.tableComment}详情
+ * @Author: ${generateInfo.author}
+ * @Date: ${generateInfo.date}
+-->
 <template>
   <el-dialog title="详情" :visible.sync="visible" append-to-body top="50px" width="800px" :before-close="handleClose">
     <el-descriptions>

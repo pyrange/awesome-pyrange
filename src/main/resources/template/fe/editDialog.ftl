@@ -1,3 +1,8 @@
+<!--
+ * ${generateInfo.tableComment}编辑
+ * @Author: ${generateInfo.author}
+ * @Date: ${generateInfo.date}
+-->
 <template>
   <el-dialog title="编辑" :visible.sync="visible" append-to-body top="50px" width="800px" :before-close="handleClose">
     <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="120px">
@@ -117,22 +122,25 @@ export default {
     // 保存
     handleSubmit() {
       this.btnLoading = true
-      this.$refs['ruleForm'].validate(async(valid) => {
+      this.$refs['ruleForm'].validate((valid) => {
         if (valid) {
           const data = this.ruleForm
-          const res = await request({
-            url: '${generateInfo.moduleNameWithSlash}',
-            method: 'put',
-            data
-          })
-          if (res.status === 200) {
-            this.$message.success('修改成功')
-            this.$emit('success')
-            this.$emit('update:visible', false)
+          try {
+            request({
+              url: '${generateInfo.moduleNameWithSlash}',
+              method: 'put',
+              data
+            })
+            if (res.status === 200) {
+              this.$message.success('修改成功')
+              this.$emit('success')
+              this.$emit('update:visible', false)
+            }
+          } catch (error) {
+            console.log(error);
           }
-        } else {
-          this.btnLoading = false
         }
+        this.btnLoading = false
       })
     }
   }
