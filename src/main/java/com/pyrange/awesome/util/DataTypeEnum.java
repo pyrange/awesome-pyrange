@@ -57,7 +57,7 @@ public enum DataTypeEnum {
     public static String getJdbcTypeByDataType(String dataType) {
         DataTypeEnum dataTypeEnum = getEnumByDataType(dataType);
         if(dataTypeEnum == null){
-            return "未找到匹配的类型，请手动填写";
+            return "VARCHAR";
         }
         return dataTypeEnum.jdbcType;
     }
