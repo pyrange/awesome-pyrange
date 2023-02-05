@@ -22,16 +22,15 @@
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
         <el-input v-model="formData.${column.columnCamelName}" />
         <!--
-          <el-select v-model="formData.${column.columnCamelName}" multiple filterable
-             remote reserve-keyword  placeholder="请输入关键词"
-             :remote-method="remoteMethod" :loading="true">
-              <el-option
-                v-for="item in ${column.columnCamelName}Dict"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-          </el-select>
+        <el-select v-model="formData.${column.columnCamelName}" placeholder="请输入关键词" filterable clearable
+            remote :remote-method="${column.columnCamelName}DictRemote">
+          <el-option
+            v-for="item in ${column.columnCamelName}Dict"
+            :key="item.code"
+            :label="item.name"
+            :value="item.code">
+          </el-option>
+        </el-select>
         -->
       </el-form-item>
   <#elseif "${column.columnCamelName}"?matches(".*?(Date|Time).*")>
