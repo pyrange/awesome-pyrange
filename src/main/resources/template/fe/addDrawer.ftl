@@ -81,15 +81,7 @@ export default {
   },
   data() {
     return {
-      formData: {
-        boxName: '',
-        status: '',
-        date1: '',
-        disable: 0,
-        type: [],
-        boxStyle: '',
-        desc: ''
-      },
+      formData: {},
       rules: {
 <#list generateInfo.columnList as column>
   <#if generateInfo.primaryKey == column.columnName || "${column.columnCamelName}"?matches("deleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
