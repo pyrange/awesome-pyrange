@@ -57,6 +57,7 @@
            AND createTime &lt; <#noparse>#{endDate, jdbcType=TIMESTAMP}</#noparse>
         </if>
         <if test="keyword != null and keyword != ''">
+            -- TODO ${generateInfo.author} don't forget to modify the column name
             AND (name LIKE CONCAT('%', <#noparse>#{keyword}</#noparse>, '%')
             OR tel LIKE CONCAT('%', <#noparse>#{keyword}</#noparse>, '%'))
         </if>

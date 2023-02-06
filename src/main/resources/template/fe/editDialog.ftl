@@ -46,7 +46,7 @@
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
         <el-date-picker v-model="ruleForm.${column.columnCamelName}" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" />
       </el-form-item>
-  <#elseif "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy).*")>
+  <#elseif "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy|pattern|Pattern).*")>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
         <el-select v-model="ruleForm.${column.columnCamelName}" placeholder="请选择">
           <el-option label="" value="全部" />

@@ -12,7 +12,7 @@
       <el-descriptions-item label="${column.columnComment}">{{ dict.type.whether[data.${column.columnCamelName}] || "-" }}</el-descriptions-item>
   <#elseif "${column.columnCamelName}"?ends_with("able")>
       <el-descriptions-item label="${column.columnComment}">{{ dict.type.whether[data.${column.columnCamelName}] || "-" }}</el-descriptions-item>
-  <#elseif "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy).*")>
+  <#elseif "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy|pattern|Pattern).*")>
       <el-descriptions-item label="${column.columnComment}">{{ dict.type.${column.columnCamelName}[data.${column.columnCamelName}] || "-" }}</el-descriptions-item>
   <#elseif "${column.columnCamelName}"?matches(".*?(img|Ima|image|Image|photo|Photo).*")>
       <el-descriptions-item label="${column.columnComment}">
@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  dicts: ['whether', <#list generateInfo.columnList as column><#if "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy).*")>'${column.columnCamelName}', </#if></#list>],
+  dicts: ['whether', <#list generateInfo.columnList as column><#if "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy|pattern|Pattern).*")>'${column.columnCamelName}', </#if></#list>],
   props: {
     visible: {
       type: Boolean,

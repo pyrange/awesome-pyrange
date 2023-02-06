@@ -72,7 +72,7 @@
         <template slot-scope="{row}">
           {{ dict.type.whether[row.${column.columnCamelName}] || "-" }}
         </template>
-    <#elseif "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy).*")>
+    <#elseif "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy|pattern|Pattern).*")>
         <template slot-scope="{row}">
           {{ dict.type.${column.columnCamelName}[row.${column.columnCamelName}] || "-" }}
         </template>
@@ -115,7 +115,7 @@ import detailDialog from './component/detailDialog.vue'
 import editDialog from './component/editDialog.vue'
 import addDrawer from './component/addDrawer.vue'
 export default {
-  dicts: ['whether', <#list generateInfo.columnList as column><#if "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy).*")>'${column.columnCamelName}', </#if></#list>],
+  dicts: ['whether', <#list generateInfo.columnList as column><#if "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy|pattern|Pattern).*")>'${column.columnCamelName}', </#if></#list>],
   components: {
     detailDialog,
     editDialog,

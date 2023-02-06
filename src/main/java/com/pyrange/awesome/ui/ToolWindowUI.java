@@ -393,6 +393,7 @@ public class ToolWindowUI {
                     String addStr = CodeGenerate.getGeneratedModelStr(BasicConfig.getBasicConfig(), getConfigModel(), "fe/addDrawer.ftl");
                     String detailStr = CodeGenerate.getGeneratedModelStr(BasicConfig.getBasicConfig(), getConfigModel(), "fe/detailDialog.ftl");
                     String editStr = CodeGenerate.getGeneratedModelStr(BasicConfig.getBasicConfig(), getConfigModel(), "fe/editDialog.ftl");
+                    String detailPlusStr = CodeGenerate.getGeneratedModelStr(BasicConfig.getBasicConfig(), getConfigModel(), "fe/detailPlus.ftl");
 
                     CodingDialog codingDialog = new CodingDialog(
                             indexStr
@@ -401,7 +402,10 @@ public class ToolWindowUI {
                                     + SEPARATOR_LINE +
                                     detailStr
                                     + SEPARATOR_LINE +
-                                    editStr);
+                                    editStr
+                                    + SEPARATOR_LINE +
+                                    detailPlusStr
+                    );
                     codingDialog.show();
                 } catch (Exception ex) {
                     MessageUtil.showErrorMsg(Throwables.getStackTraceAsString(ex));
