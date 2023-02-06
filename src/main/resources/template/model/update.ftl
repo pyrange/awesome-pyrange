@@ -5,7 +5,6 @@ import lombok.Setter;
 <#list generateInfo.importList as import>
 import ${import};
 </#list>
-import java.time.LocalDateTime;
 
 import org.hibernate.validator.constraints.Length;
 <#if basicConfig.jdkVersion == 17>

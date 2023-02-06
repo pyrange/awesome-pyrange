@@ -215,7 +215,7 @@ public class CommonUtil {
         return obj == null || "".equals(obj.toString());
     }
 
-    private static final List importList = Arrays.asList("BigDecimal", "Date");
+    private static final List importList = Arrays.asList("BigDecimal", "Date", "LocalDateTime", "LocalDate", "LocalTime");
 
     public static boolean isNeedImport(String type) {
         return importList.contains(type);

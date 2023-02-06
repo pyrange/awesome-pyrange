@@ -6,7 +6,9 @@ import com.pyrange.awesome.util.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 测试代码生成
@@ -98,7 +100,7 @@ public class CodeGenerate {
         generateInfo.setTableComment(tableInfo.getTableComment());
         generateInfo.setTableName(tableInfo.getTableName());
         List<GenerateColumnInfo> generateColumnInfos = new ArrayList<>();
-        List<String> importList = new ArrayList<>();
+        Set<String> importHashSet = new HashSet<>();
         for (TableColumn tableColumn : tableInfo.getTableColumns()) {
             GenerateColumnInfo generateColumnInfo = new GenerateColumnInfo();
             String javaTypeName = DataTypeEnum.getJavaTypeNameByDataType(tableColumn.getDataType());
@@ -115,8 +117,8 @@ public class CodeGenerate {
             generateColumnInfos.add(generateColumnInfo);
 
             String columnJavaTypeName = DataTypeEnum.getJavaTypeByDataType(tableColumn.getDataType());
-            if (CommonUtil.isNeedImport(javaTypeName) && !importList.contains(columnJavaTypeName)) {
-                importList.add(columnJavaTypeName);
+            if (CommonUtil.isNeedImport(javaTypeName) && !importHashSet.contains(columnJavaTypeName)) {
+                importHashSet.add(columnJavaTypeName);
             }
             if (tableColumn.isPrimaryKey()) {
                 generateInfo.setPrimaryKey(SqlReservedWords.containsWord(tableColumn.getColumnName()) ? "`" + tableColumn.getColumnName() + "`" : tableColumn.getColumnName());
@@ -128,7 +130,7 @@ public class CodeGenerate {
             }
         }
         generateInfo.setColumnList(generateColumnInfos);
-        generateInfo.setImportList(importList);
+        generateInfo.setImportList(importHashSet);
 
         return generateInfo;
     }

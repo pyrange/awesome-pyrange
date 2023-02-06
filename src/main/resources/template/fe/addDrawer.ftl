@@ -40,9 +40,13 @@
       </el-form-item>
   <#elseif "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy|pattern|Pattern).*")>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-        <el-select v-model="formData.${column.columnCamelName}" placeholder="请选择">
-          <el-option label="label0" :value="0"></el-option>
-          <el-option label="label1" :value="1"></el-option>
+        <el-select v-model="formData.${column.columnCamelName}" placeholder="请选择排课方式" filterable clearable>
+          <el-option v-for="item in ${column.columnCamelName}Dict"
+                  :key="item.code"
+                  :label="item.name"
+                  :value="item.code">
+          </el-option>
+          <el-option v-for="(name, code) in dict.type.${column.columnCamelName}" :key="code" :label="name" :value="code"></el-option>
         </el-select>
       </el-form-item>
   <#elseif "${column.columnJavaTypeName}"?matches("Integer")>

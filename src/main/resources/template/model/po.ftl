@@ -5,8 +5,6 @@ import lombok.*;
 import ${import};
 </#list>
 
-import java.time.LocalDateTime;
-
 /**
  * ${generateInfo.tableComment}实体
  *

@@ -49,7 +49,7 @@ public interface ${generateInfo.moduleName}Mapper {
 
     /**
      * 查询列表
-     *
+     * @param query
      * @return List<${generateInfo.moduleName}${"Brief>"}
      **/
     List<${generateInfo.moduleName}${"Brief>"} list(${generateInfo.moduleName}Query query);

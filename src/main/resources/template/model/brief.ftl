@@ -5,7 +5,6 @@ import lombok.Setter;
 <#list generateInfo.importList as import>
 import ${import};
 </#list>
-import java.time.LocalDateTime;
 
 /**
  * ${generateInfo.tableComment}摘要

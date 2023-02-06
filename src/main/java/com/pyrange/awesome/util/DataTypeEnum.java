@@ -3,6 +3,7 @@ package com.pyrange.awesome.util;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public enum DataTypeEnum {
     ARRAY("array", "ARRAY", Object.class.getName(), "Object"),
@@ -35,7 +36,7 @@ public enum DataTypeEnum {
     REF("ref", "REF", Object.class.getName(), "Object"),
     SMALLINT("smallint", "SMALLINT", Integer.class.getName(), "Integer"),
     STRUCT("struct", "STRUCT", Object.class.getName(), "Object"),
-    TIME("time", "TIME", LocalDateTime.class.getName(), "LocalDateTime"),
+    TIME("time", "TIME", LocalTime.class.getName(), "LocalTime"),
     TIMESTAMP("timestamp", "TIMESTAMP", LocalDateTime.class.getName(), "LocalDateTime"),
     TINYINT("tinyint", "TINYINT", Integer.class.getName(), "Integer"),
     VARBINARY("varbinary", "VARBINARY", "byte[]", "byte[]"),
