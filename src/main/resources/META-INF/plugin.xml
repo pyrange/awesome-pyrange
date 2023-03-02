@@ -43,12 +43,23 @@
         <plugin id="com.intellij.modules.java"></plugin>
     </dependencies>
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow id="Awesome-Pyrange" secondary="true"  anchor="right" canCloseContents="false"
-                    icon="/images/pyrange-logo13x13.png" factoryClass="com.pyrange.awesome.config.ToolWindowConfig" />
+        <toolWindow id="Awesome-Pyrange" secondary="true" anchor="right" canCloseContents="false"
+                    icon="/images/pyrange-logo13x13.png" factoryClass="com.pyrange.awesome.config.ToolWindowConfig"/>
     </extensions>
 
     <actions>
-        <!-- Add your actions here -->
+        <action
+                id="org.pyrange.awesome.PopupDialogAction"
+                class="com.pyrange.awesome.SearchWindowAction"
+                text="Action Basics Plugin: Awesome Pyrange"
+                description="Awesome Pyrange"
+                icon="SdkIcons.Sdk_default_icon">
+            <override-text place="MainMenu" text="Popup Dialog Action"/>
+            <keyboard-shortcut
+                    keymap="$default"
+                    first-keystroke="alt D" />
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+        </action>
     </actions>
 
 </idea-plugin>
