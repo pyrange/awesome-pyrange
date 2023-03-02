@@ -121,6 +121,7 @@ export default {
                 message: '添加成功!'
               })
               this.$emit('success')
+              this.$emit('update:drawer', false)
             }
           } catch (error) {
             console.log(error);

@@ -9,20 +9,20 @@
 <#list generateInfo.columnList as column>
   <#if "${column.columnCamelName}"?matches("deleted|isDel|isDelete|isDeleted")>
   <#elseif "${column.columnCamelName}"?ends_with("ed")>
-      <el-descriptions-item label="${column.columnComment}">{{ dict.type.whether[data.${column.columnCamelName}] || "-" }}</el-descriptions-item>
+      <el-descriptions-item label="${column.columnComment}">{{ dict.type.whether[detailData.${column.columnCamelName}] || "-" }}</el-descriptions-item>
   <#elseif "${column.columnCamelName}"?ends_with("able")>
-      <el-descriptions-item label="${column.columnComment}">{{ dict.type.whether[data.${column.columnCamelName}] || "-" }}</el-descriptions-item>
+      <el-descriptions-item label="${column.columnComment}">{{ dict.type.whether[detailData.${column.columnCamelName}] || "-" }}</el-descriptions-item>
   <#elseif "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy|pattern|Pattern).*")>
-      <el-descriptions-item label="${column.columnComment}">{{ dict.type.${column.columnCamelName}[data.${column.columnCamelName}] || "-" }}</el-descriptions-item>
+      <el-descriptions-item label="${column.columnComment}">{{ dict.type.${column.columnCamelName}[detailData.${column.columnCamelName}] || "-" }}</el-descriptions-item>
   <#elseif "${column.columnCamelName}"?matches(".*?(img|Ima|image|Image|photo|Photo).*")>
       <el-descriptions-item label="${column.columnComment}">
         <el-image
                 style="width: 100px; height: 100px"
-                :src="data.${column.columnCamelName}"
+                :src="detailData.${column.columnCamelName}"
                 fit="contain"></el-image>
       </el-descriptions-item>
   <#else>
-      <el-descriptions-item label="${column.columnComment}">{{ data.${column.columnCamelName} }}</el-descriptions-item>
+      <el-descriptions-item label="${column.columnComment}">{{ detailData.${column.columnCamelName} }}</el-descriptions-item>
   </#if>
 </#list>
     </el-descriptions>
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import request from '@/api/axios'
 export default {
   dicts: ['whether', <#list generateInfo.columnList as column><#if "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy|pattern|Pattern).*")>'${column.columnCamelName}', </#if></#list>],
   props: {
@@ -37,14 +38,24 @@ export default {
       type: Boolean,
       default: false
     },
-    data: {
-      type: Object,
-      default() {
-        return {}
-      }
+    ${generateInfo.primaryKeyLowerCamel}: {
+      type: Number,
+      default: null
     }
   },
-  created() {
+  data() {
+    return {
+      detailData: {}
+    }
+  },
+  async created() {
+    const res = await request({
+      url: `${generateInfo.moduleNameWithSlash}/<#noparse>${this.</#noparse>${generateInfo.primaryKeyLowerCamel}}`,
+      method: 'get'
+    })
+    if (res.status === 200 && res.data) {
+      this.detailData = res.data
+    }
   },
   methods: {
     handleClose() {

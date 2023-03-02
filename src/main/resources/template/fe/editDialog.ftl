@@ -84,11 +84,9 @@ export default {
       type: Boolean,
       default: false
     },
-    data: {
-      type: Object,
-      default() {
-        return {}
-      }
+    ${generateInfo.primaryKeyLowerCamel}: {
+      type: Number,
+      default: null
     }
   },
   data() {
@@ -111,7 +109,13 @@ export default {
     }
   },
   created() {
-    this.ruleForm = Object.assign({}, this.data)
+    request({
+      url: `${generateInfo.moduleNameWithSlash}/<#noparse>${this.</#noparse>${generateInfo.primaryKeyLowerCamel}}`,
+      method: 'get'
+    })
+    .then((res) => {
+      this.ruleForm = res.data
+    })
   },
   methods: {
     // 取消
@@ -134,6 +138,7 @@ export default {
             if (res.status === 200) {
               this.$message.success('修改成功')
               this.$emit('success')
+              this.$emit('update:visible', false)
             }
           } catch (error) {
             console.log(error);

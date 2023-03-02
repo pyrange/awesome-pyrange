@@ -100,11 +100,11 @@
         @current-change="mixOnPageIndexChange" @size-change="mixOnPageSizeChange" />
     </div>
     <!-- 详情弹窗 -->
-    <detailDialog v-if="detailDialogData.visible" :visible.sync="detailDialogData.visible" :data="detailDialogData.detail" />
+    <detailDialog v-if="detailDialogData.visible" :visible.sync="detailDialogData.visible" :${generateInfo.primaryKeyLowerCamel}="detailDialogData.${generateInfo.primaryKeyLowerCamel}" />
     <!-- 编辑弹窗 -->
-    <editDialog v-if="editDialogData.visible" :visible.sync="editDialogData.visible" :data="editDialogData.detail" @success="editSuccess" />
+    <editDialog v-if="editDialogData.visible" :visible.sync="editDialogData.visible" :${generateInfo.primaryKeyLowerCamel}="editDialogData.${generateInfo.primaryKeyLowerCamel}" @success="initTable" />
     <!-- 新增 -->
-    <addDrawer v-if="addDrawerVisible" :drawer.sync="addDrawerVisible" @success="addSuccess" />
+    <addDrawer v-if="addDrawerVisible" :drawer.sync="addDrawerVisible" @success="initTable" />
   </div>
 </template>
 
@@ -141,11 +141,11 @@ export default {
       },
       detailDialogData: {
         visible: false,
-        detail: {}
+        ${generateInfo.primaryKeyLowerCamel}: null
       },
       editDialogData: {
         visible: false,
-        detail: {}
+        ${generateInfo.primaryKeyLowerCamel}: null
       }
     }
   },
@@ -192,14 +192,8 @@ export default {
 
     // 查看详情
     async handleDetail(row) {
-      const res = await request({
-        url: `${generateInfo.moduleNameWithSlash}/<#noparse>${row.</#noparse>${generateInfo.primaryKeyLowerCamel}}`,
-        method: 'get'
-      })
-      if (res.status === 200 && res.data) {
-        this.detailDialogData.detail = res.data
-        this.detailDialogData.visible = true
-      }
+      this.detailDialogData.${generateInfo.primaryKeyLowerCamel} = row.${generateInfo.primaryKeyLowerCamel}
+      this.detailDialogData.visible = true
     },
 
     // 打开添加
@@ -207,28 +201,10 @@ export default {
       this.addDrawerVisible = true
     },
 
-    // 添加成功 回调
-    addSuccess() {
-      this.addDrawerVisible = false
-      this.initTable(1)
-    },
-
     // 修改
     async handleEdit(row) {
-      const res = await request({
-        url: `${generateInfo.moduleNameWithSlash}/<#noparse>${row.</#noparse>${generateInfo.primaryKeyLowerCamel}}`,
-        method: 'get'
-      })
-      if (res.status === 200 && res.data) {
-        this.editDialogData.detail = res.data
-        this.editDialogData.visible = true
-      }
-    },
-
-    // 修改成功 回调
-    editSuccess() {
-      this.editDialogData.visible = false
-      this.initTable(1)
+      this.editDialogData.${generateInfo.primaryKeyLowerCamel} = row.${generateInfo.primaryKeyLowerCamel}
+      this.editDialogData.visible = true
     },
 
     // 删除
