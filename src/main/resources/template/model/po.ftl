@@ -24,7 +24,9 @@ import ${import};
 public class ${generateInfo.moduleName}Po {
 
     <#list generateInfo.columnList as column>
-    /** ${column.columnComment} */
+    /**
+      * ${column.columnComment}
+      */
 <#if generateInfo.primaryKey == column.columnName>
     @TableId(value = "${column.columnCamelName}", type = IdType.AUTO)
 </#if>

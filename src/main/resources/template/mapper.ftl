@@ -1,5 +1,6 @@
 package ${generateInfo.mapperPackage};
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Po;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Query;
 import ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot}.${generateInfo.moduleName}Brief;
@@ -13,7 +14,7 @@ import java.util.List;
  * @author ${generateInfo.author}
  * @date ${generateInfo.date}
  */
-public interface ${generateInfo.moduleName}Mapper {
+public interface ${generateInfo.moduleName}Mapper extends BaseMapper<${generateInfo.moduleName}Po> {
 
     /**
      * 新增
