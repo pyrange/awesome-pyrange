@@ -89,8 +89,8 @@
 </#list>
       <el-table-column align="center" label="操作" fixed="right" width="150">
         <template slot-scope="{row}">
-          <el-button type="primary" size="mini" @click="handleEdit(row)">编辑</el-button>
-          <el-button type="danger" size="mini" @click="handleDel(row.${generateInfo.primaryKeyLowerCamel})">删除</el-button>
+          <el-link type="primary" size="mini" @click="handleEdit(row)">编辑</el-link> |
+          <el-link type="danger" size="mini" @click="handleDel(row.${generateInfo.primaryKeyLowerCamel})">删除</el-link>
         </template>
       </el-table-column>
     </el-table>

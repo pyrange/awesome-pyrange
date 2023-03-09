@@ -32,7 +32,7 @@ public class ${generateInfo.moduleName}Update {
     @NotNull(message = "${column.columnComment}不能为空")
         </#if>
         <#if column.columnJavaTypeName == 'String'>
-    @Length(min = 1, max = ${column.characterMaximumLength}, message = "${column.columnComment}长度不能超过${column.characterMaximumLength}位")
+    @Length(max = ${column.characterMaximumLength}, message = "${column.columnComment}长度不能超过${column.characterMaximumLength}位")
         </#if>
     private ${column.columnJavaTypeName} ${column.columnCamelName};
 
