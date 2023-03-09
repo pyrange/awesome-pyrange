@@ -1,5 +1,7 @@
 package ${generateInfo.servicePackage}.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import ${basicConfig.groupId}.common.model.dto.Page;
 import ${generateInfo.servicePackage}.${generateInfo.moduleName}Service;
 import ${generateInfo.mapperPackage}.${generateInfo.moduleName}Mapper;
@@ -45,12 +47,10 @@ public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.mod
 
     @Override
     public Result delete(Integer ${generateInfo.primaryKeyLowerCamel}) {
-        ${generateInfo.moduleName}Po ${generateInfo.moduleNameLowercase}Po = ${generateInfo.moduleName}Po.builder()
-            .${generateInfo.primaryKeyLowerCamel}(${generateInfo.primaryKeyLowerCamel})
-            .updateTime(LocalDateTime.now())
-            .deleted(1)
-            .build();
-        ${generateInfo.moduleNameLowercase}Mapper.update(${generateInfo.moduleNameLowercase}Po);
+        LambdaQueryWrapper<${generateInfo.moduleName}Po> deleteWrapper = new QueryWrapper<${generateInfo.moduleName}Po>().lambda();
+        deleteWrapper.eq(${generateInfo.moduleName}Po::get${generateInfo.primaryKeyUpperCamel}, ${generateInfo.primaryKeyLowerCamel});
+        //deleteWrapper.eq(${generateInfo.moduleName}Po::getMctId, SessionUtil.getDefaultMctId());
+        ${generateInfo.moduleNameLowercase}Mapper.delete(deleteWrapper);
         return Result.success("删除成功");
     }
 
@@ -60,7 +60,7 @@ public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.mod
                 .updateTime(LocalDateTime.now())
                 .build();
         BeanUtils.copyProperties(update, ${generateInfo.moduleNameLowercase}Po);
-        ${generateInfo.moduleNameLowercase}Mapper.update(${generateInfo.moduleNameLowercase}Po);
+        ${generateInfo.moduleNameLowercase}Mapper.updateById(${generateInfo.moduleNameLowercase}Po);
         return Result.success("修改成功");
     }
 

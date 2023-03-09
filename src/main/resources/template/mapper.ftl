@@ -17,22 +17,6 @@ import java.util.List;
 public interface ${generateInfo.moduleName}Mapper extends BaseMapper<${generateInfo.moduleName}Po> {
 
     /**
-     * 新增
-     *
-     * @param insert
-     * @return int 新增条数
-     **/
-    int insert(${generateInfo.moduleName}Po insert);
-
-    /**
-     * 根据主键动态修改
-     *
-     * @param update
-     * @return int 修改条数
-     **/
-    int update(${generateInfo.moduleName}Po update);
-
-    /**
      * 概要
      *
      * @param ${generateInfo.primaryKeyLowerCamel}

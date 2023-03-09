@@ -191,7 +191,7 @@ export default {
     },
 
     // 查看详情
-    async handleDetail(row) {
+    handleDetail(row) {
       this.detailDialogData.${generateInfo.primaryKeyLowerCamel} = row.${generateInfo.primaryKeyLowerCamel}
       this.detailDialogData.visible = true
     },
@@ -202,7 +202,7 @@ export default {
     },
 
     // 修改
-    async handleEdit(row) {
+    handleEdit(row) {
       this.editDialogData.${generateInfo.primaryKeyLowerCamel} = row.${generateInfo.primaryKeyLowerCamel}
       this.editDialogData.visible = true
     },
