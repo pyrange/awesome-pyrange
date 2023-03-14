@@ -17,14 +17,6 @@ import java.util.List;
 public interface ${generateInfo.moduleName}Mapper extends BaseMapper<${generateInfo.moduleName}Po> {
 
     /**
-     * 概要
-     *
-     * @param ${generateInfo.primaryKeyLowerCamel}
-     * @return ${generateInfo.moduleName}Brief
-     **/
-    ${generateInfo.moduleName}Brief brief(${generateInfo.primaryKeyJavaTypeName} ${generateInfo.primaryKeyLowerCamel});
-
-    /**
      * 详情
      *
      * @param ${generateInfo.primaryKeyLowerCamel}

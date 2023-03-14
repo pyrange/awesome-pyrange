@@ -41,21 +41,13 @@
           </el-form-item>
         </el-form>
       </el-col>
-      <el-col :span="3" style="text-align: right;">
-        <!-- 重置搜索表单 -->
-        <svg-icon iconClass="clear" style="font-size: 20px; cursor: pointer;" @click="resetField"></svg-icon>
-        <!-- 展开/收起 -->
-        <span class="fold" @click="isFold = !isFold"> {{ isFold ? '展开' : '收起' }} <i :class=" isFold ? 'el-icon-arrow-down' : 'el-icon-arrow-up'"></i> </span>
-      </el-col>
+      <DefaultButton :fold.sync="isFold" @reset="resetField" @refresh="handleSearch"/>
     </el-row>
 
     <!-- 按钮栏 -->
     <div class="btn-tools">
       <div class="btns">
         <el-button size="mini" type="primary" @click="handleAdd">添加</el-button>
-      </div>
-      <div>
-        <span style="font-size: 14px; margin-right: 10px;" @click="handleSearch()">刷新<i class="el-icon-refresh"></i></span>
       </div>
     </div>
     <!-- 列表 -->
