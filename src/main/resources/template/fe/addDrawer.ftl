@@ -65,8 +65,8 @@
 </#list>
 
       <el-form-item>
-        <el-button type="primary" :loading="btnLoading" @click="submitForm('formData')">立即创建</el-button>
-        <el-button @click="resetForm('formData')">重置</el-button>
+        <el-button type="primary" :loading="btnLoading" @click="submitForm()">立即创建</el-button>
+        <el-button @click="resetForm()">重置</el-button>
       </el-form-item>
     </el-form>
   </el-drawer>
@@ -105,9 +105,9 @@ export default {
     handleClose() {
       this.$emit('update:drawer', false)
     },
-    submitForm(formName) {
+    submitForm() {
       this.btnLoading = true
-      this.$refs[formName].validate(async (valid) => {
+      this.$refs['formData'].validate(async (valid) => {
         if (valid) {
           try {
             const res = await request({
@@ -130,8 +130,8 @@ export default {
         this.btnLoading = false
       });
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    resetForm() {
+      this.$refs['formData'].resetFields();
     }
   }
 }
