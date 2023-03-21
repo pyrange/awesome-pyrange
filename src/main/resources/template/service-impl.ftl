@@ -47,10 +47,10 @@ public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.mod
 
     @Override
     public Result delete(Integer ${generateInfo.primaryKeyLowerCamel}) {
-        LambdaQueryWrapper<${generateInfo.moduleName}Po> deleteWrapper = new QueryWrapper<${generateInfo.moduleName}Po>().lambda();
-        deleteWrapper.eq(${generateInfo.moduleName}Po::get${generateInfo.primaryKeyUpperCamel}, ${generateInfo.primaryKeyLowerCamel});
-        //deleteWrapper.eq(${generateInfo.moduleName}Po::getMctId, SessionUtil.getDefaultMctId());
-        ${generateInfo.moduleNameLowercase}Mapper.delete(deleteWrapper);
+        LambdaQueryWrapper<${generateInfo.moduleName}Po> queryWrapper = new QueryWrapper<${generateInfo.moduleName}Po>().lambda();
+        queryWrapper.eq(${generateInfo.moduleName}Po::get${generateInfo.primaryKeyUpperCamel}, ${generateInfo.primaryKeyLowerCamel});
+        //queryWrapper.eq(${generateInfo.moduleName}Po::getMctId, SessionUtil.getDefaultMctId());
+        ${generateInfo.moduleNameLowercase}Mapper.delete(queryWrapper);
         return Result.success("删除成功");
     }
 
@@ -60,7 +60,13 @@ public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.mod
                 .updateTime(LocalDateTime.now())
                 .build();
         BeanUtils.copyProperties(update, ${generateInfo.moduleNameLowercase}Po);
-        ${generateInfo.moduleNameLowercase}Mapper.updateById(${generateInfo.moduleNameLowercase}Po);
+
+
+        LambdaQueryWrapper<${generateInfo.moduleName}Po> queryWrapper = new QueryWrapper<${generateInfo.moduleName}Po>().lambda();
+        queryWrapper.eq(${generateInfo.moduleName}Po::get${generateInfo.primaryKeyUpperCamel}, ${generateInfo.primaryKeyLowerCamel});
+        //queryWrapper.eq(${generateInfo.moduleName}Po::getMctId, SessionUtil.getDefaultMctId());
+        ${generateInfo.moduleNameLowercase}Mapper.delete(queryWrapper);
+        ${generateInfo.moduleNameLowercase}Mapper.update(${generateInfo.moduleNameLowercase}Po, queryWrapper);
         return Result.success("修改成功");
     }
 

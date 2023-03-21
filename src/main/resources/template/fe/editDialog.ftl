@@ -5,28 +5,28 @@
 -->
 <template>
   <el-dialog title="编辑" :visible.sync="visible" append-to-body top="50px" width="800px" :before-close="handleClose">
-    <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="120px">
+    <el-form ref="formData" :model="formData" :rules="rules" label-width="120px">
 <#list generateInfo.columnList as column>
   <#if generateInfo.primaryKey == column.columnName || "${column.columnCamelName}"?matches("deleted|isDel|isDelete|isDeleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
   <#elseif "${column.columnCamelName}"?ends_with("ed")>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-        <el-radio-group v-model="ruleForm.${column.columnCamelName}">
+        <el-radio-group v-model="formData.${column.columnCamelName}">
           <el-radio :label="0">否</el-radio>
           <el-radio :label="1">是</el-radio>
         </el-radio-group>
       </el-form-item>
   <#elseif "${column.columnCamelName}"?ends_with("able")>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-        <el-radio-group v-model="ruleForm.${column.columnCamelName}">
+        <el-radio-group v-model="formData.${column.columnCamelName}">
           <el-radio :label="0">否</el-radio>
           <el-radio :label="1">是</el-radio>
         </el-radio-group>
       </el-form-item>
   <#elseif "${column.columnCamelName}"?matches(".*?(Id)")>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-        <el-input v-model="ruleForm.${column.columnCamelName}" />
+        <el-input v-model="formData.${column.columnCamelName}" />
         <!--
-        <el-select v-model="ruleForm.${column.columnCamelName}" multiple filterable
+        <el-select v-model="formData.${column.columnCamelName}" multiple filterable
            remote reserve-keyword  placeholder="请输入关键词"
            :remote-method="remoteMethod" :loading="true">
             <el-option
@@ -40,15 +40,15 @@
       </el-form-item>
   <#elseif "${column.columnCamelName}"?ends_with("Date")>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-        <el-date-picker v-model="ruleForm.${column.columnCamelName}" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" />
+        <el-date-picker v-model="formData.${column.columnCamelName}" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" />
       </el-form-item>
   <#elseif "${column.columnCamelName}"?ends_with("Time")>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-        <el-date-picker v-model="ruleForm.${column.columnCamelName}" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" />
+        <el-date-picker v-model="formData.${column.columnCamelName}" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" />
       </el-form-item>
   <#elseif "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy|pattern|Pattern).*")>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-        <el-select v-model="ruleForm.${column.columnCamelName}" placeholder="请选择">
+        <el-select v-model="formData.${column.columnCamelName}" placeholder="请选择">
           <el-option label="" value="全部" />
           <el-option :label="0" value="开启" />
           <el-option :label="1" value="关闭" />
@@ -56,15 +56,15 @@
       </el-form-item>
   <#elseif "${column.columnJavaTypeName}"?matches("Integer")>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-        <el-input-number v-model="ruleForm.${column.columnCamelName}" :min="1" :max="1000000" :precision="0" label="${column.columnComment}"></el-input-number>
+        <el-input-number v-model="formData.${column.columnCamelName}" :min="1" :max="1000000" :precision="0" label="${column.columnComment}"></el-input-number>
       </el-form-item>
   <#elseif "${column.columnJavaTypeName}"?matches("BigDecimal")>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-        <el-input-number v-model="ruleForm.${column.columnCamelName}" :min="1" :max="1000000" label="${column.columnComment}"></el-input-number>
+        <el-input-number v-model="formData.${column.columnCamelName}" :min="1" :max="1000000" label="${column.columnComment}"></el-input-number>
       </el-form-item>
   <#else>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-        <el-input v-model="ruleForm.${column.columnCamelName}" />
+        <el-input v-model="formData.${column.columnCamelName}" />
       </el-form-item>
   </#if>
 </#list>
@@ -92,7 +92,7 @@ export default {
   data() {
     return {
       btnLoading: false,
-      ruleForm: {},
+      formData: {},
       rules: {
 <#list generateInfo.columnList as column>
   <#if generateInfo.primaryKey == column.columnCamelName || "${column.columnCamelName}"?matches("deleted|isDel|isDelete|isDeleted|createUserName|createUserId|createTime|updateUserName|updateUserId|updateTime")>
@@ -114,21 +114,21 @@ export default {
       method: 'get'
     })
     .then((res) => {
-      this.ruleForm = res.data
+      this.formData = res.data
     })
   },
   methods: {
     // 取消
     handleClose() {
-      this.$refs['ruleForm'].resetFields()
+      this.$refs['formData'].resetFields()
       this.$emit('update:visible', false)
     },
     // 保存
     handleSubmit() {
       this.btnLoading = true
-      this.$refs['ruleForm'].validate(async(valid) => {
+      this.$refs['formData'].validate(async(valid) => {
         if (valid) {
-          const data = this.ruleForm
+          const data = this.formData
           try {
             const res = await request({
               url: '${generateInfo.moduleNameWithSlash}',
