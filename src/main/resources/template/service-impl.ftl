@@ -31,17 +31,17 @@ import java.util.List;
 public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.moduleName}Service {
 
     @Autowired
-    private ${generateInfo.moduleName}Mapper ${generateInfo.moduleNameLowercase}Mapper;
+    private ${generateInfo.moduleName}Mapper ${generateInfo.moduleNameLowercaseCamel}Mapper;
 
     @Override
     public Result insert(${generateInfo.moduleName}Insert insert) {
-        ${generateInfo.moduleName}Po ${generateInfo.moduleNameLowercase}Po = ${generateInfo.moduleName}Po.builder()
+        ${generateInfo.moduleName}Po ${generateInfo.moduleNameLowercaseCamel}Po = ${generateInfo.moduleName}Po.builder()
                 .createTime(LocalDateTime.now())
                 //.createUserId(SessionUtil.getUserId())
                 //.createUserName(SessionUtil.getUserName())
                 .build();
-        BeanUtils.copyProperties(insert, ${generateInfo.moduleNameLowercase}Po);
-        ${generateInfo.moduleNameLowercase}Mapper.insert(${generateInfo.moduleNameLowercase}Po);
+        BeanUtils.copyProperties(insert, ${generateInfo.moduleNameLowercaseCamel}Po);
+        ${generateInfo.moduleNameLowercaseCamel}Mapper.insert(${generateInfo.moduleNameLowercaseCamel}Po);
         return Result.success("新增成功");
     }
 
@@ -50,29 +50,29 @@ public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.mod
         LambdaQueryWrapper<${generateInfo.moduleName}Po> queryWrapper = new QueryWrapper<${generateInfo.moduleName}Po>().lambda();
         queryWrapper.eq(${generateInfo.moduleName}Po::get${generateInfo.primaryKeyUpperCamel}, ${generateInfo.primaryKeyLowerCamel});
         //queryWrapper.eq(${generateInfo.moduleName}Po::getMctId, SessionUtil.getDefaultMctId());
-        ${generateInfo.moduleNameLowercase}Mapper.delete(queryWrapper);
+        ${generateInfo.moduleNameLowercaseCamel}Mapper.delete(queryWrapper);
         return Result.success("删除成功");
     }
 
     @Override
     public Result update(${generateInfo.moduleName}Update update) {
-        ${generateInfo.moduleName}Po ${generateInfo.moduleNameLowercase}Po = ${generateInfo.moduleName}Po.builder()
+        ${generateInfo.moduleName}Po ${generateInfo.moduleNameLowercaseCamel}Po = ${generateInfo.moduleName}Po.builder()
                 .updateTime(LocalDateTime.now())
                 .build();
-        BeanUtils.copyProperties(update, ${generateInfo.moduleNameLowercase}Po);
+        BeanUtils.copyProperties(update, ${generateInfo.moduleNameLowercaseCamel}Po);
 
 
         LambdaQueryWrapper<${generateInfo.moduleName}Po> queryWrapper = new QueryWrapper<${generateInfo.moduleName}Po>().lambda();
-        queryWrapper.eq(${generateInfo.moduleName}Po::get${generateInfo.primaryKeyUpperCamel}, ${generateInfo.primaryKeyLowerCamel});
+        queryWrapper.eq(${generateInfo.moduleName}Po::get${generateInfo.primaryKeyUpperCamel}, update.get${generateInfo.primaryKeyUpperCamel}());
         //queryWrapper.eq(${generateInfo.moduleName}Po::getMctId, SessionUtil.getDefaultMctId());
-        ${generateInfo.moduleNameLowercase}Mapper.delete(queryWrapper);
-        ${generateInfo.moduleNameLowercase}Mapper.update(${generateInfo.moduleNameLowercase}Po, queryWrapper);
+        ${generateInfo.moduleNameLowercaseCamel}Mapper.delete(queryWrapper);
+        ${generateInfo.moduleNameLowercaseCamel}Mapper.update(${generateInfo.moduleNameLowercaseCamel}Po, queryWrapper);
         return Result.success("修改成功");
     }
 
     @Override
     public Result${"<"}${generateInfo.moduleName}Detail${">"} detail(${generateInfo.primaryKeyJavaTypeName} ${generateInfo.primaryKeyLowerCamel}) {
-        return Result.success(${generateInfo.moduleNameLowercase}Mapper.detail(${generateInfo.primaryKeyLowerCamel}));
+        return Result.success(${generateInfo.moduleNameLowercaseCamel}Mapper.detail(${generateInfo.primaryKeyLowerCamel}));
     }
 
     @Override
@@ -81,6 +81,6 @@ public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.mod
             query.setEndDate(query.getEndDate().plusDays(1));
         }
         PageUtil.startPage(query);
-        return Result.page(${generateInfo.moduleNameLowercase}Mapper.list(query));
+        return Result.page(${generateInfo.moduleNameLowercaseCamel}Mapper.list(query));
     }
 }

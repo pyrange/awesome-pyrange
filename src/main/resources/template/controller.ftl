@@ -28,7 +28,7 @@ import java.util.List;
 public class ${generateInfo.moduleName}Controller {
 
     @Autowired
-    private ${generateInfo.moduleName}Service ${generateInfo.moduleNameLowercase}Service;
+    private ${generateInfo.moduleName}Service ${generateInfo.moduleNameLowercaseCamel}Service;
 
     /**
      * 新增
@@ -38,7 +38,7 @@ public class ${generateInfo.moduleName}Controller {
      **/
     @PostMapping
     public Result insert(@RequestBody @Valid ${generateInfo.moduleName}Insert insert) {
-        return ${generateInfo.moduleNameLowercase}Service.insert(insert);
+        return ${generateInfo.moduleNameLowercaseCamel}Service.insert(insert);
     }
 
     /**
@@ -49,7 +49,7 @@ public class ${generateInfo.moduleName}Controller {
      **/
     @DeleteMapping("{${generateInfo.primaryKeyLowerCamel}}")
     public Result delete(@PathVariable("${generateInfo.primaryKeyLowerCamel}") ${generateInfo.primaryKeyJavaTypeName} ${generateInfo.primaryKeyLowerCamel}) {
-        return ${generateInfo.moduleNameLowercase}Service.delete(${generateInfo.primaryKeyLowerCamel});
+        return ${generateInfo.moduleNameLowercaseCamel}Service.delete(${generateInfo.primaryKeyLowerCamel});
     }
 
     /**
@@ -60,7 +60,7 @@ public class ${generateInfo.moduleName}Controller {
      **/
     @PutMapping
     public Result update(@RequestBody @Valid ${generateInfo.moduleName}Update update) {
-        return ${generateInfo.moduleNameLowercase}Service.update(update);
+        return ${generateInfo.moduleNameLowercaseCamel}Service.update(update);
     }
 
     /**
@@ -71,7 +71,7 @@ public class ${generateInfo.moduleName}Controller {
      **/
     @GetMapping("{${generateInfo.primaryKeyLowerCamel}}")
     public Result${"<"}${generateInfo.moduleName}Detail${">"} detail(@PathVariable("${generateInfo.primaryKeyLowerCamel}") ${generateInfo.primaryKeyJavaTypeName} ${generateInfo.primaryKeyLowerCamel}) {
-        return ${generateInfo.moduleNameLowercase}Service.detail(${generateInfo.primaryKeyLowerCamel});
+        return ${generateInfo.moduleNameLowercaseCamel}Service.detail(${generateInfo.primaryKeyLowerCamel});
     }
 
     /**
@@ -82,6 +82,6 @@ public class ${generateInfo.moduleName}Controller {
      **/
     @GetMapping
     public Result${"<Page<List<"}${generateInfo.moduleName}Brief${">>>"} list(@ModelAttribute @Valid ${generateInfo.moduleName}Query query) {
-        return ${generateInfo.moduleNameLowercase}Service.list(query);
+        return ${generateInfo.moduleNameLowercaseCamel}Service.list(query);
     }
 }

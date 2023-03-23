@@ -14,6 +14,7 @@ public class GenerateInfo {
     private String moduleName;
     private String moduleNameUppercaseCamel;
     private String moduleNameLowercase;
+    private String moduleNameLowercaseCamel;
     private String moduleNameWithDot;
     private String moduleNameWithSlash;
     private String moduleNameWithHyphen;
@@ -271,5 +272,13 @@ public class GenerateInfo {
 
     public void setModuleNameWithUnderscore(String moduleNameWithUnderscore) {
         this.moduleNameWithUnderscore = moduleNameWithUnderscore;
+    }
+
+    public String getModuleNameLowercaseCamel() {
+        return moduleNameLowercaseCamel;
+    }
+
+    public void setModuleNameLowercaseCamel(String moduleNameLowercaseCamel) {
+        this.moduleNameLowercaseCamel = moduleNameLowercaseCamel;
     }
 }
