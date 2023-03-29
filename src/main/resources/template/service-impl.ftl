@@ -49,7 +49,7 @@ public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.mod
     public Result delete(Integer ${generateInfo.primaryKeyLowerCamel}) {
         LambdaQueryWrapper<${generateInfo.moduleName}Po> queryWrapper = new QueryWrapper<${generateInfo.moduleName}Po>().lambda();
         queryWrapper.eq(${generateInfo.moduleName}Po::get${generateInfo.primaryKeyUpperCamel}, ${generateInfo.primaryKeyLowerCamel});
-        //queryWrapper.eq(${generateInfo.moduleName}Po::getMctId, SessionUtil.getDefaultMctId());
+        //queryWrapper.eq(${generateInfo.moduleName}Po::getMctNo, SessionUtil.getDefaultMctNo());
         ${generateInfo.moduleNameLowercaseCamel}Mapper.delete(queryWrapper);
         return Result.success("删除成功");
     }
@@ -64,8 +64,7 @@ public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.mod
 
         LambdaQueryWrapper<${generateInfo.moduleName}Po> queryWrapper = new QueryWrapper<${generateInfo.moduleName}Po>().lambda();
         queryWrapper.eq(${generateInfo.moduleName}Po::get${generateInfo.primaryKeyUpperCamel}, update.get${generateInfo.primaryKeyUpperCamel}());
-        //queryWrapper.eq(${generateInfo.moduleName}Po::getMctId, SessionUtil.getDefaultMctId());
-        ${generateInfo.moduleNameLowercaseCamel}Mapper.delete(queryWrapper);
+        //queryWrapper.eq(${generateInfo.moduleName}Po::getMctNo, SessionUtil.getDefaultMctNo());
         ${generateInfo.moduleNameLowercaseCamel}Mapper.update(${generateInfo.moduleNameLowercaseCamel}Po, queryWrapper);
         return Result.success("修改成功");
     }
