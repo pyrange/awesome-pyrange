@@ -132,12 +132,11 @@ export default {
       this.btnLoading = true
       this.$refs['formData'].validate(async(valid) => {
         if (valid) {
-          const data = this.formData
           try {
             const res = await request({
               url: '${generateInfo.moduleNameWithSlash}',
               method: 'put',
-              data
+              data: this.formData
             })
             if (res.status === 200) {
               this.$message.success('修改成功')
