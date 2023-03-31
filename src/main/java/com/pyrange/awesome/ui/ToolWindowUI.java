@@ -173,7 +173,7 @@ public class ToolWindowUI {
                 comboBoxClickAction(comboBoxServicePath, "service");
                 comboBoxClickAction(comboBoxModelPath, "model");
                 comboBoxClickAction(comboBoxMapperPath, "dao");
-                setPathAsProject(comboBoxFePath);
+//                setPathAsProject(comboBoxFePath);
             }
 
         });

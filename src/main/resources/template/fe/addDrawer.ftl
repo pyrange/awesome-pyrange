@@ -40,7 +40,7 @@
       </el-form-item>
   <#elseif "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy|pattern|Pattern).*")>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-        <el-select v-model="formData.${column.columnCamelName}" placeholder="请选择排课方式" filterable clearable>
+        <el-select v-model="formData.${column.columnCamelName}" placeholder="请选择${column.columnComment}" filterable clearable>
           <el-option v-for="item in ${column.columnCamelName}Dict"
                   :key="item.code"
                   :label="item.name"

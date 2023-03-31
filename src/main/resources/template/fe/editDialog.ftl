@@ -47,13 +47,16 @@
         <el-date-picker v-model="formData.${column.columnCamelName}" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" />
       </el-form-item>
   <#elseif "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy|pattern|Pattern).*")>
-      <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
-        <el-select v-model="formData.${column.columnCamelName}" placeholder="请选择">
-          <el-option label="" value="全部" />
-          <el-option :label="0" value="开启" />
-          <el-option :label="1" value="关闭" />
-        </el-select>
-      </el-form-item>
+    <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
+      <el-select v-model="formData.${column.columnCamelName}" placeholder="请选择${column.columnComment}" filterable clearable>
+        <el-option v-for="item in ${column.columnCamelName}Dict"
+                   :key="item.code"
+                   :label="item.name"
+                   :value="item.code">
+        </el-option>
+        <el-option v-for="(name, code) in dict.type.${column.columnCamelName}" :key="code" :label="name" :value="code"></el-option>
+      </el-select>
+    </el-form-item>
   <#elseif "${column.columnJavaTypeName}"?matches("Integer")>
       <el-form-item label="${column.columnComment}" prop="${column.columnCamelName}">
         <el-input-number v-model="formData.${column.columnCamelName}" :min="1" :max="1000000" :precision="0" label="${column.columnComment}"></el-input-number>
@@ -79,6 +82,7 @@
 <script>
 import request from '@/api/axios'
 export default {
+  dicts: ['whether', <#list generateInfo.columnList as column><#if "${column.columnCamelName}"?matches(".*?(status|Status|type|Type|strategy|Strategy|pattern|Pattern).*")>'${column.columnCamelName}', </#if></#list>],
   props: {
     visible: {
       type: Boolean,
