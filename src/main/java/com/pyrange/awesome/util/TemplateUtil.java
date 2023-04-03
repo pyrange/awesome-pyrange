@@ -48,6 +48,7 @@ public class TemplateUtil {
         PYRANGE_TEMPLATE_LIST.add("model/brief.ftl");
         PYRANGE_TEMPLATE_LIST.add("model/detail.ftl");
         PYRANGE_TEMPLATE_LIST.add("fe/index.ftl");
+        PYRANGE_TEMPLATE_LIST.add("fe/addDrawer.ftl");
         PYRANGE_TEMPLATE_LIST.add("fe/editDialog.ftl");
         PYRANGE_TEMPLATE_LIST.add("fe/detailDialog.ftl");
         PYRANGE_TEMPLATE_LIST.add("test.ftl");

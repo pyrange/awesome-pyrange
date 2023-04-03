@@ -11,6 +11,7 @@ import com.pyrange.awesome.util.CommonUtil;
 import com.pyrange.awesome.util.MessageUtil;
 import com.pyrange.awesome.util.TableUtil;
 import com.pyrange.awesome.util.TemplateUtil;
+import groovy.util.logging.Slf4j;
 import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
@@ -19,6 +20,7 @@ import javax.swing.event.PopupMenuListener;
 import java.awt.event.*;
 import java.util.List;
 
+@Slf4j
 public class Settings extends JDialog {
 
     private static final Logger LOGGER = Logger.getInstance(Settings.class);
@@ -162,7 +164,12 @@ public class Settings extends JDialog {
                     Messages.showMessageDialog("please input your cloud config url", "error", Messages.getInformationIcon());
                     return;
                 }
-                TemplateUtil.loadCloudTemplate(cloudConfigUrlText);
+                try {
+                    TemplateUtil.loadCloudTemplate(cloudConfigUrlText);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    Messages.showMessageDialog(ex.getMessage(), "error", Messages.getInformationIcon());
+                }
 
                 Messages.showMessageDialog("load cloud config of template success", "info", Messages.getInformationIcon());
             }
