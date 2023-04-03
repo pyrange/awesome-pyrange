@@ -163,6 +163,8 @@ public class Settings extends JDialog {
                     return;
                 }
                 TemplateUtil.loadCloudTemplate(cloudConfigUrlText);
+
+                Messages.showMessageDialog("load cloud config of template success", "info", Messages.getInformationIcon());
             }
         });
 

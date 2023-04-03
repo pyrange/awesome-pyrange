@@ -1,5 +1,7 @@
 package com.pyrange.awesome.util;
 
+import groovy.util.logging.Slf4j;
+
 import com.google.common.base.Throwables;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.diagnostic.Logger;
@@ -26,6 +28,7 @@ import java.util.concurrent.CompletableFuture;
  * @author chenjw
  * @date 2023-2-3
  */
+@Slf4j
 public class TemplateUtil {
 
     private static final Logger log = Logger.getInstance(TemplateUtil.class);
@@ -140,6 +143,9 @@ public class TemplateUtil {
         for (String template: PYRANGE_TEMPLATE_LIST) {
             doLoadCloudTemplate(cloudConfigUrl, template);
         }
+
+        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
+        propertiesComponent.setValue("PYRANGE-SETTINGS-haveCloudConfigSet", true);
         return Result.success();
     }
 
@@ -152,24 +158,30 @@ public class TemplateUtil {
      */
     public static void doLoadCloudTemplate(String cloudConfigUrl, String templateName) {
         try {
-            HttpRequest httpRequest = HttpRequest.newBuilder(URI.create(cloudConfigUrl + "/" + templateName))
+            String url;
+            if ("/".equals(cloudConfigUrl.substring(cloudConfigUrl.length() - 1))) {
+                url = cloudConfigUrl + templateName;
+            } else {
+                url = cloudConfigUrl + "/" + templateName;
+            }
+            HttpRequest httpRequest = HttpRequest.newBuilder(URI.create(url))
                     .GET()
                     .build();
             CompletableFuture<String> result = HttpClient.newHttpClient()
                     .sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString())
                     .thenApply(HttpResponse::body)
                     .exceptionally(err -> {
-                        err.printStackTrace();
-                        return null;
+                        log.error("加载云模板异常", err);
+                        throw new PyrangeException("加载模板网络异常, 无法访问" + url);
                     });
             String templateContent = result.get();
             if (StringUtils.isEmpty(templateContent)) {
-                throw new PyrangeException("加载模板网络异常, 无法访问" + cloudConfigUrl + "/" + templateName);
+                throw new PyrangeException("加载模板网络异常, 无法访问" + url);
             }
             saveTemplate("cloud", templateName, templateContent);
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new PyrangeException("加载模板异常, 异常信息:" + Throwables.getStackTraceAsString(e));
+            log.error("加载云模板异常", e);
+            throw new PyrangeException("加载云模板异常, 异常信息:" + Throwables.getStackTraceAsString(e));
         }
     }
 
