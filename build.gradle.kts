@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.pyrange"
-version = "1.2"
+version = "1.3"
 
 repositories {
     mavenCentral()
@@ -29,7 +29,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("201")
-        untilBuild.set("213.*")
+        untilBuild.set("232.*")
     }
 
     signPlugin {

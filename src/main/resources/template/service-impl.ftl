@@ -47,7 +47,7 @@ public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.mod
 
     @Override
     public Result delete(Integer ${generateInfo.primaryKeyLowerCamel}) {
-        LambdaQueryWrapper<${generateInfo.moduleName}Po> queryWrapper = new QueryWrapper<${generateInfo.moduleName}Po>().lambda();
+        LambdaQueryWrapper<${generateInfo.moduleName}Po> queryWrapper = new LambdaQueryWrapper();
         queryWrapper.eq(${generateInfo.moduleName}Po::get${generateInfo.primaryKeyUpperCamel}, ${generateInfo.primaryKeyLowerCamel});
         //queryWrapper.eq(${generateInfo.moduleName}Po::getMctNo, SessionUtil.getDefaultMctNo());
         ${generateInfo.moduleNameLowercaseCamel}Mapper.delete(queryWrapper);
@@ -62,7 +62,7 @@ public class ${generateInfo.moduleName}ServiceImpl implements ${generateInfo.mod
         BeanUtils.copyProperties(update, ${generateInfo.moduleNameLowercaseCamel}Po);
 
 
-        LambdaQueryWrapper<${generateInfo.moduleName}Po> queryWrapper = new QueryWrapper<${generateInfo.moduleName}Po>().lambda();
+        LambdaQueryWrapper<${generateInfo.moduleName}Po> queryWrapper = new LambdaQueryWrapper();
         queryWrapper.eq(${generateInfo.moduleName}Po::get${generateInfo.primaryKeyUpperCamel}, update.get${generateInfo.primaryKeyUpperCamel}());
         //queryWrapper.eq(${generateInfo.moduleName}Po::getMctNo, SessionUtil.getDefaultMctNo());
         ${generateInfo.moduleNameLowercaseCamel}Mapper.update(${generateInfo.moduleNameLowercaseCamel}Po, queryWrapper);
