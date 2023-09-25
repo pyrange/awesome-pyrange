@@ -47,19 +47,19 @@
                     icon="/images/pyrange-logo13x13.png" factoryClass="com.pyrange.awesome.config.ToolWindowConfig"/>
     </extensions>
 
-    <actions>
-        <action
-                id="org.pyrange.awesome.PopupDialogAction"
-                class="com.pyrange.awesome.SearchWindowAction"
-                text="Action Basics Plugin: Awesome Pyrange"
-                description="Awesome Pyrange"
-                icon="SdkIcons.Sdk_default_icon">
-            <override-text place="MainMenu" text="Popup Dialog Action"/>
-            <keyboard-shortcut
-                    keymap="$default"
-                    first-keystroke="alt D" />
-            <add-to-group group-id="ToolsMenu" anchor="first"/>
-        </action>
-    </actions>
+<!--    <actions>-->
+<!--        <action-->
+<!--                id="org.pyrange.awesome.PopupDialogAction"-->
+<!--                class="com.pyrange.awesome.SearchWindowAction"-->
+<!--                text="Action Basics Plugin: Awesome Pyrange"-->
+<!--                description="Awesome Pyrange"-->
+<!--                icon="SdkIcons.Sdk_default_icon">-->
+<!--            <override-text place="MainMenu" text="Popup Dialog Action"/>-->
+<!--            <keyboard-shortcut-->
+<!--                    keymap="$default"-->
+<!--                    first-keystroke="alt D" />-->
+<!--            <add-to-group group-id="ToolsMenu" anchor="first"/>-->
+<!--        </action>-->
+<!--    </actions>-->
 
 </idea-plugin>
