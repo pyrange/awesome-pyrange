@@ -1,18 +1,12 @@
 package com.pyrange.awesome.ui;
 
 import com.google.common.base.Throwables;
-import com.intellij.ide.util.PropertiesComponent;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.ui.Messages;
-import com.pyrange.awesome.PyrangeConstant;
 import com.pyrange.awesome.model.BasicConfig;
 import com.pyrange.awesome.model.Result;
 import com.pyrange.awesome.util.CommonUtil;
 import com.pyrange.awesome.util.MessageUtil;
 import com.pyrange.awesome.util.TableUtil;
 import com.pyrange.awesome.util.TemplateUtil;
-import groovy.util.logging.Slf4j;
-import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
@@ -20,10 +14,7 @@ import javax.swing.event.PopupMenuListener;
 import java.awt.event.*;
 import java.util.List;
 
-@Slf4j
 public class Settings extends JDialog {
-
-    private static final Logger LOGGER = Logger.getInstance(Settings.class);
 
     public static final String PYRANGE_CODE_TEMPLATE = "PYRANGE-SETTINGS-codeTemplates";
     public static final String PYRANGE_SELECTED_CODE_TEMPLATE = "PYRANGE-SETTINGS-selectedCodeTemplates";
@@ -112,15 +103,15 @@ public class Settings extends JDialog {
                 String jdbcUserName = textFieldUserName.getText();
                 String jdbcPassword = String.valueOf(textFieldPassword.getPassword());
                 if (CommonUtil.isNullOrEmpty(jdbcHost)) {
-                    MessageUtil.showErrorMsg("Host:Port required");
+//                    MessageUtil.showErrorMsg("Host:Port required");
                     return;
                 }
                 if (CommonUtil.isNullOrEmpty(jdbcUserName)) {
-                    MessageUtil.showErrorMsg("UserName required");
+//                    MessageUtil.showErrorMsg("UserName required");
                     return;
                 }
                 if (CommonUtil.isNullOrEmpty(jdbcPassword)) {
-                    MessageUtil.showErrorMsg("Password required");
+//                    MessageUtil.showErrorMsg("Password required");
                     return;
                 }
                 try {
@@ -131,8 +122,8 @@ public class Settings extends JDialog {
                         comboBoxDatabase.addItem(databaseName);
                     });
                 } catch (Exception e1) {
-                    MessageUtil.showErrorMsg(Throwables.getStackTraceAsString(e1));
-                    LOGGER.info(e1);
+//                    MessageUtil.showErrorMsg(Throwables.getStackTraceAsString(e1));
+//                    LOGGER.info(e1);
                 }
             }
 
@@ -160,18 +151,18 @@ public class Settings extends JDialog {
             @Override
             public void mouseClicked(MouseEvent e) {
                 String cloudConfigUrlText = cloudConfigUrl.getText();
-                if (StringUtils.isEmpty(cloudConfigUrlText)) {
-                    Messages.showMessageDialog("please input your cloud config url", "error", Messages.getInformationIcon());
-                    return;
-                }
+//                if (StringUtils.isEmpty(cloudConfigUrlText)) {
+//                    Messages.showMessageDialog("please input your cloud config url", "error", Messages.getInformationIcon());
+//                    return;
+//                }
                 try {
                     TemplateUtil.loadCloudTemplate(cloudConfigUrlText);
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    Messages.showMessageDialog(ex.getMessage(), "error", Messages.getInformationIcon());
+//                    Messages.showMessageDialog(ex.getMessage(), "error", Messages.getInformationIcon());
                 }
 
-                Messages.showMessageDialog("load cloud config of template success", "info", Messages.getInformationIcon());
+//                Messages.showMessageDialog("load cloud config of template success", "info", Messages.getInformationIcon());
             }
         });
 
@@ -179,28 +170,28 @@ public class Settings extends JDialog {
 
     private void onOK() {
         String check = checkSettingsParam();
-        if (check != null) {
-            Messages.showMessageDialog(check, "tip", Messages.getInformationIcon());
-            return;
-        }
-
-        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
-        propertiesComponent.setValue("PYRANGE-SETTINGS-jdbcHost", textFieldHost.getText());
-        propertiesComponent.setValue("PYRANGE-SETTINGS-jdbcDatabase", (String) comboBoxDatabase.getSelectedItem());
-        propertiesComponent.setValue("PYRANGE-SETTINGS-jdbcUserName", textFieldUserName.getText());
-        propertiesComponent.setValue("PYRANGE-SETTINGS-jdbcPassword", String.valueOf(textFieldPassword.getPassword()));
-        propertiesComponent.setValue("PYRANGE-SETTINGS-author", textFieldAuthor.getText());
-        propertiesComponent.setValue("PYRANGE-SETTINGS-groupId", textFieldGroupId.getText());
-        propertiesComponent.setValue("PYRANGE-SETTINGS-settingsConfigured", true);
-        propertiesComponent.setValue("PYRANGE-SETTINGS-jdkVersion", jdkComboBox.getSelectedItem().toString());
-        propertiesComponent.setValue("PYRANGE-SETTINGS-cloudConfigUrl", cloudConfigUrl.getText());
-        boolean cloudConfigYesSelected = cloudConfigYes.isSelected();
-        propertiesComponent.setValue("PYRANGE-SETTINGS-cloudConfigEnabled", cloudConfigYesSelected);
-        boolean haveCloudConfigSet = propertiesComponent.getBoolean("PYRANGE-SETTINGS-haveCloudConfigSet", false);
-        if (cloudConfigYesSelected && !haveCloudConfigSet) {
-            Messages.showMessageDialog("if you want to use cloud config, please load the cloud templates first", "tip", Messages.getInformationIcon());
-            return;
-        }
+//        if (check != null) {
+//            Messages.showMessageDialog(check, "tip", Messages.getInformationIcon());
+//            return;
+//        }
+//
+//        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
+//        propertiesComponent.setValue("PYRANGE-SETTINGS-jdbcHost", textFieldHost.getText());
+//        propertiesComponent.setValue("PYRANGE-SETTINGS-jdbcDatabase", (String) comboBoxDatabase.getSelectedItem());
+//        propertiesComponent.setValue("PYRANGE-SETTINGS-jdbcUserName", textFieldUserName.getText());
+//        propertiesComponent.setValue("PYRANGE-SETTINGS-jdbcPassword", String.valueOf(textFieldPassword.getPassword()));
+//        propertiesComponent.setValue("PYRANGE-SETTINGS-author", textFieldAuthor.getText());
+//        propertiesComponent.setValue("PYRANGE-SETTINGS-groupId", textFieldGroupId.getText());
+//        propertiesComponent.setValue("PYRANGE-SETTINGS-settingsConfigured", true);
+//        propertiesComponent.setValue("PYRANGE-SETTINGS-jdkVersion", jdkComboBox.getSelectedItem().toString());
+//        propertiesComponent.setValue("PYRANGE-SETTINGS-cloudConfigUrl", cloudConfigUrl.getText());
+//        boolean cloudConfigYesSelected = cloudConfigYes.isSelected();
+//        propertiesComponent.setValue("PYRANGE-SETTINGS-cloudConfigEnabled", cloudConfigYesSelected);
+//        boolean haveCloudConfigSet = propertiesComponent.getBoolean("PYRANGE-SETTINGS-haveCloudConfigSet", false);
+//        if (cloudConfigYesSelected && !haveCloudConfigSet) {
+//            Messages.showMessageDialog("if you want to use cloud config, please load the cloud templates first", "tip", Messages.getInformationIcon());
+//            return;
+//        }
         setSelectedCodeTemplate(codeTemplatesBox.getSelectedItem().toString());
         dispose();
     }
@@ -240,22 +231,23 @@ public class Settings extends JDialog {
     }
 
     public static boolean settingsConfigured() {
-        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
-        return propertiesComponent.getBoolean("PYRANGE-SETTINGS-settingsConfigured");
+//        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
+//        return propertiesComponent.getBoolean("PYRANGE-SETTINGS-settingsConfigured");
+        return true;
     }
 
 
     public static Result createNewTemplate(String newTemplateName) {
-        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
-        String[] codeTemplates = propertiesComponent.getValues(PYRANGE_CODE_TEMPLATE);
-        for (String value : codeTemplates) {
-            if (newTemplateName.equals(value)) {
-                return Result.failure("the template name already exists");
-            }
-        }
-
-        codeTemplates = insertElement(codeTemplates, newTemplateName, 0);
-        propertiesComponent.setValues(PYRANGE_CODE_TEMPLATE, codeTemplates);
+//        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
+//        String[] codeTemplates = propertiesComponent.getValues(PYRANGE_CODE_TEMPLATE);
+//        for (String value : codeTemplates) {
+//            if (newTemplateName.equals(value)) {
+//                return Result.failure("the template name already exists");
+//            }
+//        }
+//
+//        codeTemplates = insertElement(codeTemplates, newTemplateName, 0);
+//        propertiesComponent.setValues(PYRANGE_CODE_TEMPLATE, codeTemplates);
         return Result.success();
     }
 
@@ -276,8 +268,8 @@ public class Settings extends JDialog {
      * @param selectedCodeTemplate
      */
     public static void setSelectedCodeTemplate(String selectedCodeTemplate) {
-        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
-        propertiesComponent.setValue(PYRANGE_SELECTED_CODE_TEMPLATE, selectedCodeTemplate);
+//        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
+//        propertiesComponent.setValue(PYRANGE_SELECTED_CODE_TEMPLATE, selectedCodeTemplate);
     }
 
     public JComboBox getCodeTemplatesBox() {

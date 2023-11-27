@@ -1,6 +1,5 @@
 package com.pyrange.awesome.ui;
 
-import com.intellij.ide.util.PropertiesComponent;
 import com.pyrange.awesome.model.BasicConfig;
 
 import javax.swing.*;
@@ -53,13 +52,13 @@ public class PopWindow extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
 
-        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
-        textFieldTableName.setText(propertiesComponent.getValue("Pyrange-Windows-tableName"));
+//        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
+//        textFieldTableName.setText(propertiesComponent.getValue("Pyrange-Windows-tableName"));
     }
 
     private void onOK() {
         CodingDialog codingDialog = new CodingDialog("controllerStr");
-        codingDialog.show();
+//        codingDialog.show();
     }
 
     private void onCancel() {

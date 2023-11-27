@@ -1,12 +1,7 @@
 package com.pyrange.awesome.ui;
 
-import com.intellij.openapi.ui.InputValidator;
-import com.intellij.openapi.ui.Messages;
 import com.pyrange.awesome.model.BasicConfig;
-import com.pyrange.awesome.model.Result;
-import com.pyrange.awesome.util.FreeMarkUtil;
 import com.pyrange.awesome.util.TemplateUtil;
-import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -204,33 +199,33 @@ public class TemplateSettings extends JDialog {
             @Override
             public void mouseClicked(MouseEvent e) {
 //                Messages.InputDialog.
-                String codeTemplateName = Messages.showInputDialog("template name", "please input the new template name",
-                        Messages.getInformationIcon(),
-                        "",
-                        new InputValidator() {
-                            @Override
-                            public boolean checkInput(String inputString) {
-                                return checkTemplateName(inputString);
-                            }
-
-                            @Override
-                            public boolean canClose(String inputString) {
-                                return checkTemplateName(inputString);
-                            }
-                        });
-                if (StringUtils.isEmpty(codeTemplateName)) {
-                    return;
-                }
-
-                // 创建模板
-                Result result = Settings.createNewTemplate(codeTemplateName);
-                codeTemplatesBox.addItem(codeTemplateName);
-                codeTemplatesBox.setSelectedItem(codeTemplateName);
-                Settings.setSelectedCodeTemplate(codeTemplateName);
-
-                if (result.failed()) {
-                    Messages.showMessageDialog(result.getMsg(), "tip", Messages.getInformationIcon());
-                }
+//                String codeTemplateName = Messages.showInputDialog("template name", "please input the new template name",
+//                        Messages.getInformationIcon(),
+//                        "",
+//                        new InputValidator() {
+//                            @Override
+//                            public boolean checkInput(String inputString) {
+//                                return checkTemplateName(inputString);
+//                            }
+//
+//                            @Override
+//                            public boolean canClose(String inputString) {
+//                                return checkTemplateName(inputString);
+//                            }
+//                        });
+//                if (StringUtils.isEmpty(codeTemplateName)) {
+//                    return;
+//                }
+//
+//                // 创建模板
+//                Result result = Settings.createNewTemplate(codeTemplateName);
+//                codeTemplatesBox.addItem(codeTemplateName);
+//                codeTemplatesBox.setSelectedItem(codeTemplateName);
+//                Settings.setSelectedCodeTemplate(codeTemplateName);
+//
+//                if (result.failed()) {
+//                    Messages.showMessageDialog(result.getMsg(), "tip", Messages.getInformationIcon());
+//                }
             }
         });
 
@@ -238,29 +233,29 @@ public class TemplateSettings extends JDialog {
         initialDefaultTemplateButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String codeTemplateName = Messages.showInputDialog("please input the template name to insure you want restore the default",
-                        "restore to the default template",
-                        Messages.getInformationIcon(),
-                        "",
-                        new InputValidator() {
-                            @Override
-                            public boolean checkInput(String inputString) {
-                                return checkTemplateName(inputString);
-                            }
-
-                            @Override
-                            public boolean canClose(String inputString) {
-                                return checkTemplateName(inputString);
-                            }
-                        });
-                if (StringUtils.isEmpty(codeTemplateName)) {
-                    return;
-                }
-                if (!codeTemplateName.equals(codeTemplatesBox.getSelectedItem().toString())) {
-                    Messages.showMessageDialog("the template name you input is not equal to the current", "tip", Messages.getInformationIcon());
-                    return;
-                }
-                TemplateUtil.initialDefaultTemplate(codeTemplateName);
+//                String codeTemplateName = Messages.showInputDialog("please input the template name to insure you want restore the default",
+//                        "restore to the default template",
+//                        Messages.getInformationIcon(),
+//                        "",
+//                        new InputValidator() {
+//                            @Override
+//                            public boolean checkInput(String inputString) {
+//                                return checkTemplateName(inputString);
+//                            }
+//
+//                            @Override
+//                            public boolean canClose(String inputString) {
+//                                return checkTemplateName(inputString);
+//                            }
+//                        });
+//                if (StringUtils.isEmpty(codeTemplateName)) {
+//                    return;
+//                }
+//                if (!codeTemplateName.equals(codeTemplatesBox.getSelectedItem().toString())) {
+//                    Messages.showMessageDialog("the template name you input is not equal to the current", "tip", Messages.getInformationIcon());
+//                    return;
+//                }
+//                TemplateUtil.initialDefaultTemplate(codeTemplateName);
             }
         });
     }
@@ -272,10 +267,10 @@ public class TemplateSettings extends JDialog {
      * @return
      */
     private boolean checkTemplateName(String templateName) {
-        if (StringUtils.isEmpty(templateName)) {
-            return false;
-        }
-        String regEx = "[ _`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]|\n|\r|\t";
+//        if (StringUtils.isEmpty(templateName)) {
+//            return false;
+//        }
+        String regEx = "[ _`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！？]|\n|\r|\t";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(templateName);
         if (m.find()) {

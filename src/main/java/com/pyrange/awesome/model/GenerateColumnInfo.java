@@ -10,15 +10,15 @@ package com.pyrange.awesome.model;
 public class GenerateColumnInfo {
 
     /**
-     * 字段名
+     * 字段
      */
     private String columnName;
     /**
-     * 小写开头驼峰名
+     * 小写驼峰
      */
     private String columnCamelName;
     /**
-     * 大写开头驼峰名
+     * 大写驼峰
      */
     private String columnUpperCamelName;
     /**
@@ -38,7 +38,6 @@ public class GenerateColumnInfo {
      */
     private String nullable;
     /**
-     * 字符最大长度
      */
     private String characterMaximumLength;
     /**

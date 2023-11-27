@@ -3,15 +3,12 @@ package com.pyrange.awesome.model;
 import java.io.Serializable;
 
 /**
- * 实体包装类
  *
  * @author chenjw
- * @date 2020年7月6日
  */
 public class Result<E> implements Serializable {
 
     /**
-     * 请求响应状态,参考字典ResultStatus
      *
      * @mock 200
      */
@@ -77,16 +74,12 @@ public class Result<E> implements Serializable {
     /**
      * 业务处理成功
      *
-     * @param msg 处理成功提示消息, 注意: 当响应结果为 String 类型时, 需要调用 success(String msg, T data) 重载方法, 否则会将结果设置为 msg 消息
      */
     public static <T> Result<T> success(String msg) {
         return success(msg, null);
     }
 
     /**
-     * 业务处理成功
-     * 状态码 200
-     *
      * @param <T>
      * @return
      */
@@ -95,9 +88,7 @@ public class Result<E> implements Serializable {
     }
 
     /**
-     * 业务处理成功
      *
-     * @param data 响应数据, 注意: 当响应结果为 String 类型时, 需要调用 success(String msg, T data) 重载方法, 否则会将结果设置为 msg 消息
      * @param <T>
      * @return
      */
@@ -145,8 +136,6 @@ public class Result<E> implements Serializable {
     }
 
     /**
-     * 系统异常
-     * 状态码 500
      *
      * @param msg
      * @param <T>

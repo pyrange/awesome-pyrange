@@ -32,12 +32,12 @@ public class GenerateInfo {
      */
     private String modelPackage;
     /**
-     * 小数点分隔 controller 目录
+     *  controller 目录
      * com.pyrange.xx
      */
     private String controllerPackage;
     /**
-     * 下划线分隔 controller 目录
+     * / controller 目录
      * com/pyrange/xx
      */
     private String controllerPackageWithSlash;

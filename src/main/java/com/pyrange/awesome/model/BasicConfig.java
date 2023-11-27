@@ -1,11 +1,9 @@
 package com.pyrange.awesome.model;
 
-import com.intellij.ide.util.PropertiesComponent;
 import com.pyrange.awesome.PyrangeConstant;
-import org.apache.commons.lang.StringUtils;
 
 /**
- * 基本配置类
+ * 基本配置
  *
  * @author chenjw
  * @date 2023/1/16
@@ -39,12 +37,12 @@ public class BasicConfig {
      */
     private String[] codeTemplates;
     /**
-     * 选择的代码模板
+     * 代码模板
      */
     private String selectedCodeTemplate;
 
     /**
-     * 是否开启云端配置
+     * 云端配置
      */
     private boolean cloudConfigEnabled;
 
@@ -55,50 +53,52 @@ public class BasicConfig {
 
 
     public static BasicConfig getBasicConfig() {
-        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
+//        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
         BasicConfig basicConfig = new BasicConfig();
-        basicConfig.setJdbcHost(propertiesComponent.getValue("PYRANGE-SETTINGS-jdbcHost"));
-        basicConfig.setJdbcDatabase(propertiesComponent.getValue("PYRANGE-SETTINGS-jdbcDatabase"));
-        basicConfig.setJdbcUserName(propertiesComponent.getValue("PYRANGE-SETTINGS-jdbcUserName"));
-        basicConfig.setJdbcPassword(propertiesComponent.getValue("PYRANGE-SETTINGS-jdbcPassword"));
-        String groupId = StringUtils.isEmpty(propertiesComponent.getValue("PYRANGE-SETTINGS-groupId")) ? PyrangeConstant.DEFAULT_GROUP_ID : propertiesComponent.getValue("PYRANGE-SETTINGS-groupId");
-        basicConfig.setGroupId(groupId);
-        basicConfig.setAuthor(propertiesComponent.getValue("PYRANGE-SETTINGS-author"));
-        basicConfig.setJdkVersion(propertiesComponent.getInt("PYRANGE-SETTINGS-jdkVersion", 11));
-        basicConfig.setCloudConfigEnabled(propertiesComponent.getBoolean("PYRANGE-SETTINGS-cloudConfigEnabled", false));
-        basicConfig.setCloudConfigUrl(propertiesComponent.getValue("PYRANGE-SETTINGS-cloudConfigUrl"));
-
-        String[] codeTemplate = propertiesComponent.getValues(PYRANGE_CODE_TEMPLATE);
-        if (codeTemplate == null) {
-            codeTemplate = new String[]{"default"};
-            propertiesComponent.setValues(PYRANGE_CODE_TEMPLATE, codeTemplate);
-        }
-        basicConfig.setCodeTemplates(codeTemplate);
-        String selectedCodeTemplate = propertiesComponent.getValue(PYRANGE_SELECTED_CODE_TEMPLATE);
-        if (StringUtils.isEmpty(selectedCodeTemplate)) {
-            selectedCodeTemplate = "default";
-        }
-        basicConfig.setSelectedCodeTemplate(selectedCodeTemplate);
+//        basicConfig.setJdbcHost(propertiesComponent.getValue("PYRANGE-SETTINGS-jdbcHost"));
+//        basicConfig.setJdbcDatabase(propertiesComponent.getValue("PYRANGE-SETTINGS-jdbcDatabase"));
+//        basicConfig.setJdbcUserName(propertiesComponent.getValue("PYRANGE-SETTINGS-jdbcUserName"));
+//        basicConfig.setJdbcPassword(propertiesComponent.getValue("PYRANGE-SETTINGS-jdbcPassword"));
+//        String groupId = StringUtils.isEmpty(propertiesComponent.getValue("PYRANGE-SETTINGS-groupId")) ? PyrangeConstant.DEFAULT_GROUP_ID : propertiesComponent.getValue("PYRANGE-SETTINGS-groupId");
+//        basicConfig.setGroupId(groupId);
+//        basicConfig.setAuthor(propertiesComponent.getValue("PYRANGE-SETTINGS-author"));
+//        basicConfig.setJdkVersion(propertiesComponent.getInt("PYRANGE-SETTINGS-jdkVersion", 11));
+//        basicConfig.setCloudConfigEnabled(propertiesComponent.getBoolean("PYRANGE-SETTINGS-cloudConfigEnabled", false));
+//        basicConfig.setCloudConfigUrl(propertiesComponent.getValue("PYRANGE-SETTINGS-cloudConfigUrl"));
+//
+//        String[] codeTemplate = propertiesComponent.getValues(PYRANGE_CODE_TEMPLATE);
+//        if (codeTemplate == null) {
+//            codeTemplate = new String[]{"default"};
+//            propertiesComponent.setValues(PYRANGE_CODE_TEMPLATE, codeTemplate);
+//        }
+//        basicConfig.setCodeTemplates(codeTemplate);
+//        String selectedCodeTemplate = propertiesComponent.getValue(PYRANGE_SELECTED_CODE_TEMPLATE);
+//        if (StringUtils.isEmpty(selectedCodeTemplate)) {
+//            selectedCodeTemplate = "default";
+//        }
+//        basicConfig.setSelectedCodeTemplate(selectedCodeTemplate);
 
         return basicConfig;
     }
 
     /**
-     * 获取模板集名称
+     * 模板名称
+     *
      * @return
      */
     public static String getTemplateCollectionName() {
-        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
-        boolean cloudConfigEnabled = propertiesComponent.getBoolean("PYRANGE-SETTINGS-cloudConfigEnabled", false);
-        if (cloudConfigEnabled) {
-            return PYRANGE_CLOUD_TEMPLATE_NAME;
-        }
-
-        String selectedCodeTemplate = propertiesComponent.getValue(PYRANGE_SELECTED_CODE_TEMPLATE);
-        if (StringUtils.isEmpty(selectedCodeTemplate)) {
-            return  "default";
-        }
-        return selectedCodeTemplate;
+//        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
+//        boolean cloudConfigEnabled = propertiesComponent.getBoolean("PYRANGE-SETTINGS-cloudConfigEnabled", false);
+//        if (cloudConfigEnabled) {
+//            return PYRANGE_CLOUD_TEMPLATE_NAME;
+//        }
+//
+//        String selectedCodeTemplate = propertiesComponent.getValue(PYRANGE_SELECTED_CODE_TEMPLATE);
+//        if (StringUtils.isEmpty(selectedCodeTemplate)) {
+//            return "default";
+//        }
+//        return selectedCodeTemplate;
+        return "";
     }
 
     public String getJdbcHost() {

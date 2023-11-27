@@ -23,10 +23,8 @@ public class FileUtils {
             br.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            MessageUtil.showErrorMsg("模板不存在, 请联系开发者处理", e);
         } catch (IOException e) {
             e.printStackTrace();
-            MessageUtil.showErrorMsg("获取默认模板异常, 请联系开发者处理", e);
         } finally {
             if (br != null) {
                 try {
@@ -59,10 +57,8 @@ public class FileUtils {
 //            System.out.println(builder.toString());
 //        } catch (FileNotFoundException e) {
 //            e.printStackTrace();
-//            MessageUtil.showErrorMsg("模板不存在, 请联系开发者处理", e);
 //        } catch (IOException e) {
 //            e.printStackTrace();
-//            MessageUtil.showErrorMsg("获取默认模板异常, 请联系开发者处理", e);
 //        } finally {
 //            if (streamReader != null) {
 //                try {

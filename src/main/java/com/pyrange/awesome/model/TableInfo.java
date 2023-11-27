@@ -16,12 +16,10 @@ public class TableInfo {
     private String tableName;
 
     /**
-     * 表注释
      */
     private String tableComment;
 
     /**
-     * 表字段
      */
     private List<TableColumn> tableColumns;
 

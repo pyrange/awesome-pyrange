@@ -8,7 +8,6 @@ package com.pyrange.awesome.model;
  **/
 public class TableColumn {
     /**
-     * 字段名
      */
     private String columnName;
 
@@ -23,7 +22,6 @@ public class TableColumn {
     private String dataType;
 
     /**
-     * 是否是主键
      */
     private boolean isPrimaryKey;
 
@@ -32,7 +30,6 @@ public class TableColumn {
      */
     private String nullable;
     /**
-     * 字符最大长度
      */
     private String characterMaximumLength;
 

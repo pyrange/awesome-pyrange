@@ -1,7 +1,5 @@
 package com.pyrange.awesome.util;
 
-import com.intellij.openapi.diagnostic.Logger;
-
 import java.sql.*;
 
 public class JDBCUtil {
@@ -13,7 +11,6 @@ public class JDBCUtil {
     private Connection connection;
     private Statement statement;
     private ResultSet resultSet;
-    private static final Logger LOGGER = Logger.getInstance(JDBCUtil.class);
 
     public JDBCUtil(String host, String user, String pwd) {
         this.host = host;

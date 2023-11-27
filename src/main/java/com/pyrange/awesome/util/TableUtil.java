@@ -1,6 +1,5 @@
 package com.pyrange.awesome.util;
 
-import com.intellij.openapi.diagnostic.Logger;
 import com.pyrange.awesome.PyrangeException;
 import com.pyrange.awesome.model.TableInfo;
 import com.pyrange.awesome.model.TableColumn;
@@ -14,7 +13,6 @@ public class TableUtil {
     private String database;
     private String user;
     private String pwd;
-    private static final Logger LOGGER = Logger.getInstance(TableUtil.class);
 
     public TableUtil(String host, String database, String user, String pwd) {
         this.host = host;

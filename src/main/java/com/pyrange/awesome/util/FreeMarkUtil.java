@@ -1,23 +1,16 @@
 package com.pyrange.awesome.util;
 
-import com.intellij.ide.util.PropertiesComponent;
-import com.intellij.openapi.diagnostic.Logger;
 import com.pyrange.awesome.model.BasicConfig;
 import com.pyrange.awesome.model.ConfigModel;
 import com.pyrange.awesome.model.GenerateInfo;
-import freemarker.cache.ClassTemplateLoader;
-import freemarker.cache.StringTemplateLoader;
-import freemarker.cache.TemplateLoader;
-import freemarker.template.Configuration;
 import freemarker.template.Template;
-import org.apache.commons.lang.StringUtils;
 
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class FreeMarkUtil {
-    private static final Logger LOGGER = Logger.getInstance(FreeMarkUtil.class);
+//    private static final Logger LOGGER = Logger.getInstance(FreeMarkUtil.class);
 
 //    /**
 //     * 使用本地文件模板生成文件

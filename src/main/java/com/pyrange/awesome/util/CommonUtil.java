@@ -10,16 +10,14 @@ import java.util.List;
 public class CommonUtil {
 
     /**
-     * 表名转小写逗号分隔
+     *
      *
      * @param tableName
-     * @return 转换后的字符串
      */
     public static String str2LowercaseWithDot(String tableName) {
         if (isNullOrEmpty(tableName)) {
             return "";
         }
-        // 表名下划线分割, 直接替换成小写逗号
         if (tableName.contains("_")) {
             return tableName.replace("_", ".").toLowerCase();
         }
@@ -29,16 +27,13 @@ public class CommonUtil {
     }
 
     /**
-     * 表名转小写斜杆分隔
      *
      * @param tableName
-     * @return 转换后的字符串
      */
     public static String str2LowercaseWithSlash(String tableName) {
         if (isNullOrEmpty(tableName)) {
             return "";
         }
-        // 表名下划线分割, 直接替换成小写逗号
         if (tableName.contains("_")) {
             return tableName.replace("_", "/").toLowerCase();
         }
@@ -48,16 +43,13 @@ public class CommonUtil {
     }
 
     /**
-     * 表名转小写 连接符
      *
      * @param tableName
-     * @return 转换后的字符串
      */
     public static String str2LowercaseWithHyphen(String tableName) {
         if (isNullOrEmpty(tableName)) {
             return "";
         }
-        // 表名下划线分割, 直接替换成小写逗号
         if (tableName.contains("_")) {
             return tableName.replace("_", "-").toLowerCase();
         }
@@ -67,10 +59,6 @@ public class CommonUtil {
     }
 
     /**
-     * 表名转小写 下划线
-     *
-     * @param tableName
-     * @return 转换后的字符串
      */
     public static String str2LowercaseWithUnderscore(String tableName) {
         if (isNullOrEmpty(tableName)) {
@@ -81,10 +69,7 @@ public class CommonUtil {
     }
 
     /**
-     * 表名转小写
      *
-     * @param tableName
-     * @return 转换后的字符串
      */
     public static String getNameLowercase(String tableName) {
         if (isNullOrEmpty(tableName)) {
@@ -94,10 +79,8 @@ public class CommonUtil {
     }
 
     /**
-     * 表名转首字母大写驼峰格式
      *
      * @param tableName
-     * @return 转换后的字符串
      */
     public static String getNameUpperCamel(String tableName) {
         if (isNullOrEmpty(tableName)) {
@@ -107,10 +90,8 @@ public class CommonUtil {
     }
 
     /**
-     * 表名转首字母小写驼峰格式
      *
      * @param tableName
-     * @return 转换后的字符串
      */
     public static String getNameLowerCamel(String tableName) {
         if (isNullOrEmpty(tableName)) {
@@ -119,12 +100,6 @@ public class CommonUtil {
         return toLowerCaseFirstOne(underScoreCaseToCamelCase(tableName));
     }
 
-    /**
-     * 将字符串的第一位转为小写
-     *
-     * @param str 需要转换的字符串
-     * @return 转换后的字符串
-     */
     private static String toLowerCaseFirstOne(String str) {
         if (Character.isLowerCase(str.charAt(0))) {
             return str;
@@ -135,12 +110,6 @@ public class CommonUtil {
         }
     }
 
-    /**
-     * 将字符串的第一位转为大写
-     *
-     * @param str 需要转换的字符串
-     * @return 转换后的字符串
-     */
     private static String toUpperCaseFirstOne(String str) {
         if (Character.isUpperCase(str.charAt(0))) {
             return str;
@@ -151,12 +120,6 @@ public class CommonUtil {
         }
     }
 
-    /**
-     * 下划线命名转为驼峰命名
-     *
-     * @param str 下划线命名格式
-     * @return 驼峰命名格式
-     */
     private static String underScoreCaseToCamelCase(String str) {
         if (!str.contains("_")) {
             return str;
@@ -181,7 +144,6 @@ public class CommonUtil {
     }
 
     /**
-     * 根据路径获取包名 默认Java后面跟的是包名
      * @param path
      * @return
      */
@@ -206,10 +168,6 @@ public class CommonUtil {
     }
 
     /**
-     * 对象是否为无效值
-     *
-     * @param obj 要判断的对象
-     * @return 是否为有效值(不为null 和 ""字符串)
      */
     public static boolean isNullOrEmpty(Object obj) {
         return obj == null || "".equals(obj.toString());
@@ -232,7 +190,6 @@ public class CommonUtil {
     }
 
     /**
-     * 获取表名的第一个单词
      * @param tableName
      * @return
      */
@@ -259,10 +216,6 @@ public class CommonUtil {
 
 
     /**
-     *  指定目录用关键字查找文件
-     * @param projectPath 要查找的目录
-     * @param type 类型 1：查找文件 2：查找文件夹
-     * @param keyWords 要查找的关键字
      */
     public static List<File> searchFiles(String projectPath, int type, String keyWords){
         File fileDir = new File(projectPath);
