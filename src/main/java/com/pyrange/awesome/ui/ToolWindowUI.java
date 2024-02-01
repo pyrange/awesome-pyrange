@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.text.Document;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -73,9 +74,37 @@ public class ToolWindowUI extends JFrame{
         super("Pyrange");
         this.setSize(800, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
 
         this.baseProjectPath = "D://";
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        JLabel nameLabel = new JLabel("Name:");
+        JTextField nameField = new JTextField(15);
+
+        JLabel ageLabel = new JLabel("Age:");
+        JTextField ageField = new JTextField(5);
+
+        JButton submitButton = new JButton("Submit");
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 处理提交按钮点击事件
+                String name = nameField.getText();
+                String age = ageField.getText();
+                System.out.println("Name: " + name + ", Age: " + age);
+            }
+        });
+
+        panel.add(nameLabel);
+        panel.add(nameField);
+        panel.add(ageLabel);
+        panel.add(ageField);
+        panel.add(submitButton);
+
+        getContentPane().add(panel);
+
         // 初始化checkbox
 //        controllerCheckBox.setSelected(propertiesComponent.getBoolean("Pyrange-Windows-controllerCheckBox", true));
 //        serviceCheckBox.setSelected(propertiesComponent.getBoolean("Pyrange-Windows-serviceCheckBox", true));
