@@ -31,4 +31,4 @@ Gradle -> Tasks -> intellij -> runIdeForUiTests
 2020.1.2 -> 2022.2.1
 
 # Others
-插件地址：https://plugins.jetbrains.com/plugin/20873-awesome-pyrange
+插件地址:https://plugins.jetbrains.com/plugin/20873-awesome-pyrange

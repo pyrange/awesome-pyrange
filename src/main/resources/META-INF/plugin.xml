@@ -1,6 +1,6 @@
 <idea-plugin>
-    <id>com.pyrange</id>
-    <name>awesome-pyrange</name>
+    <id>com.inbyte</id>
+    <name>inbyte-cg</name>
     <version>1.0</version>
     <vendor email="512523616@qq.com" url="https://github.com/pyrange/awesome-pyrange"></vendor>
 
@@ -44,13 +44,13 @@
     </dependencies>
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow id="Awesome-Pyrange" secondary="true" anchor="right" canCloseContents="false"
-                    icon="/images/logo13x13.png" factoryClass="com.pyrange.awesome.config.ToolWindowConfig"/>
+                    icon="/images/logo13x13.png" factoryClass="com.inbyte.cg.config.ToolWindowConfig"/>
     </extensions>
 
     <actions>
         <action
                 id="org.pyrange.awesome.PopupDialogAction"
-                class="com.pyrange.awesome.SearchWindowAction"
+                class="com.inbyte.cg.SearchWindowAction"
                 text="Action Basics Plugin: InbyteCG"
                 description="InbyteCG"
                 icon="SdkIcons.Sdk_default_icon">

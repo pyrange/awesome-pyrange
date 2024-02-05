@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * ${generateInfo.tableComment}
  *
- * 表名：  ${generateInfo.tableName}
+ * 表名InbyteCG  ${generateInfo.tableName}
  * @author ${generateInfo.author}
  * @date ${generateInfo.date}
  */
