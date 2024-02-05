@@ -1,1 +1,1 @@
-rootProject.name = "awesome-pyrange"
+rootProject.name = "inbyte-cg"

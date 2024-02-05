@@ -1,16 +1,16 @@
 <p align="center">
   <a href="https://github.com/baomidou/mybatis-plus">
-   <img alt="Mybatis-Plus-Logo" src="src/main/resources/images/pyrange-logo.png">
+   <img alt="Mybatis-Plus-Logo" src="src/main/resources/images/logo.png">
   </a>
 </p>
 
-# Awesome Pyrange, Awesome Code
-Awesome Pyrange(AP) is a code generator for Java & Web developer. It can help you generate code that includes controller, service, mapper, model, even test case and Vue code.
+# InbyteCG, Awesome Code
+InbyteCG is a code generator for Java & Web developer. It can help you generate code that includes controller, service, mapper, model, even test case and Vue code.
 It will introspect a database table (or many tables) and will generate artifacts that can be used to access the table(s).
 This lessens the initial nuisance of setting up objects and configuration files to interact with database tables.
 AP seeks to make a major impact on the large percentage of database operations that are simple CRUD (Create, Retrieve, Update, Delete).
 
-Awesome Pyrange(AP) 是一个有点厉害的代码自动生成工具, 它可以帮助你生成 controller, service, mapper, model, 甚至包括 Vue 前端 和简单的测试用例.
+InbyteCG 是一个有点厉害的代码自动生成工具, 它可以帮助你生成 controller, service, mapper, model, 甚至包括 Vue 前端 和简单的测试用例.
 AP 希望帮助开发减少重复, 麻烦, 无意义的工作, 帮助开发者将时间利用在更有价值地方.
 
 # 使用方法

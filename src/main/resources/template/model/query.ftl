@@ -1,6 +1,6 @@
 package ${generateInfo.modelPackage}.${generateInfo.moduleNameWithDot};
 
-import com.pyrange.common.model.dto.BasePage;
+import com.inbyte.commons.model.dto.BasePage;
 import lombok.Getter;
 import lombok.Setter;
 
